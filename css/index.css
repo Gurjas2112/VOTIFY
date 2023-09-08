@@ -101,7 +101,7 @@ section {
 .navbar {
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-  
+  -webkit-backdrop-filter: blur(10px); /* Add this line */
 }
 
 .nav-link {
@@ -138,6 +138,7 @@ section {
 .navbar-light .navbar-nav .show>.nav-link {
   background: -webkit-linear-gradient(#00e0fe, #1107fe);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

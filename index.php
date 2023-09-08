@@ -373,7 +373,7 @@
                     <p>Stay informed about the upcoming elections in your area. Find out the dates, locations, 
                         <br>and other important details about the elections that you can participate in.
                     </p>
-                    <a href="#" data-aos="fade-up" class="btn btn-main">Click For Updates</a>
+                    <a href="election_info.php" data-aos="fade-up" class="btn btn-main">Click For Updates</a>
                 </div>
                 
                 <div class="overlay"></div>

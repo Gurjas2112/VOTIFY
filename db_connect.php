@@ -1,5 +1,5 @@
 
-//db_connect.php
+
 
 <?php
 $servername="localhost";

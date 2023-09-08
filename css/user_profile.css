@@ -1,0 +1,83 @@
+/* Import Google Fonts API */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* User Profile Dropdown Styles */
+.user-profile {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.user-profile-btn {
+    background-color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
+}
+
+.user-profile-btn:hover {
+    background-color: #f2f2f2;
+    color: #007bff; /* Change text color on hover */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
+}
+
+.user-dropdown-content {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1;
+    text-align: left;
+    padding: 10px 0;
+    animation: fadeInDown 5.0s ease;
+}
+
+.user-profile:hover .user-dropdown-content {
+    display: block;
+}
+
+.user-dropdown-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.user-dropdown-content li {
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+
+}
+
+.user-dropdown-content li:hover {
+    background-color: #f2f2f2;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .user-profile {
+        margin-right: 0;
+    }
+    
+    .user-dropdown-content {
+        top: 40px;
+    }
+}

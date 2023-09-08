@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Global Styles */
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.8;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 900 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  transition: all 0.4s ease;
+  font-weight: 800;
+  color: #20212c;
+}
+
+/* Images */
+img {
+  width: 100%;
+}
+
+/* Sections */
+section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  z-index: 2;
+  position: relative;
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgb(68 68 91 / 70%), rgb(57 76 78 / 55%));
+  z-index: -1;
+}
+
+/* Background Cover */
+.bg-cover {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Hero Section */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Buttons */
+.btn {
+  padding: 14px 22px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-main {
+  background: linear-gradient(to right, #00e0fe, #1107fe);
+  border-radius: 100px;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+}
+
+.btn:hover {
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+/* Video Button */
+.video-btn {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(to right, #00e0fe, #1107fe);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 100px;
+}
+
+.video-btn i {
+  font-size: 32px;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: transparent; /* Set the background color of the navbar */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect for background color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for the navbar */
+    padding: 20px 0; /* Adjust padding as needed */
+}
+
+/* Navbar Logo Styles */
+.logo {
+    text-decoration: none;
+    font-size: 24px;
+    color: #333; /* Set the color of the logo */
+}
+
+/* Navbar Links Styles */
+.navbar-nav {
+    list-style: none;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 15px; /* Adjust spacing between navbar items */
+}
+
+.navbar-nav .nav-item .nav-link {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333; /* Set the color of navbar links */
+    transition: color 0.3s ease; /* Add a smooth color transition effect */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease; /* Add a smooth background color transition effect */
+}
+
+.dropdown-content a:hover {
+    background-color: #f9f9f9; /* Change background color on hover */
+}
+
+/* Active Navbar Item Styles */
+.navbar-nav .nav-item.active .nav-link {
+    color: #007bff; /* Set color for active link */
+}
+
+/* Add Animation Effects */
+.navbar[data-aos="fade-down"] {
+    background-color: #fff; /* Change background color on scroll */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow on scroll */
+}
+
+/* Responsive Navbar */
+@media (max-width: 767px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .dropdown {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+
+/* Primary Button */
+.btn-primary {
+  background-color: #7d2ae8;
+  color: #ffffff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #6b25cc;
+}
+
+
+/* Section Intro */
+.section-intro {
+  margin-bottom: 40px;
+}
+
+.section-intro .divider {
+  height: 4px;
+  width: 70px;
+  background: linear-gradient(to right, #00e0fe, #1107fe);
+  margin: 16px auto;
+}
+
+/* Service */
+.service .service-img {
+  position: relative;
+}
+
+.service .service-img .icon {
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(to right, #00e0fe, #1107fe);
+  color: #fff;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.service .service-img .icon i {
+  font-size: 36px;
+}
+
+/* Feature */
+.feature i {
+  background: -webkit-linear-gradient(#00e0fe, #1107fe);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 54px;
+}
+
+/* Review */
+.review {
+  box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+}
+
+.review .person {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  padding-bottom: 18px;
+}
+
+.review .person img {
+  width: 75px;
+  height: 75px;
+  border-radius: 100px;
+}
+
+.review .stars {
+  color: orange;
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-flexbox;
+    font-family: Arial, sans-serif;
+  }
+  
+  .drop_btn {
+    background-color: #33abd3ee;
+    color: rgb(255, 255, 255);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f93d;
+    min-width: 100px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px 0px rgba(104, 99, 99, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 6px 8px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown:hover .dropbtn {
+    background-color: #494e51;
+  }
+
+
+
+

@@ -1,0 +1,22 @@
+/* Feedback List */
+#feedback-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#feedback-list li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#feedback-list li strong {
+    color: #0078d4;
+}
+
+#feedback-list li span {
+    color: #777;
+    font-size: 14px;
+}
+

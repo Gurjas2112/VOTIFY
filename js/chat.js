@@ -1,85 +1,43 @@
-const chatbotToggler = document.querySelector(".chatbot-toggler");
-const closeBtn = document.querySelector(".close-btn");
-const chatbox = document.querySelector(".chatbox");
-const chatInput = document.querySelector(".chat-input textarea");
-const sendChatBtn = document.querySelector(".chat-input button");
+$(document).ready(function() {
+    var chatboxOpen = false;
 
-let userMessage = null; // Variable to store user's message
-const inputInitHeight = chatInput.scrollHeight;
-
-const createChatLi = (message, className) => {
-    // Create a chat <li> element with passed message and className
-    const chatLi = document.createElement("li");
-    chatLi.classList.add("chat", `${className}`);
-    let chatContent = className === "outgoing" ? `<p></p>` : `<p></p>`;
-    chatLi.innerHTML = chatContent;
-    chatLi.querySelector("p").textContent = message;
-    return chatLi; // return chat <li> element
-}
-
-const generateResponse = (chatElement) => {
-    const messageElement = chatElement.querySelector("p");
-    
-    // Sample chatbot responses based on user messages
-    switch (userMessage.toLowerCase()) {
-        case "what's the weather like today?":
-            messageElement.textContent = "I'm sorry, I can't provide real-time weather information.";
-            break;
-        case "tell me a joke.":
-            messageElement.textContent = "Sure! Here's one: Why don't scientists trust atoms? Because they make up everything!";
-            break;
-        case "can you recommend a good restaurant in the area?":
-            messageElement.textContent = "Of course! There's a great Italian restaurant called 'La Trattoria' on Main Street. I've heard their pasta is amazing.";
-            break;
-        case "how does your chatbot work?":
-            messageElement.textContent = "I'm a chatbot powered by artificial intelligence. I can assist with answering questions, providing information, or just having a chat.";
-            break;
-        case "what's your favorite color?":
-            messageElement.textContent = "I don't have a favorite color, but I like all the colors of the rainbow!";
-            break;
-        default:
-            messageElement.textContent = "I'm not sure how to respond to that.";
-            break;
+    // Function to open the chat_box
+    function openChat_box() {
+        $("#chat_box").addClass("active");
+        chatboxOpen = true;
     }
-    chatbox.scrollTo(0, chatbox.scrollHeight);
-}
 
-const handleChat = () => {
-    userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
-    if(!userMessage) return;
-
-    // Clear the input textarea and set its height to default
-    chatInput.value = "";
-    chatInput.style.height = `${inputInitHeight}px`;
-
-    // Append the user's message to the chatbox
-    chatbox.appendChild(createChatLi(userMessage, "outgoing"));
-    chatbox.scrollTo(0, chatbox.scrollHeight);
-    
-    setTimeout(() => {
-        // Display "Thinking..." message while waiting for the response
-        const incomingChatLi = createChatLi("Thinking...", "incoming");
-        chatbox.appendChild(incomingChatLi);
-        chatbox.scrollTo(0, chatbox.scrollHeight);
-        generateResponse(incomingChatLi);
-    }, 600);
-}
-
-chatInput.addEventListener("input", () => {
-    // Adjust the height of the input textarea based on its content
-    chatInput.style.height = `${inputInitHeight}px`;
-    chatInput.style.height = `${chatInput.scrollHeight}px`;
-});
-
-chatInput.addEventListener("keydown", (e) => {
-    // If Enter key is pressed without Shift key and the window 
-    // width is greater than 800px, handle the chat
-    if(e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
-        e.preventDefault();
-        handleChat();
+    // Function to close the chat_box
+    function closeChat_box() {
+        $("#chat_box").removeClass("active");
+        chatboxOpen = false;
     }
-});
 
-sendChatBtn.addEventListener("click", handleChat);
-closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
-chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+    // Toggle chat_box when chatbot button is clicked
+    $("#chatbot-toggler").click(function() {
+        if (chat_boxOpen) {
+            closeChat_box();
+        } else {
+            openChat_box();
+        }
+    });
+
+    // When the Send button is clicked
+    $(".chat_box-input button").click(function() {
+        var message = $(".chat_box-input textarea").val();
+        if (message != "") {
+            $(".chat_box-content").append("<div class='chat_box-message-row'><div class='chat_box-message chat_box-message-user'>" + message + "</div></div>");
+
+            // Send the message to the PHP server with Ajax
+            $.ajax({
+                type: "POST",
+                url: "process_message.php",
+                data: "message=" + message,
+                success: function(result) {
+                    $(".chat_box-content").append("<div class='chat_box-message-row'><div class='chat_box-message chat_box-message-bot'>" + result + "</div></div>");
+                    $(".chat_box-input textarea").val("");
+                }
+            });
+        }
+    });
+    });

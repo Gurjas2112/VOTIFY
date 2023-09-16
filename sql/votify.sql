@@ -13,13 +13,6 @@ CREATE TABLE users (
 -- Table structure for table `chatbot`
 --
 
-CREATE TABLE chat_messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_message TEXT,
-    bot_response TEXT,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 -- Table structure for table `otp_recovery`
 --
 
@@ -246,3 +239,18 @@ VALUES
     (8, 1),   -- Pune
     (8, 14),  -- Ahmednagar
     (8, 15);  -- Ratnagiri
+
+
+--ADD ADMIN LOGI1N TABLE WITH EMAIL ID INCLUDED
+CREATE TABLE admin_login (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    profile_pic VARCHAR(255)
+);
+
+--INSERT VALUES INTO ADMIN LOGIN TABLE
+INSERT INTO admin_login (username, password, email, profile_pic)
+VALUES
+    ('admin', 'admin', 'gurjasgandhi76@gmail.com', 'admin.png');

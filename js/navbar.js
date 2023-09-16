@@ -1,26 +1,26 @@
-// Event listener for Home navigation link
-document.querySelector(".nav_link.home").addEventListener("click", () =>
-showSection(".home")
+ // Event listener for Home navigation link
+ document.querySelector(".nav_link.home").addEventListener("click", () =>
+ showSection(".home")
 );
 
 // Event listener for About navigation link
 document.querySelector(".nav_link.about").addEventListener("click", () =>
-showSection("#about")
+ showSection("#about")
 );
 
 // Event listener for Services navigation link
 document.querySelector(".nav_link.services").addEventListener("click", () =>
-showSection("#services")
+ showSection("#services")
 );
 
 // Event listener for Testimonials navigation link
 document
-.querySelector(".nav_link.testimonials")
-.addEventListener("click", () => showSection("#testimonials"));
+ .querySelector(".nav_link.testimonials")
+ .addEventListener("click", () => showSection("#testimonials"));
 
 // Event listener for FAQ navigation link
 document.querySelector(".nav_link.faq").addEventListener("click", () =>
-showSection("#faq")
+ showSection("#faq")
 );
 
 

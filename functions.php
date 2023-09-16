@@ -27,11 +27,11 @@ function send_otp($email,$otp)
         // SMTP username
         $mail->Username   = 'gurjasgandhi76@gmail.com';                
         // SMTP password
-        $mail->Password   = 'xaxtzupxwxoqrzbc';                       
+        $mail->Password   = 'upddehiveybylvvr';                       
         // Enable TLS encryption
-        $mail->SMTPSecure = 'tls';                             
+        $mail->SMTPSecure = 'ssl';                             
         // TCP port to connect to
-        $mail->Port       = 587; 
+        $mail->Port       = 465; 
   
         // Set the sender and recipient email addresses
         $mail->setFrom('gurjasgandhi76@gmail.com', 'Votify');          

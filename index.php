@@ -9,8 +9,15 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/boxicons.min.css">
-    <link rel="stylesheet" href="css/aos.css">
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+       <!-- Google Fonts API (Poppins font used in this example) -->
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
     <link rel="stylesheet" href="css/line-icons.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css">
@@ -19,7 +26,7 @@
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">-->
     <!-- Custom CSS -->
 
-    <title>Votify</title>
+    <title> Votify-Streamline Voter Registration</title>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar">
@@ -123,7 +130,7 @@
           <!-- Recovery Form -->
           <div class="form recovery_form">
           
-            <form action="sentotp.php" method="POST">
+            <form action="sent_otp.php" method="POST">
               <h2>Reset Password</h2>
   
               <div class="input_box">
@@ -217,7 +224,7 @@
                     <p class="my-4" data-aos="fade-up">With Votify, you can easily register as a voter, securely upload required documents, and receive real-time updates on upcoming elections.
                     <br>  Our personalized voter guide ensures you have all the necessary information about the candidates and ballot measures relevant to your district.
                        </p>
-                    <a href="#" data-aos="fade-up" class="btn btn-main">Register Now</a>
+                    
                 </div>
             </div>
         </div>
@@ -588,30 +595,23 @@
         </div>
    
 <!-- Chatbot button -->
-<div id="chatbox1" class="chatbox1">
-    <button class="chatbot-toggler">
-      <span class="material-symbols-rounded"><!--mode_comment--><i class="icon-chat"></i></span>
-      <span class="material-symbols-outlined">close</span>
-    </button>
-    <div class="chatbot">
-      <header>
-        <h2>Chatbot</h2>
-        <span class="close-btn material-symbols-outlined">close</span>
-      </header>
-      <ul class="chatbox">
-        <li class="chat incoming">
-          <!--<span class="material-symbols-outlined"></span>-->
-          <p>Hi there 👋 How can I help you today?</p>
-        </li>
-      </ul>
-      <div class="chat-input">
-        <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-       <!-- <span id="send-btn" class="material-symbols-rounded">send</span>-->
-		<button type="submit" class="material-symbols-rounded">Send</button>
-      </div>
-    </div>
- </div>
+<!-- Chatbot button -->
 
+<button id="chatbot-toggler" class="chatbot-button">💬</button>
+
+<div id="chat_box" class="container">
+    <div class="chatbot-header">
+        <h2>Chatbot</h2>
+        <button id="close-chat_box" class="btn btn-sm btn-light">Close</button>
+    </div>
+    <div class="chat_box-content">
+        <!-- Chat messages go here -->
+    </div>
+    <div class="chat_box-input">
+        <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </div>
+</div>
 </section>
 
        
@@ -637,11 +637,15 @@
 </section>
 
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="js/bootstrap.bundle.min.js"
+      <!-- Option 1: Bootstrap Bundle with Popper -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/app.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/login_form.js"></script>

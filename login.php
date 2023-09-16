@@ -17,6 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check user credentials (replace with your authentication logic)
     $sql = "SELECT * FROM users WHERE username = '$username'";
+
+//check admin user credentials(Replace with your authentication logic)
+$admin_sql = "SELECT * FROM admin_login WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) == 1) {
@@ -40,3 +43,6 @@ $_SESSION["profile_pic"] = $row["profile_pic"]; // Assuming you have a profile p
         // User not found display alert message
         echo "<script>alert('Invalid Username or Password');</script>";
     }
+    
+    ?>
+    

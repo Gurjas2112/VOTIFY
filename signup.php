@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmPassword = $_POST["signup_confirm_password"];
 
     // Validate and sanitize user inputs
-    $username = filter_var($username, FILTER_SANITIZE_STRING);
+    $username = filter_var($username, FILTER_SANITIZE_SPECIAL_CHARS);
 
     // Check if the username already exists
     $checkQuery = "SELECT * FROM users WHERE username = '$username'";
@@ -33,6 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Insert user data into the database
             $insertQuery = "INSERT INTO users (username, password) VALUES ('$username', '$hashedPassword')";
             if (mysqli_query($conn, $insertQuery)) {
+                //display an alert box with a message that "You have been registered successfully"
+                echo "<script>alert('You have been registered successfully')</script>";
                 // Redirect to the login page after successful registration
                 header("Location: index.php"); // Change the URL as needed
                 exit();

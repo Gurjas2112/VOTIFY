@@ -11,12 +11,12 @@ $mail = new PHPMailer(true);
 const otpForm = ../index.php#recovery;
 </script>
 ";
-if(!empty($_POST['email']))
+if(!empty($_POST['signup_email']))
 {
-    $email=$_POST['email'];
+    $email=$_POST['signup_email'];
     $otp=rand(100000,999999);
     $_SESSION['otp'] = $otp;
-    $_SESSION['email'] = $email;
+    $_SESSION['signup_email'] = $email;
     $_SESSION['is_expired'] = $is_expired = false;
     $_SESSION['time_start'] = time();
     $_SESSION['time_end'] = $_SESSION['time_start'] + 20; // OTP expires in 20 seconds  
@@ -26,7 +26,7 @@ if(!empty($_POST['email']))
     $count=mysqli_num_rows($result);
     if($count>0)
     {
-        $sql ="INSERT INTO otp_recovery(email,otp,is_expired) VALUES ('gurjasgandhi76@gmail.com','$otp','$is_expired')";
+        $sql ="INSERT INTO otp_recovery(email,otp,is_expired) VALUES ('$email','$otp','$is_expired')";
         if($conn->query($sql) !== TRUE) {
         echo "Error storing OTP in database";
         $conn->close();

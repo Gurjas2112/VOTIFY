@@ -1,8 +1,5 @@
-  
-    /* ... (other styles) ... */
-    /* Import Google font - Poppins 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+<<<<<<< Updated upstream
 * {
   margin: 0;
   padding: 0;
@@ -184,249 +181,79 @@ header h2 {
 .chat-input textarea:valid ~ span {
   visibility: visible;
 }
+=======
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+>>>>>>> Stashed changes
 
-@media (max-width: 490px) {
-  .chatbot-toggler {
-    right: 20px;
-    bottom: 20px;
-  }
-  .chatbot {
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    border-radius: 0;
-    width: 100%;
-  }
-  .chatbot .chatbox {
-    height: 90%;
-    padding: 25px 15px 100px;
-  }
-  .chatbot .chat-input {
-    padding: 5px 15px;
-  }
-  .chatbot header span {
-    display: block;
-  }
-}
+        /* Chatbot button style */
+        .chatbot-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
-/* styles.css */
-.chatbox {
-  position: fixed;
-  bottom: 70px;
-  right: 20px;
-  width: 300px;
-  max-height: 300px;
-  background-color: #2c2a2a;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow-y: auto;
-  display: none;
-  animation: fadeIn 0.5s; /* Fade in animation when chatbox opens */
-}
+        .chatbot-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
 
-/* Show the chatbox when the class 'show' is applied */
-.chatbox.show {
-  display: block;
-}
-  
-  /* Chat-bot button circular */
+        /* chat_box style */
+        #chat_box {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
 
-  .chat-header {
-    padding: 10px;
-    font-size: 18px;
-    background-color: #007bff;
-    color: #fff;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-  
-  /* Chat history container */
-  .chat-history {
-    padding: 10px;
-  }
-  
-  /* User message style */
-  .user-message {
-    margin-bottom: 10px;
-    text-align: right;
-  }
-  
-  /* Bot message style */
-  .bot-message {
-    margin-bottom: 10px;
-  }
-  
-  /* User input form */
-  .user-input-form {
-    display: flex;
-    padding: 10px;
-  }
-  
-  /* User input field */
-  .user-input {
-    flex: 1;
-    padding: 5px;
-    border: 1px solid #aca0a0;
-    border-radius: 4px;
-  }
-  
-  /* Send button */
-  .user-input-form button {
-    margin-left: 5px;
-  }
+        #chat_box.active {
+            display: block;
+        }
 
- /* Chat-bot button circular with animation */
-.chatbot-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  animation: bounceInUp 0.5s; /* Bounce-in animation for the button */
-  text-align:center;
-}
+        .chatbot-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+        }
 
-/* Icon inside the chatbot button*/ 
-.chatbot-button-icon {
-  margin-right: 2px;
-}
-  /* Animation keyframes */
-  @keyframes bounceInUp {
-    0% {
-      transform: translateY(100%);
-    }
-    60% {
-      transform: translateY(-20px);
-    }
-    80% {
-      transform: translateY(10px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  
-  /* Fade-in animation for the chatbox */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+        .chatbot-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
 
+        .chat_box-content {
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
 
-  /* styles.css */
+        .chat_box-input {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
 
-/* Chatbox container */
-.chatbox {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 300px;
-  max-height: 300px;
-  background-color: #2c2a2a;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow-y: auto;
-  display: none;
-  animation: fadeIn 0.5s; /* Fade in animation when chatbox opens */
-}
-
-/* Show the chatbox when the class 'show' is applied */
-.chatbox.show {
-  display: block;
-}
-
-/* Chat header */
-.chat-header {
-  padding: 10px;
-  font-size: 18px;
-  background-color: #007bff;
-  color: #fff;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-/* Chat history container */
-.chat-history {
-  padding: 10px;
-}
-
-/* User message style */
-.user-message {
-  margin-bottom: 10px;
-  text-align: right;
-}
-
-/* Bot message style */
-.bot-message {
-  margin-bottom: 10px;
-}
-
-/* User input form */
-.user-input-form {
-  display: flex;
-  padding: 10px;
-}
-
-/* User input field */
-.user-input {
-  flex: 1;
-  padding: 5px;
-  border: 1px solid #aca0a0;
-  border-radius: 4px;
-}
-
-/* Send button with custom styles */
-.user-input-form button {
-  margin-left: 5px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-/* Chatbot button */
-.chatbot-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  animation: bounceInUp 0.5s;
-}
-
-/* Icon inside the chatbot button */
-.chatbot-button-icon {
-  margin-right: 2px;
-}
-
-/* Animation keyframes */
-@keyframes bounceInUp {
-  0% {
-    transform: translateY(100%);
-  }
-  60% {
-    transform: translateY(-20px);
-  }
-  80% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* Fade-in animation for the chatbox */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* ... (other styles) ... */
+        textarea {
+            width: 100%;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+        }

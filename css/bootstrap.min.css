@@ -81,8 +81,8 @@ body {
     color: var(--bs-body-color);
     text-align: var(--bs-body-text-align);
     background-color: var(--bs-body-bg);
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent
+    -text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent; /* Add fallback value */
 }
 
 hr {
@@ -347,7 +347,7 @@ caption {
 
 th {
     text-align: inherit;
-    text-align: -webkit-match-parent
+    text-align: match-parent;
 }
 
 tbody,
@@ -2601,7 +2601,9 @@ textarea.form-control-lg {
     -moz-appearance: none;
     appearance: none;
     -webkit-print-color-adjust: exact;
-    color-adjust: exact
+    print-color-adjust: exact;
+    color-adjust: exact;
+   
 }
 
 .form-check-input[type=checkbox] {

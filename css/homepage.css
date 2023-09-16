@@ -138,7 +138,7 @@ section {
     display: inline-block;
 }
 
-.dropbtn {
+.drop_btn {
     background-color: transparent;
     color: #333;
     border: none;
@@ -327,7 +327,7 @@ section {
     display: block;
   }
   
-  .dropdown:hover .dropbtn {
+  .dropdown:hover .drop_btn {
     background-color: #494e51;
   }
 

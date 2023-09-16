@@ -243,3 +243,20 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+<!-- Chatbot button -->
+<button id="chatbot-toggler" class="chatbot-button">💬</button>
+
+<div id="chatbox" class="container">
+    <div class="chatbot-header">
+        <h2>Chatbot</h2>
+    </div>
+    <div class="chatbox-content">
+        <!-- Chat messages go here -->
+    </div>
+    <div class="chatbox-input">
+        <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </div>
+</div>

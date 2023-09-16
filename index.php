@@ -596,6 +596,7 @@
    
 <!-- Chatbot button -->
 
+
 <button id="chatbot-toggler" class="chatbot-button">💬</button>
 
 <div id="chat_box" class="container">

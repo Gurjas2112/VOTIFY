@@ -98,10 +98,13 @@ section {
 }
 
 /* Navbar */
+/* Navbar */
 .navbar {
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(10px); /* Add this line */
   backdrop-filter: blur(10px);
 }
+
 
 .nav-link {
   color: #000000;

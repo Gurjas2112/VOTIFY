@@ -241,7 +241,7 @@ VALUES
     (8, 15);  -- Ratnagiri
 
 
---ADD ADMIN LOGI1N TABLE WITH EMAIL ID INCLUDED
+-- ADD ADMIN LOGI1N TABLE WITH EMAIL ID INCLUDED
 CREATE TABLE admin_login (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
@@ -250,7 +250,7 @@ CREATE TABLE admin_login (
     profile_pic VARCHAR(255)
 );
 
---INSERT VALUES INTO ADMIN LOGIN TABLE
+-- INSERT VALUES INTO ADMIN LOGIN TABLE
 INSERT INTO admin_login (username, password, email, profile_pic)
 VALUES
     ('admin', 'admin', 'gurjasgandhi76@gmail.com', 'admin.png');

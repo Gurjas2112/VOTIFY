@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $username = $_POST["signup_username"];
+    $email = $_POST["signup_email"];
     $password = $_POST["signup_password"];
     $confirmPassword = $_POST["signup_confirm_password"];
 
@@ -29,9 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Hash the password (use a secure hashing algorithm)
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            // Check if the email already exists
+            $checkQuery = "SELECT * FROM users WHERE email = '$email'";
+            $checkResult = mysqli_query($conn, $checkQuery);
+            if (mysqli_num_rows($checkResult) > 0) {
+                echo "Email already exists. <a href='index.php'>Try again</a>";
+                exit();
+            }
+            else{
 
             // Insert user data into the database
-            $insertQuery = "INSERT INTO users (username, password) VALUES ('$username', '$hashedPassword')";
+            $insertQuery = "INSERT INTO users (username, password, email) VALUES ('$username', '$hashedPassword', '$email')";
             if (mysqli_query($conn, $insertQuery)) {
                 //display an alert box with a message that "You have been registered successfully"
                 echo "<script>alert('You have been registered successfully')</script>";
@@ -41,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "Error: " . $insertQuery . "<br>" . mysqli_error($conn);
             }
+        }
         }
     }
 

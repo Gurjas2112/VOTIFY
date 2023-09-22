@@ -185,7 +185,7 @@
 </div>
 <div class="input_box">
                 <i class="icon-envelope h1"></i>
-                <input name="email" name="signup_email" placeholder="Enter your email" required />
+                <input type="email" name="signup_email" placeholder="Enter your email" required />
                 
               </div>
               <div class="input_box">

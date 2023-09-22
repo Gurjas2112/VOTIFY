@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     // Toggle chat_box when chatbot button is clicked
     $("#chatbot-toggler").click(function() {
-        if (chat_boxOpen) {
+        if (chatboxOpen) {
             closeChat_box();
         } else {
             openChat_box();

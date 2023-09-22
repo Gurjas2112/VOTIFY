@@ -1,96 +1,100 @@
-const home = document.querySelector(".home");
-const formContainer = document.querySelector(".form_container");
-const formCloseBtn = document.querySelector(".form_close");
-const signupBtn = document.querySelector("#signup");
-const loginBtn = document.querySelector("#login");
-const recoveryBtn = document.querySelector("#recovery");
+document.addEventListener("DOMContentLoaded", function () {
+  const formOpenBtn = document.querySelector("#form-open");
+  const home = document.querySelector(".home");
+  const formContainer = document.querySelector(".form_container");
+  const formCloseBtn = document.querySelector(".form_close");
+  const signupBtn = document.querySelector("#signup");
+  const loginBtn = document.querySelector("#login");
+  const recoveryBtn = document.querySelector("#recovery");
+  // const otpBtn = document.querySelector("#otp");
+  // const pwresetBtn = document.querySelector("#pwreset");
 
-// Function to show the login form and apply shadowy effect
-function showLoginForm() {
+  // Function to show the login form and apply shadowy effect
+  function showLoginForm() {
     home.classList.add("show");
     document.body.classList.add("login-active");
     // Add shadowy effect to homepage
     home.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.5)";
-}
+  }
 
-// Function to close the login form and remove shadowy effect
-function closeLoginForm() {
+  // Function to close the login form and remove shadowy effect
+  function closeLoginForm() {
     home.classList.remove("show");
     document.body.classList.remove("login-active");
     // Remove shadowy effect from homepage
     home.style.boxShadow = "none";
-}
+  }
 
-// Event listener to open the login form
-document.getElementById("form-open").addEventListener("click", showLoginForm);
+  formOpenBtn.addEventListener("click", showLoginForm);
 
-// Event listener to close the login form
-formCloseBtn.addEventListener("click", closeLoginForm);
+  formCloseBtn.addEventListener("click", closeLoginForm);
 
-// Close the login form if the user clicks outside the form container
-document.addEventListener("click", (e) => {
-    if (!e.target.closest(".form_container") && !e.target.matches("#form-open")) {
-        closeLoginForm();
+  // Close the login form if the user clicks outside the form container
+  formContainer.addEventListener("click", (e) => {
+    if (!e.target.closest(".form_container")) {
+      closeLoginForm();
     }
-});
+  });
 
-// Password Show/Hide Functionality
-const pwInputs = document.querySelectorAll(".password-input");
-const pwToggleIcons = document.querySelectorAll(".pw-toggle-icon");
-
-pwToggleIcons.forEach((icon) => {
+  pwShowHide.forEach((icon) => {
     icon.addEventListener("click", () => {
-        const input = icon.previousElementSibling; // Assuming the input is the previous sibling
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.replace("uil-eye-slash", "uil-eye");
-        } else {
-            input.type = "password";
-            icon.classList.replace("uil-eye", "uil-eye-slash");
-        }
+      let getPwInput = icon.parentElement.querySelector("input");
+      if (getPwInput.type === "password") {
+        getPwInput.type = "text";
+        icon.classList.replace("uil-eye-slash", "uil-eye");
+      } else {
+        getPwInput.type = "password";
+        icon.classList.replace("uil-eye", "uil-eye-slash");
+      }
     });
-});
+  });
 
-// Event listeners for switching between forms
-signupBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    formContainer.classList.add("signup");
-});
+// Form Functions
 
-loginBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    formContainer.classList.remove("signup", "recovery");
-});
-
-recoveryBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    formContainer.classList.remove("signup");
-    formContainer.classList.add("recovery");
-});
-
-
-  // Form Functions
+ 
   signupBtn.addEventListener("click", (e) => {
     e.preventDefault();
     formContainer.classList.add("signup");
   });
-
+  
   loginBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    formContainer.classList.remove("signup", "recovery");
+    formContainer.classList.remove("signup");
   });
-
+  
+  
   recoveryBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    formContainer.classList.remove("signup");
     formContainer.classList.add("recovery");
+  });
+  
+  loginBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    formContainer.classList.remove("recovery");
+  });
+  
+  signupBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    formContainer.classList.remove("recovery");
+  });
+  
+  /*
+  otpBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    formContainer.classList.add("otp");
   });
 
   
+  pwresetBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    formContainer.classList.add("pwreset");
+  });
+  */
+
   // Event listener for Home navigation link
-  document.querySelector(".nav_link.home").addEventListener("click", () => showSection(".home"));
-
-
+  document.querySelector(".nav_link.home").addEventListener("click", () =>
+    showSection(".home")
+  );
 
   // Event listener for About navigation link
   document.querySelector(".nav_link.about").addEventListener("click", () =>
@@ -111,7 +115,7 @@ recoveryBtn.addEventListener("click", (e) => {
   document.querySelector(".nav_link.faq").addEventListener("click", () =>
     showSection("#faq")
   );
-
+});
 
 const toggleDropdown = () => {
   const navbarResponsive = document.getElementById("navbarResponsive");

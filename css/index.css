@@ -101,7 +101,6 @@ section {
 .navbar {
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* Add this line */
 }
 
 .nav-link {
@@ -182,7 +181,6 @@ section {
 .feature i {
   background: -webkit-linear-gradient(#00e0fe, #1107fe);
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 54px;
 }
@@ -296,7 +294,7 @@ footer a {
     display: none;
   }
   
-  .PWreset_form {
+  .pwreset_form {
     display: none;
   }
   
@@ -342,7 +340,7 @@ footer a {
     display: none;
   }
   
-  .form_container.recovery .PWreset_form {
+  .form_container.recovery .pwreset_form {
     display: none;
   }
   
@@ -364,13 +362,13 @@ footer a {
     display: none;
   }
   
-  .form_container.otp .PWreset_form {
+  .form_container.otp .pwreset_form {
     display: none;
   }
   
   /* Password Reset Form */
   /*
-   .form_container.pwreset .PWreset_form {
+   .form_container.pwreset .pwreset_form {
     display: block;
   }
   
@@ -441,9 +439,6 @@ footer a {
   .input_box i.password {
     left: 0;
   }
-  .input_box i.user {
-    left: 0;
-  }
   
   .input_box input:focus ~ i.email,
   .input_box input:focus ~ i.password {
@@ -479,17 +474,13 @@ footer a {
   }
   
   .checkbox input {
-    width: 16px;
-    border: 1px solid #7d2ae8;
+    accent-color: #7d2ae8;
   }
   
   .checkbox label {
     font-size: 12px;
     cursor: pointer;
-    
-  -webkit-user-select : none;
-  user-select: none;
-
+    user-select: none;
     color: #0b0217;
   }
   
@@ -535,7 +526,7 @@ footer a {
     font-family: Arial, sans-serif;
   }
   
-  .drop_btn {
+  .dropbtn {
     background-color: #33abd3ee;
     color: rgb(255, 255, 255);
     padding: 5px 10px;
@@ -573,7 +564,7 @@ footer a {
     display: block;
   }
   
-  .dropdown:hover .drop_btn {
+  .dropdown:hover .dropbtn {
     background-color: #494e51;
   }
 

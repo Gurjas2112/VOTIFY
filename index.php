@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/line-icons.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/chatbot.css">
+    
 
      <!--Chatbot css-->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">-->
@@ -620,7 +621,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0">Copyright © 2015-2020.</p>
+                    <p class="mb-0">Copyright © 2023-2024.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div>

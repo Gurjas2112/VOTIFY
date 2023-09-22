@@ -135,7 +135,7 @@ if (!isset($_SESSION["user_id"])) {
                     <p class="my-4" data-aos="fade-up">With Votify, you can easily register as a voter, securely upload required documents, and receive real-time updates on upcoming elections.
                     <br>  Our personalized voter guide ensures you have all the necessary information about the candidates and ballot measures relevant to your district.
                        </p>
-                    <a href="#" data-aos="fade-up" class="btn btn-main">Register Now</a>
+                    <a href="votify-user dashboard/index.php" data-aos="fade-up" class="btn btn-main">Register Now</a>
                 </div>
             </div>
         </div>

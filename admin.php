@@ -98,7 +98,7 @@ if (!isset($_SESSION["user_id"])) {
             <li>
                 <a href="<?php echo $_SESSION["admin_profile_pic"]; ?>">View Profile Picture</a>
             </li>
-            <li><a href="#">My dashboard</a></li>
+            <li><a href="Admin/AdminDashboard.php">My dashboard</a></li>
 
             <li><a href="logout.php">Logout</a></li>
         </ul>

@@ -1,83 +1,42 @@
-/* Import Google Fonts API */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-/* Global Styles */
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-/* User Profile Dropdown Styles */
-.user-profile {
+/* Style for the user profile dropdown container */
+.user-profile-dropdown {
     position: relative;
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 20px; /* Add margin for spacing */
 }
 
-.user-profile-btn {
-    background-color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
-}
-
-.user-profile-btn:hover {
-    background-color: #f2f2f2;
-    color: #007bff; /* Change text color on hover */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
-}
-
-.user-dropdown-content {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+/* Style for the user profile dropdown content */
+.user-profile-dropdown .dropdown-content {
     display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    text-align: left;
-    padding: 10px 0;
-    animation: fadeInDown 5.0s ease;
+    top: 50px; /* Adjust the vertical position as needed */
+    right: 0; /* Adjust the horizontal position as needed */
 }
 
-.user-profile:hover .user-dropdown-content {
+/* Style for dropdown items (links) */
+.user-profile-dropdown .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
     display: block;
 }
 
-.user-dropdown-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
+/* Change the link color on hover */
+.user-profile-dropdown .dropdown-content a:hover {
+    background-color: #f1f1f1;
 }
 
-.user-dropdown-content li {
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-
+/* Show the dropdown content when the user hovers over the container */
+.user-profile-dropdown:hover .dropdown-content {
+    display: block;
 }
 
-.user-dropdown-content li:hover {
-    background-color: #f2f2f2;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .user-profile {
-        margin-right: 0;
-    }
-    
-    .user-dropdown-content {
-        top: 40px;
-    }
+/* Style for the profile picture */
+.user-profile-dropdown img {
+    border-radius: 50%;
+    margin-right: 10px; /* Add spacing between username and picture */
 }

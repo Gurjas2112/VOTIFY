@@ -1,59 +1,71 @@
 <?php
-session_start();
+// Include the database connection configuration
+include 'db_connect.php'; // Replace with your actual database configuration file
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Replace with your database connection details
-    $conn = mysqli_connect("localhost", "root", "", "votify");
+// Initialize error array
+$errors = [];
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+// Check if the form has been submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve and sanitize user input
+    $username = filter_input(INPUT_POST, 'signup_u', FILTER_SANITIZE_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'signup_e', FILTER_SANITIZE_EMAIL);
+    $password = $_POST['signup_p'];
+    $confirm_password = $_POST['signup_c_p'];
+
+    // Validate username
+    if (empty($username)) {
+        $errors[] = "Username is required.";
+    } elseif (strlen($username) < 3) {
+        $errors[] = "Username must be at least 3 characters long.";
     }
 
-    $username = $_POST["signup_username"];
-    $email = $_POST["signup_email"];
-    $password = $_POST["signup_password"];
-    $confirmPassword = $_POST["signup_confirm_password"];
-
-    // Validate and sanitize user inputs
-    $username = filter_var($username, FILTER_SANITIZE_SPECIAL_CHARS);
-
-    // Check if the username already exists
-    $checkQuery = "SELECT * FROM users WHERE username = '$username'";
-    $checkResult = mysqli_query($conn, $checkQuery);
-
-    if (mysqli_num_rows($checkResult) > 0) {
-        echo "Username already exists. <a href='index.php'>Try again</a>";
-    } else {
-        // Check if passwords match
-        if ($password !== $confirmPassword) {
-            echo "Passwords do not match. <a href='index.php'>Try again</a>";
-        } else {
-            // Hash the password (use a secure hashing algorithm)
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            // Check if the email already exists
-            $checkQuery = "SELECT * FROM users WHERE email = '$email'";
-            $checkResult = mysqli_query($conn, $checkQuery);
-            if (mysqli_num_rows($checkResult) > 0) {
-                echo "Email already exists. <a href='index.php'>Try again</a>";
-                exit();
-            }
-            else{
-
-            // Insert user data into the database
-            $insertQuery = "INSERT INTO users (username, password, email) VALUES ('$username', '$hashedPassword', '$email')";
-            if (mysqli_query($conn, $insertQuery)) {
-                //display an alert box with a message that "You have been registered successfully"
-                echo "<script>alert('You have been registered successfully')</script>";
-                // Redirect to the login page after successful registration
-                header("Location: index.php"); // Change the URL as needed
-                exit();
-            } else {
-                echo "Error: " . $insertQuery . "<br>" . mysqli_error($conn);
-            }
-        }
-        }
+    // Validate email
+    if (empty($email)) {
+        $errors[] = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email format.";
     }
 
-    mysqli_close($conn);
+    // Validate password
+    if (empty($password)) {
+        $errors[] = "Password is required.";
+    } elseif (strlen($password) < 6) {
+        $errors[] = "Password must be at least 6 characters long.";
+    }
+
+    // Check if the entered passwords match
+    if ($password !== $confirm_password) {
+        $errors[] = "Passwords do not match.";
+    }
+
+    if (empty($errors)) {
+        try {
+            // Create a PDO instance
+            $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+
+            // Set the PDO error mode to exception
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Hash the user's password before storing it in the database
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Prepare a SQL statement to insert user information into the database
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $hashed_password);
+            $stmt->execute();
+
+            // User registration successful, redirect to a login page or perform other actions
+            header('Location: index.php'); // Replace with the appropriate login page
+            exit();
+        } catch (PDOException $e) {
+            // Database connection or query error
+            $errors[] = "Database error: " . $e->getMessage();
+        }
+    }
 }
+
+// If the script reaches this point, it means the form hasn't been submitted yet or registration failed.
 ?>

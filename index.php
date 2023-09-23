@@ -106,11 +106,11 @@
             <form action="login.php" method="POST">
                 <div class="input_box">
                     <i class="icon-user h1"></i>
-                    <input type="text" name="login_username" placeholder="Username" required>
+                    <input type="username" name="login_u" placeholder="Username" required>
                 </div>
                 <div class="input_box">
                     <i class="icon-lock h1"></i>
-                    <input type="password" name="login_password" placeholder="Enter your password" required>
+                    <input type="password" name="login_p" placeholder="Enter your password" required>
                     <i class="uil uil-lock password"></i>
                     <i class="uil uil-eye-slash pw_hide"></i>
                 </div>
@@ -181,22 +181,23 @@
   
               <div class="input_box">
                 <i class="icon-user h1"></i>
-                <input type="text" name="signup_username" placeholder="Username" required>
+                <input type="text" name="signup_u" placeholder="Username" required>
 </div>
 <div class="input_box">
                 <i class="icon-envelope h1"></i>
-                <input type="email" name="signup_email" placeholder="Enter your email" required />
+                <input type="email" name="signup_e" placeholder="Enter your email" required />
                 
               </div>
               <div class="input_box">
                 <i class="icon-lock h1"></i>
-                <input name="password" name="signup_password" placeholder="Create password" required />
+                <input type="password" name="signup_p" placeholder="Create password" required>
                 <i class="uil uil-lock password"></i>
                 <i class="uil uil-eye-slash pw_hide"></i>
               </div>
               <div class="input_box">
                 <i class="icon-lock h1"></i>
-                <input name="confirm_password" name="signup_confirm_password" placeholder="Confirm password" required />
+        
+<input type="password" name="signup_c_p" placeholder="Confirm password" required>
                 <i class="uil uil-lock password"></i>
                 <i class="uil uil-eye-slash pw_hide"></i>
               </div>

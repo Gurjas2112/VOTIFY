@@ -1,13 +1,16 @@
 <?php
-session_start();
+// Include the database connection and authentication check
+include 'db_connect.php'; // Replace with the actual path to your database connection file
 
-// Check if the user is logged in, if not, redirect to the login page
-if (!isset($_SESSION["user_id"])) {
-    header("Location: admin.php"); // Change the URL to your login page
+// Check if the user is logged in as an administrator (you should implement your authentication logic here)
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['is_admin'] !== 1) {
+    header('Location: login.php'); // Redirect non-admin users to the login page
     exit();
 }
-?>
 
+// You can add admin-specific functionality or content here
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,25 +89,24 @@ if (!isset($_SESSION["user_id"])) {
                 
                     <li class="nav-item">
             <!-- HTML for User Profile Dropdown -->
-<!-- HTML for User Profile Dropdown -->
-<div class="user-profile">
-    <button class="user-profile-btn">
+<!-- HTML for Admin Profile Dropdown -->
+<div class="admin-profile">
+    <button class="admin-profile-btn">
         <?php echo $_SESSION["admin_username"]; ?>
-        <img src="<?php echo $_SESSION["admin_profile_pic"]; ?>" alt="User Icon">
+        <img src="<?php echo $_SESSION["admin_profile_pic"]; ?>" alt="Admin Profile Picture">
         <i class="fa fa-caret-down"></i>
     </button>
-    <div class="user-dropdown-content">
+    <div class="admin-dropdown-content">
         <ul> <!-- Wrap the list items in a <ul> element -->
             <li>
                 <a href="<?php echo $_SESSION["admin_profile_pic"]; ?>">View Profile Picture</a>
             </li>
-            <li><a href="Admin/AdminDashboard.php">My dashboard</a></li>
-
+            <li><a href="Admin/AdminDashboard.php">Admin Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 </div>
-
 
 
 

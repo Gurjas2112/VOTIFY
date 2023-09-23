@@ -2,15 +2,19 @@
 
 
 <?php
-$servername="localhost";
-$database="votify";
-$dbuser="root";
-$dbpwd="";
+// Database connection parameters
+$db_host = "localhost"; // Replace with your database host name or IP address
+$db_name = "votify"; // Replace with your database name
+$db_user = "root"; // Replace with your database username
+$db_pass = ""; // Replace with your database password
 
-$conn=mysqli_connect($servername, $dbuser, $dbpwd, $database);
-if(!$conn){
-	die('failed to connect to the database!');
-} else {
-	mysqli_select_db($conn,$database);
+try {
+    // Create a PDO instance
+    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+
+    // Set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    // Handle database connection errors
+    die("Database connection failed: " . $e->getMessage());
 }
-?>

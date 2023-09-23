@@ -1,65 +1,69 @@
 <?php
+// Include the database connection configuration
+include 'db_connect.php'; // Replace with your actual database configuration file
+
+// Initialize a session to manage user data
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Replace with your database connection details
-    $conn = mysqli_connect("localhost", "root", "", "votify");
+// Check if the form has been submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve and sanitize user input
+    $username = filter_input(INPUT_POST, 'login_u', FILTER_SANITIZE_SPECIAL_CHARS);
+    $password = $_POST['login_p'];
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    $username = $_POST["login_username"];
-    $password = $_POST["login_password"];
-
-    // Validate and sanitize user inputs without using FILTER_SANITIZE_STRING
-    $username = filter_var(trim($username), FILTER_SANITIZE_SPECIAL_CHARS);
-
-    // Check regular user credentials
-    $sql = "SELECT * FROM users WHERE username = '$username'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-
-        // Verify the login_password (replace with your password hashing method) and login_username
-        if (password_verify($password, $row["password"])) {
-            // Regular user login successful
-            $_SESSION["user_id"] = $row["id"];
-            $_SESSION["username"] = $row["username"];
-            $_SESSION["profile_pic"] = $row["profile_pic"]; // Assuming you have a profile picture field in your database
-            // Redirect to the homepage or another page upon successful login
-            header("Location: homepage.php"); // Change the URL as needed
-            exit();
-        } else {
-            // Password is incorrect for regular user
-            echo "Incorrect password. <a href='index.php'>Try again</a>";
-        }
+    // Perform additional input validation to check for a valid username format
+    if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
+        $error_message = "Invalid username format. Please use only letters, numbers, and underscores.";
     } else {
-        // Check admin user credentials
-        $admin_sql = "SELECT * FROM admin_login WHERE admin_username = 'admin'";
-        $admin_result = mysqli_query($conn, $admin_sql);
+        try {
+            // Create a PDO instance
+            $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 
-        if (mysqli_num_rows($admin_result) == 1) {
-            $admin_row = mysqli_fetch_assoc($admin_result);
+            // Set the PDO error mode to exception
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Verify the login_password for admin user (replace with your password hashing method)
-            if ($password === $admin_row["admin_password"]) {
-                // Admin user login successful
-                $_SESSION["admin_id"] = $admin_row["id"];
-                $_SESSION["admin_username"] = $admin_row["admin_username"];
-                $_SESSION["admin_profile_pic"] = $admin_row["admin_profile_pic"]; // Assuming you have a profile picture field in your admin_login table
-                // Redirect to the admin dashboard or another page upon successful login
-                header("Location: admin.php"); // Change the URL as needed
-                exit();
+            // Prepare a SQL statement to retrieve user information based on the username
+            $stmt = $pdo->prepare("SELECT id, username, password, is_admin FROM users WHERE username = :username");
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+
+            // Fetch the user's information
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Check if a user with the provided username exists
+            if ($user) {
+                // Verify the entered password against the stored hashed password
+                if (password_verify($password, $user['password'])) {
+                    // User is authenticated
+
+                    // Store user data in the session
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+
+                    // Check if the user is an administrator
+                    if ($user['is_admin']) {
+                        // Redirect to the admin dashboard or perform admin-specific actions
+                        header('Location: admin.php'); // Replace with the appropriate admin dashboard page
+                        exit();
+                    } else {
+                        // Redirect to the regular homepage or perform regular user-specific actions
+                        header('Location: profile_display.php'); // Replace with the appropriate user dashboard page
+                        exit();
+                    }
+                } else {
+                    // Invalid password
+                    $error_message = "Invalid password.";
+                }
             } else {
-                // Password is incorrect for admin user
-                echo "Incorrect password for admin. <a href='index.php'>Try again</a>";
+                // Invalid username
+                $error_message = "Invalid username.";
             }
-        } else {
-            // User not found display alert message
-            echo "<script>alert('Invalid Username or Password');</script>";
+        } catch (PDOException $e) {
+            // Database connection or query error
+            $error_message = "Database error: " . $e->getMessage();
         }
     }
 }
+
+// If the script reaches this point, it means the form hasn't been submitted yet or authentication failed.
 ?>

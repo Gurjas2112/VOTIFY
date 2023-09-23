@@ -6,8 +6,13 @@ CREATE TABLE users (
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    profile_pic VARCHAR(255)
+    profile_pic VARCHAR(255),
+    is_admin BOOLEAN DEFAULT 0
 );
+
+INSERT INTO users (username, password, email, profile_pic, is_admin)
+VALUES ('gurjas_gandhi_', 'Gsg@1999(hashed)', 'gurjasgandhi76@gmail.com', 'admin.jpg', 1);
+
 
 
 -- Table structure for table `chatbot`
@@ -241,16 +246,16 @@ VALUES
     (8, 15);  -- Ratnagiri
 
 
--- ADD ADMIN LOGI1N TABLE WITH EMAIL ID INCLUDED
+--ADD ADMIN LOGI1N TABLE WITH EMAIL ID INCLUDED
 CREATE TABLE admin_login (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    profile_pic VARCHAR(255)
+    admin_username VARCHAR(255) NOT NULL,
+    admin_password VARCHAR(255) NOT NULL,
+    admin_email VARCHAR(255) NOT NULL,
+    admin_profile_pic VARCHAR(255)
 );
 
--- INSERT VALUES INTO ADMIN LOGIN TABLE
-INSERT INTO admin_login (username, password, email, profile_pic)
+--INSERT VALUES INTO ADMIN LOGIN TABLE
+INSERT INTO admin_login (admin_username, admin_password, admin_email, admin_profile_pic)
 VALUES
     ('admin', 'admin', 'gurjasgandhi76@gmail.com', 'admin.png');

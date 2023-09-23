@@ -1,13 +1,12 @@
-$(document).ready(function() {
-    // Toggle the dropdown on button click
-    $(".user-profile-btn").click(function() {
-        $(".user-dropdown-content").toggle();
-    });
+ // Get the user profile dropdown element
+ var userProfileDropdown = document.querySelector('.user-profile-dropdown');
 
-    // Close the dropdown when clicking outside of it
-    $(document).click(function(event) {
-        if (!$(event.target).closest(".user-profile").length) {
-            $(".user-dropdown-content").hide();
-        }
-    });
-});
+ // Add a click event listener to toggle the dropdown
+ userProfileDropdown.addEventListener('click', function () {
+     var dropdownContent = this.querySelector('.dropdown-content');
+     if (dropdownContent.style.display === 'block') {
+         dropdownContent.style.display = 'none';
+     } else {
+         dropdownContent.style.display = 'block';
+     }
+ });

@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   formCloseBtn.addEventListener("click", closeLoginForm);
 
   // Close the login form if the user clicks outside the form container
-  formContainer.addEventListener("click", (e) => {
+ formContainer.addEventListener("click", (e) => {
     if (!e.target.closest(".form_container")) {
       closeLoginForm();
     }

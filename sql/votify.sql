@@ -246,7 +246,7 @@ VALUES
     (8, 15);  -- Ratnagiri
 
 
---ADD ADMIN LOGI1N TABLE WITH EMAIL ID INCLUDED
+-- ADD ADMIN LOGIN TABLE WITH EMAIL ID INCLUDED
 CREATE TABLE admin_login (
     id INT AUTO_INCREMENT PRIMARY KEY,
     admin_username VARCHAR(255) NOT NULL,
@@ -255,24 +255,24 @@ CREATE TABLE admin_login (
     admin_profile_pic VARCHAR(255)
 );
 
---INSERT VALUES INTO ADMIN LOGIN TABLE
+-- INSERT VALUES INTO ADMIN LOGIN TABLE
 INSERT INTO admin_login (admin_username, admin_password, admin_email, admin_profile_pic)
 VALUES
     ('admin', 'admin', 'gurjasgandhi76@gmail.com', 'admin.png');
 
     -- Create a table to store user responses and bot responses
---CREATE TABLE chat_history (
+-- CREATE TABLE chat_history (
   --  id INT AUTO_INCREMENT PRIMARY KEY,
-   =-- user_message TEXT,
+   -- user_message TEXT,
    -- bot_response TEXT,
-    --timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
---);
+    -- timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
 
 -- Create a table to store sample bot responses
---CREATE TABLE sample_bot_responses (
+-- CREATE TABLE sample_bot_responses (
    -- id INT AUTO_INCREMENT PRIMARY KEY,
    -- response_text TEXT
---);
+-- );
 
 -- Table for user messages
 CREATE TABLE user_messages (

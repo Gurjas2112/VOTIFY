@@ -4,10 +4,10 @@ include 'db_connect.php'; // Replace with the actual path to your database conne
 
 // Check if the user is logged in as an administrator (you should implement your authentication logic here)
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['is_admin'] !== 1) {
+  if (!isset($_SESSION['user_id']) || $_SESSION['is_admin'] !== "1") {
     header('Location: login.php'); // Redirect non-admin users to the login page
-    exit();
-}
+    exit(); 
+} 
 
 // You can add admin-specific functionality or content here
 ?>

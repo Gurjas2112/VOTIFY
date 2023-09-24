@@ -39,17 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Store user data in the session
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
-
-                    //To  Check if the user is an administrator
-                    if ($user['is_admin']) {
+                    $_SESSION['is_admin'] = $user['is_admin'];
+                    
+                    
+                    if ($user['is_admin'] == "1") {
                         // Redirect to the admin dashboard or perform admin-specific actions
                         header('Location: admin.php'); // Replace with the appropriate admin dashboard page
                         exit();
-                    } else {
+                    }  else {
                         // Redirect to the regular  or perform regular user-specific actions
                         header('Location: profile_display.php'); // Replace with the appropriate user dashboard page
                         exit();
-                    }
+                    } 
                 } else {
                     // Invalid password
                     $error_message = "Invalid password.";

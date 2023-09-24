@@ -8,10 +8,11 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL,
     profile_pic VARCHAR(255),
     is_admin BOOLEAN DEFAULT 0
+
 );
 
-INSERT INTO users (username, password, email, profile_pic, is_admin)
-VALUES ('gurjas_gandhi_', 'Gsg@1999(hashed)', 'gurjasgandhi76@gmail.com', 'admin.jpg', 1);
+-- INSERT INTO users (username, password, email, profile_pic, is_admin)
+-- VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'admin.jpg', 1);
 
 
 

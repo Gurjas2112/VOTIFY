@@ -11,28 +11,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = filter_input(INPUT_POST, 'login_u', FILTER_SANITIZE_SPECIAL_CHARS);
     $password = $_POST['login_p'];
 
-    // Perform additional input validation to check for a valid username format
+    // additional input validation to check for a valid username format
     if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
         $error_message = "Invalid username format. Please use only letters, numbers, and underscores.";
     } else {
         try {
-            // Create a PDO instance
+            // PDO instance
             $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 
-            // Set the PDO error mode to exception
+            // PDO error mode to exception
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Prepare a SQL statement to retrieve user information based on the username
+            // SQL statement to retrieve user information based on the username
             $stmt = $pdo->prepare("SELECT id, username, password, is_admin FROM users WHERE username = :username");
             $stmt->bindParam(':username', $username);
             $stmt->execute();
 
-            // Fetch the user's information
+            // Fetching the user's information
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Check if a user with the provided username exists
+            //To  Check if a user with the provided username exists
             if ($user) {
-                // Verify the entered password against the stored hashed password
+                // Verifying the entered password against the stored hashed password
                 if (password_verify($password, $user['password'])) {
                     // User is authenticated
 
@@ -40,13 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
 
-                    // Check if the user is an administrator
+                    //To  Check if the user is an administrator
                     if ($user['is_admin']) {
                         // Redirect to the admin dashboard or perform admin-specific actions
                         header('Location: admin.php'); // Replace with the appropriate admin dashboard page
                         exit();
                     } else {
-                        // Redirect to the regular homepage or perform regular user-specific actions
+                        // Redirect to the regular  or perform regular user-specific actions
                         header('Location: profile_display.php'); // Replace with the appropriate user dashboard page
                         exit();
                     }
@@ -65,5 +65,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// If the script reaches this point, it means the form hasn't been submitted yet or authentication failed.
 ?>

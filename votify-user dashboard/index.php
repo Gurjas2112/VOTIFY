@@ -247,6 +247,7 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
+    
 
     <section class="section dashboard">
       <div class="row">
@@ -517,6 +518,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/progress_bar.js"></script>
 
 </body>
 

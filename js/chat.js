@@ -1,43 +1,87 @@
-$(document).ready(function() {
-    var chatboxOpen = false;
+// JavaScript code (script.js)
+document.addEventListener("DOMContentLoaded", function () {
+    const chatbotToggler = document.querySelector(".chatbot-toggler");
+    const closeBtn = document.querySelector(".close-btn");
+    const chatbox = document.querySelector(".chatbox");
+    const chatInput = document.querySelector(".chat-input textarea");
+    const sendChatBtn = document.querySelector(".chat-input span");
 
-    // Function to open the chat_box
-    function openChat_box() {
-        $("#chat_box").addClass("active");
-        chatboxOpen = true;
+    const inputInitHeight = chatInput.scrollHeight;
+
+    // Event listener for sending chat messages
+    function handleChat() {
+        const userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
+        if (!userMessage) return;
+
+        // Clear the input textarea and set its height to default
+        chatInput.value = "";
+        chatInput.style.height = `${inputInitHeight}px`;
+
+        // Append the user's message to the chatbox
+        appendChatMessage(userMessage, "outgoing");
+
+        // Send the user's message to the server using fetch
+        sendUserMessageToServer(userMessage);
+
+        // Simulate a bot response (you can replace this with your actual bot logic)
+        setTimeout(() => {
+            const botResponse = "This is the bot's response to: " + userMessage;
+            appendChatMessage(botResponse, "incoming");
+        }, 600);
     }
 
-    // Function to close the chat_box
-    function closeChat_box() {
-        $("#chat_box").removeClass("active");
-        chatboxOpen = false;
+    // Function to append chat messages to the chatbox
+    function appendChatMessage(message, className) {
+        const chatLi = document.createElement("li");
+        chatLi.classList.add("chat", className);
+        let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+        chatLi.innerHTML = chatContent;
+        chatLi.querySelector("p").textContent = message;
+        chatbox.appendChild(chatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
     }
 
-    // Toggle chat_box when chatbot button is clicked
-    $("#chatbot-toggler").click(function() {
-        if (chatboxOpen) {
-            closeChat_box();
-        } else {
-            openChat_box();
+    // Function to send user's message to the server using fetch
+    function sendUserMessageToServer(message) {
+        fetch("process.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userMessage: message })
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            // Handle the success response here if needed
+            console.log(data);
+        })
+        .catch(function(error) {
+            // Handle the error here
+            console.error(error);
+        });
+    }
+
+    // Event listeners
+    chatInput.addEventListener("input", () => {
+        // Adjust the height of the input textarea based on its content
+        chatInput.style.height = `${inputInitHeight}px`;
+        chatInput.style.height = `${chatInput.scrollHeight}px`;
+    });
+
+    chatInput.addEventListener("keydown", (e) => {
+        // If Enter key is pressed without Shift key and the window width is greater than 800px, handle the chat
+        if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+            e.preventDefault();
+            handleChat();
         }
     });
 
-    // When the Send button is clicked
-    $(".chat_box-input button").click(function() {
-        var message = $(".chat_box-input textarea").val();
-        if (message != "") {
-            $(".chat_box-content").append("<div class='chat_box-message-row'><div class='chat_box-message chat_box-message-user'>" + message + "</div></div>");
-
-            // Send the message to the PHP server with Ajax
-            $.ajax({
-                type: "POST",
-                url: "process_message.php",
-                data: "message=" + message,
-                success: function(result) {
-                    $(".chat_box-content").append("<div class='chat_box-message-row'><div class='chat_box-message chat_box-message-bot'>" + result + "</div></div>");
-                    $(".chat_box-input textarea").val("");
-                }
-            });
-        }
-    });
-    });
+    sendChatBtn.addEventListener("click", handleChat);
+    closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+    chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+});

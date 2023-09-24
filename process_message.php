@@ -1,58 +1,93 @@
 <?php
 // Establish a database connection (replace these with your database credentials)
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "votify";
 
-// Create a connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$pdo = new PDO("mysql:host=localhost;dbname=votify", "root", "");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Handling incoming POST data
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $data = json_decode(file_get_contents("php://input"));
+    $userMessage = $data->userMessage;
 
-// Assuming $userMessage contains the user's message
-$userMessage = $_POST['message'];
+    // Store the user's message
+    if (!empty($userMessage)) {
+        $userMessageStored = storeUserMessage($userMessage, $pdo);
+        if (!$userMessageStored) {
+            echo json_encode(array("error" => "Failed to store user message."));
+            http_response_code(500);
+            exit;
+        }
+    }
 
-// Generate a bot response
-$botResponse = generateBotResponse($userMessage);
+    // Your custom bot logic based on user input
+    $botResponse = generateBotResponse($userMessage);
 
-// Insert user message into the chat_history table
-$sqlUser = "INSERT INTO chat_history (user_message) VALUES ('$userMessage')";
-if ($conn->query($sqlUser) === TRUE) {
-    echo "User message inserted successfully<br>";
+    // Store the bot's response
+    $botResponseStored = storeBotResponse($botResponse, $pdo);
+    if (!$botResponseStored) {
+        echo json_encode(array("error" => "Failed to store bot response."));
+        http_response_code(500);
+        exit;
+    }
+
+    echo json_encode(array("botResponse" => $botResponse));
+    http_response_code(200);
 } else {
-    echo "Error: " . $sqlUser . "<br>" . $conn->error;
+    // Handle invalid requests
+    http_response_code(400);
+    echo json_encode(array("error" => "Invalid request."));
 }
 
-// Insert bot message into the chat_history table
-$sqlBot = "INSERT INTO chat_history (bot_message) VALUES ('$botResponse')";
-if ($conn->query($sqlBot) === TRUE) {
-    echo "Bot message inserted successfully<br>";
-} else {
-    echo "Error: " . $sqlBot . "<br>" . $conn->error;
+// Function to store the user's message in the database
+function storeUserMessage($message, $pdo) {
+    try {
+        $stmt = $pdo->prepare("INSERT INTO user_messages (message) VALUES (:message)");
+        $stmt->bindParam(":message", $message);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
 }
 
-// Close the database connection
-$conn->close();
+// Function to store the bot's response in the database
+function storeBotResponse($message, $pdo) {
+    try {
+        $stmt = $pdo->prepare("INSERT INTO bot_responses (message) VALUES (:message)");
+        $stmt->bindParam(":message", $message);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
 
-// Function to generate a bot response (replace with your actual logic)
+// Function to generate bot response based on user input
 function generateBotResponse($userMessage) {
-    // Your bot response generation logic here
-    // Example bot responses:
-    $responses = array(
-        "Hello!",
-        "How can I assist you today?",
-        "I'm here to help.",
-        "Tell me more about what you need.",
-        "Sorry, I didn't quite get that. Can you please rephrase?"
-    );
+    // Normalize user input to lowercase for easier comparison
+    $userMessage = strtolower($userMessage);
 
-    // Select a random response
-    $botResponse = $responses[array_rand($responses)];
-
-    return $botResponse;
+    // Check for keywords in the user's message and generate responses accordingly
+    if (strpos($userMessage, "register") !== false) {
+        return "Sure! To register for voting, please provide your personal information and required documents.";
+    } elseif (strpos($userMessage, "upload documents") !== false) {
+        return "To upload your documents, go to your dashboard and click on 'Document Upload.' Then, follow the on-screen instructions.";
+    } elseif (strpos($userMessage, "update profile") !== false) {
+        return "You can update your profile information in the 'Profile' section of your dashboard. What information would you like to update?";
+    } elseif (strpos($userMessage, "voting process") !== false || strpos($userMessage, "voting FAQs") !== false) {
+        // Provide information about the voting process or FAQs
+        return "Certainly! Here are some common FAQs about the voting process...";
+    } elseif (strpos($userMessage, "real-time data") !== false) {
+        // Provide information about real-time voting data
+        return "Yes, we provide real-time data and analytics on the dashboard. You can check the latest voting statistics there.";
+    } elseif (strpos($userMessage, "help") !== false) {
+        // Offer assistance for general inquiries
+        return "Of course! Feel free to ask any questions or let me know how I can assist you further.";
+    } elseif (strpos($userMessage, "logout") !== false) {
+        // Handle logout request
+        return "You have been successfully logged out. If you have any more questions in the future, don't hesitate to ask!";
+    } else {
+        // Default response for unrecognized queries
+        return "I'm sorry, I couldn't understand your request. Please feel free to ask another question.";
+    }
 }
-?>

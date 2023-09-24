@@ -259,3 +259,32 @@ CREATE TABLE admin_login (
 INSERT INTO admin_login (admin_username, admin_password, admin_email, admin_profile_pic)
 VALUES
     ('admin', 'admin', 'gurjasgandhi76@gmail.com', 'admin.png');
+
+    -- Create a table to store user responses and bot responses
+--CREATE TABLE chat_history (
+  --  id INT AUTO_INCREMENT PRIMARY KEY,
+   =-- user_message TEXT,
+   -- bot_response TEXT,
+    --timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+--);
+
+-- Create a table to store sample bot responses
+--CREATE TABLE sample_bot_responses (
+   -- id INT AUTO_INCREMENT PRIMARY KEY,
+   -- response_text TEXT
+--);
+
+-- Table for user messages
+CREATE TABLE user_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table for bot responses
+CREATE TABLE bot_responses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

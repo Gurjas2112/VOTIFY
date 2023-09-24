@@ -11,8 +11,13 @@ CREATE TABLE users (
 
 );
 
+<<<<<<< Updated upstream
 -- INSERT INTO users (username, password, email, profile_pic, is_admin)
 -- VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'admin.jpg', 1);
+=======
+INSERT INTO users (username, password, email, profile_pic, is_admin)
+VALUES ('gurjas_gandhi_', 'Gsg@1999(hashed)', 'gurjasgandhi76@gmail.com', 'VOTIFY/img/profile_pic.jpg', 1);
+>>>>>>> Stashed changes
 
 
 

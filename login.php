@@ -42,7 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['is_admin'] = $user['is_admin'];
                     
                     
+<<<<<<< Updated upstream
                     if ($user['is_admin'] == "1") {
+=======
+                    if ($user['id'] == "1") {
+>>>>>>> Stashed changes
                         // Redirect to the admin dashboard or perform admin-specific actions
                         header('Location: admin.php'); // Replace with the appropriate admin dashboard page
                         exit();

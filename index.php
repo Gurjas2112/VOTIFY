@@ -137,7 +137,7 @@
               <h2>Reset Password</h2>
   
               <div class="input_box">
-               <input type="email" name="email" placeholder="Enter your Email" required />  
+               <input type="email" name="signup_email" placeholder="Enter your Email" required />  
               </div>
               <button class="button" id="#">Get OTP</button>
 		    </form>

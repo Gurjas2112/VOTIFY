@@ -1,0 +1,132 @@
+// Define validation functions first
+
+// Validation function for name
+function check_name() {
+  const nameInput = document.getElementById("name");
+  const name = nameInput.value.trim();
+  const nameRegex = /^[A-Za-z\s]+$/;
+
+  if (!nameRegex.test(name)) {
+    alert("Invalid name. Please enter a valid name.");
+    nameInput.value = "";
+  
+  }
+}
+
+// Validation function for Aadhar number
+function check_aar() {
+  const aadharInput = document.getElementById("aadhar_no");
+  const aadharRegex = /^\d{12}$/;
+
+  if (!aadharRegex.test(aadharInput.value)) {
+    alert("Aadhaar Card Number should be 12 digits.");
+    aadharInput.value = "";
+  }
+}
+
+// Validation function for mobile number
+function check_no() {
+  const mobileNumberInput = document.getElementById("mobile_number");
+  const phoneNumberRegex = /^\+91\d{10}$/;
+
+  if (!phoneNumberRegex.test(mobileNumberInput.value)) {
+    alert("Phone number should start with '+91' and be 10 digits.");
+    mobileNumberInput.value = "";
+  }
+}
+
+// Validation function for age
+function checkAge() {
+  const dobInput = document.getElementById("inputDate");
+  const dob = new Date(dobInput.value);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+
+  if (
+    today.getMonth() < dob.getMonth() ||
+    (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())
+  ) {
+    age--;
+  }
+
+  if (age < 18) {
+    alert("You are not eligible to Register.");
+  }
+}
+
+// Validation function for address
+function checkAddress() {
+  const addressInput = document.getElementById("address");
+  const address = addressInput.value.trim();
+  const maxAddressLength = 20;
+
+  if (address === "" || countWords(address) > maxAddressLength) {
+    alert("Invalid address. Please enter a valid address (up to 20 words).");
+    addressInput.value = "";
+  }
+}
+
+// Function to count the number of words in a string
+function countWords(str) {
+  return str.split(/\s+/).filter(function (word) {
+    return word !== "";
+  }).length;
+}
+
+// Attach event listeners after the document has loaded
+document.addEventListener("DOMContentLoaded", function () {
+  // Get references to form elements
+  const nameInput = document.getElementById("name");
+  const aadharInput = document.getElementById("aadhar_no");
+  const mobileNumberInput = document.getElementById("mobile_number");
+  const dobInput = document.getElementById("inputDate");
+  const addressInput = document.getElementById("address");
+  const citizenInput = document.getElementById("countryOfCitizenship");
+  const nationalityInput = document.getElementById("nationality");
+  const step1SaveAndNextButton = document.getElementById("step1-save-and-next");
+  // Attach event listeners for validation
+  nameInput.addEventListener("input", check_name);
+  aadharInput.addEventListener("input", check_Aadhar);
+  mobileNumberInput.addEventListener("input", check_no);
+  dobInput.addEventListener("input", checkAge);
+  addressInput.addEventListener("input", checkAddress);
+
+  // Attach event listener for form submission
+
+  step1SaveAndNextButton.addEventListener("click", function (event) {
+    // Validate the form before submission
+    if (!validateForm()) {
+      event.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+
+  // Validation function for the entire form
+  function validateForm() {
+    let isValid = true;
+
+    // Step 1 Validation
+    if (
+      nameInput.value.trim() === "" ||
+      aadharInput.value.trim() === "" ||
+      mobileNumberInput.value.trim() === "" ||
+      dobInput.value.trim() === "" ||
+      addressInput.value.trim() === ""
+    ) {
+      alert("Please fill in all the required fields in Step 1.");
+      event.preventDefault(); // Prevent moving to the next step
+
+    // Implement Step 2 and Step 3 validation here if needed.
+    if(
+      citizenInput.value.trim() === "" ||
+      nationalityInput.value.trim() === ""
+      ) 
+      {
+      alert("Please fill in all the required fields in Step 2.");
+      isValid = false;
+    }
+    
+
+    return isValid;
+  }
+
+  }});

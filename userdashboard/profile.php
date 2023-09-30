@@ -38,6 +38,7 @@
         $userAddress = $userData['Address'];
         $userEmail = $userData['Email'];
         $userProfileImage = trim($userData['photodoc']);
+        $userProfileImage =substr($userProfileImage, 8);
        
     } else {
         echo "User not found.";

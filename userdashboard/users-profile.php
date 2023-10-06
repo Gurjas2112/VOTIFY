@@ -242,7 +242,7 @@ require 'profile.php'
         <div class="col-xl-4">
           <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-          <img src="./uploads/<?php echo trim($userProfileImage); ?>" alt="Profile Image" class="rounded-circle" style="width: 100px; height: auto;">
+          <img src="uploads/<?php echo trim($userProfileImage); ?>" alt="Profile Image" class="rounded-circle" style="width: 100px; height: auto;">
 
 </div>
 

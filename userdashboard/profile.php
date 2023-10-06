@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <title>User Profile</title>
 </head>
-<body>s
+<body>
     <h1>User Profile</h1>
 
     <?php
@@ -25,10 +25,10 @@
 
         // Store user data in variables
         $userID1 = $userData1['MaxUserID'];
-       
 
-        $query = "SELECT Name, Address, Email, photodoc,PhoneNumber from users where UserID=$userID1";
+        $query = "SELECT Name, Address, Email, photodoc, PhoneNumber from users where UserID=?";
         $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $userID1);
         $stmt->execute();
         $result = $stmt->get_result();
         $userData = $result->fetch_assoc();
@@ -37,9 +37,7 @@
         $userPhone = $userData['PhoneNumber'];
         $userAddress = $userData['Address'];
         $userEmail = $userData['Email'];
-        $userProfileImage = trim($userData['photodoc']);
-        $userProfileImage =substr($userProfileImage, 8);
-       
+        $userProfileImage = $userData['photodoc'];
     } else {
         echo "User not found.";
     }
@@ -47,8 +45,6 @@
     // Close the prepared statement and the database connection
     $stmt->close();
     $conn->close();
-
-    //require "users-profile.php";
-   ?>
+    ?>
 </body>
 </html>

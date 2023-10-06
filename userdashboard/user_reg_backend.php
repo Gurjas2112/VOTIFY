@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['lastUserID'] = $lastUserID;
             echo "<h2>Your User ID is: $lastUserID</h2>";
             if($flag1 == true){
-                header("Location: fileupload_frontend.html"); // Replace "forms_2.html" with the actual path to your next page
+                header("Location: fileupload_frontend.php"); // Replace "forms_2.html" with the actual path to your next page
                 exit;} // Make sure to exit the script to prevent further execution
             
         }

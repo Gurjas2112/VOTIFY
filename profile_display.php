@@ -60,6 +60,68 @@ try {
     <link rel="stylesheet" href="css/user_profile.css">
 
     <title>Votify</title>
+    <style>
+    /* Style for the user profile dropdown container */
+.user-profile-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px; /* Add margin for spacing */
+}
+
+/* Style for the user profile dropdown content */
+.user-profile-dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 50px; /* Adjust the vertical position as needed */
+    right: 0; /* Adjust the horizontal position as needed */
+}
+
+/* Style for dropdown items (links) */
+.user-profile-dropdown .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change the link color on hover */
+.user-profile-dropdown .dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown content when the user hovers over the container */
+.user-profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Style for the profile picture */
+.user-profile-dropdown img {
+    border-radius: 50%;
+    margin-right: 10px; /* Add spacing between username and picture */
+}
+
+    </style>
+
+    <script>
+    // Get the user profile dropdown element
+    var userProfileDropdown = document.querySelector('.user-profile-dropdown');
+
+    // Add a click event listener to toggle the dropdown
+    userProfileDropdown.addEventListener('click', function () {
+        var dropdownContent = this.querySelector('.dropdown-content');
+        if (dropdownContent.style.display === 'block') {
+            dropdownContent.style.display = 'none';
+        } else {
+            dropdownContent.style.display = 'block';
+        }
+    });
+</script>
+      
+
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar">
@@ -132,67 +194,6 @@ try {
             </div>
         </div>
     </nav>
-<style>
-    /* Style for the user profile dropdown container */
-.user-profile-dropdown {
-    position: relative;
-    display: inline-block;
-    margin-right: 20px; /* Add margin for spacing */
-}
-
-/* Style for the user profile dropdown content */
-.user-profile-dropdown .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    top: 50px; /* Adjust the vertical position as needed */
-    right: 0; /* Adjust the horizontal position as needed */
-}
-
-/* Style for dropdown items (links) */
-.user-profile-dropdown .dropdown-content a {
-    color: #333;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Change the link color on hover */
-.user-profile-dropdown .dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-/* Show the dropdown content when the user hovers over the container */
-.user-profile-dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Style for the profile picture */
-.user-profile-dropdown img {
-    border-radius: 50%;
-    margin-right: 10px; /* Add spacing between username and picture */
-}
-
-    </style>
-
-    <script>
-    // Get the user profile dropdown element
-    var userProfileDropdown = document.querySelector('.user-profile-dropdown');
-
-    // Add a click event listener to toggle the dropdown
-    userProfileDropdown.addEventListener('click', function () {
-        var dropdownContent = this.querySelector('.dropdown-content');
-        if (dropdownContent.style.display === 'block') {
-            dropdownContent.style.display = 'none';
-        } else {
-            dropdownContent.style.display = 'block';
-        }
-    });
-</script>
-      
 
 
 
@@ -209,7 +210,7 @@ try {
                     <p class="my-4" data-aos="fade-up">With Votify, you can easily register as a voter, securely upload required documents, and receive real-time updates on upcoming elections.
                     <br>  Our personalized voter guide ensures you have all the necessary information about the candidates and ballot measures relevant to your district.
                        </p>
-                    <a href="votify-user dashboard/index.php" data-aos="fade-up" class="btn btn-main">Register Now</a>
+                    <a href="dashboard-mainpage.php" data-aos="fade-up" class="btn btn-main">Register Now</a>
                 </div>
             </div>
         </div>
@@ -574,7 +575,7 @@ try {
                 
                 <div class="col-lg-4 mx-auto text-center">
                     <i class="icon-envelope"></i>
-                    <p><a href="mailto:info@votify.com">info@votify.com</a></p>
+                    <p>info@votify.com</p>
                 </div>
             </div>
         </div>
@@ -778,7 +779,7 @@ header h2 {
 }
         </style>
         <script type="text/javascript">
-// JavaScript code (script.js)
+
 document.addEventListener("DOMContentLoaded", function () {
     const chatbotToggler = document.querySelector(".chatbot-toggler");
     const closeBtn = document.querySelector(".close-btn");
@@ -797,20 +798,24 @@ document.addEventListener("DOMContentLoaded", function () {
         chatInput.value = "";
         chatInput.style.height = `${inputInitHeight}px`;
 
-        // Append the user's message to the chatbox
+        // Append the user's message to the chat-box
         appendChatMessage(userMessage, "outgoing");
 
         // Send the user's message to the server using fetch
         sendUserMessageToServer(userMessage);
 
-        // Simulate a bot response (you can replace this with your actual bot logic)
+        // Simulate a bot response (you can replace this with actual bot logic)
+
         setTimeout(() => {
-            const botResponse = "This is the bot's response to: " + userMessage;
+            //replace this with actual bot logic using array for user and bot response
+            const botResponse = chatInput.value === "Hi" ? "Hello there!" : "Sorry, I don't understand that yet.";
+            
+
             appendChatMessage(botResponse, "incoming");
         }, 600);
     }
 
-    // Function to append chat messages to the chatbox
+    // Function to append chat messages to the chat-box
     function appendChatMessage(message, className) {
         const chatLi = document.createElement("li");
         chatLi.classList.add("chat", className);
@@ -823,7 +828,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to send user's message to the server using fetch
     function sendUserMessageToServer(message) {
-        fetch("process.php", {
+        fetch("process_message.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -837,8 +842,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(function(data) {
-            // Handle the success response here if needed
-            console.log(data);
+            // Handle the success response here (bot's reply)
+            appendChatMessage(data.botResponse, "incoming");
         })
         .catch(function(error) {
             // Handle the error here
@@ -867,9 +872,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
             </script>
-
+<!-- Chatbot button -->
 <button class="chatbot-toggler">
-      <span class="material-symbols-rounded">chat</span>
+      <span class="material-symbols-rounded">Chat</span>
       <span class="material-symbols-outlined">close</span>
     </button>
     <div class="chatbot">
@@ -888,6 +893,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <span id="send-btn" class="material-symbols-rounded">send</span>
       </div>
     </div>
+
 </section>
 
        

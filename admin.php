@@ -4,11 +4,11 @@ include 'db_connect.php'; // Replace with the actual path to your database conne
 
 // Check if the user is logged in as an administrator (you should implement your authentication logic here)
 session_start();
-<<<<<<< Updated upstream
-  if (!isset($_SESSION['user_id']) || $_SESSION['is_admin'] !== "1") {
-=======
-if (!isset($_SESSION['admin_username']) || $_SESSION['is_admin'] !== 1) {
->>>>>>> Stashed changes
+
+  if (!isset($_SESSION['user_id']) || $_SESSION['is_admin'] != "1") {
+    
+ 
+
     header('Location: login.php'); // Redirect non-admin users to the login page
     exit(); 
 } 
@@ -31,11 +31,9 @@ if (!isset($_SESSION['admin_username']) || $_SESSION['is_admin'] !== 1) {
     
     <link rel="stylesheet" href="css/line-icons.css">
     <link rel="stylesheet" href="css/homepage.css">
-    <link rel="stylesheet" href="css/chatbot.css">
 
-     <!--Chatbot css-->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">-->
-    <!-- Custom CSS -->
+
+ 
     <link rel="stylesheet" href="css/admin.css">
 
     <title>Votify</title>
@@ -92,27 +90,25 @@ if (!isset($_SESSION['admin_username']) || $_SESSION['is_admin'] !== 1) {
         
                 
                     <li class="nav-item">
-            <!-- HTML for User Profile Dropdown -->
-<!-- HTML for Admin Profile Dropdown -->
+            
+<!-- Admin Profile Dropdown -->
 <div class="admin-profile">
     <button class="admin-profile-btn">
-        <?php echo $_SESSION["admin_username"]; ?>
-        <img src="<?php echo $_SESSION["admin_profile_pic"]; ?>" alt="Admin Profile Picture">
+        <?php echo $_SESSION['user_id']; ?>
+        <img src="<?php echo $_SESSION['profile_pic']; ?>" alt="Admin Profile Picture">
         <i class="fa fa-caret-down"></i>
     </button>
     <div class="admin-dropdown-content">
         <ul> <!-- Wrap the list items in a <ul> element -->
             <li>
-                <a href="<?php echo $_SESSION["admin_profile_pic"]; ?>">View Profile Picture</a>
+                <a href="<?php echo $_SESSION['profile_pic']; ?>" target="_blank">View Profile Picture</a>
             </li>
             <li><a href="Admin/AdminDashboard.php">Admin Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="#">Settings</a></li>  
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 </div>
-
-
 
                       </li>
 
@@ -140,7 +136,7 @@ if (!isset($_SESSION['admin_username']) || $_SESSION['is_admin'] !== 1) {
                     <p class="my-4" data-aos="fade-up">With Votify, you can easily register as a voter, securely upload required documents, and receive real-time updates on upcoming elections.
                     <br>  Our personalized voter guide ensures you have all the necessary information about the candidates and ballot measures relevant to your district.
                        </p>
-                    <a href="votify-user dashboard/index.php" data-aos="fade-up" class="btn btn-main">Register Now</a>
+                    
                 </div>
             </div>
         </div>
@@ -510,21 +506,6 @@ if (!isset($_SESSION['admin_username']) || $_SESSION['is_admin'] !== 1) {
             </div>
         </div>
    
-<!-- Chatbot button -->
-<button id="chatbot-toggler" class="chatbot-button">💬</button>
-
-<div id="chatbox" class="container">
-    <div class="chatbot-header">
-        <h2>Chatbot</h2>
-    </div>
-    <div class="chatbox-content">
-        <!-- Chat messages go here -->
-    </div>
-    <div class="chatbox-input">
-        <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-        <button type="submit" class="btn btn-primary">Send</button>
-    </div>
-</div>
 
 </section>
 
@@ -560,7 +541,6 @@ if (!isset($_SESSION['admin_username']) || $_SESSION['is_admin'] !== 1) {
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/chat.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/user_profile.js"></script>
     <!-- Add your chatbot script here -->

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = filter_input(INPUT_POST, 'login_u', FILTER_SANITIZE_SPECIAL_CHARS);
     $password = $_POST['login_p'];
 
-    // additional input validation to check for a valid username format
+    // Additional input validation to check for a valid username format
     if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
         $error_message = "Invalid username format. Please use only letters, numbers, and underscores.";
     } else {
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Fetching the user's information
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            //To  Check if a user with the provided username exists
+            // Check if a user with the provided username exists
             if ($user) {
                 // Verifying the entered password against the stored hashed password
                 if (password_verify($password, $user['password'])) {
@@ -40,34 +40,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['is_admin'] = $user['is_admin'];
+
+                    // Redirect to the appropriate dashboard
+                    if ($_SESSION['is_admin'] == '1') {
+                        // Redirect to the admin dashboard
+                            header('Location: admin.php'); // Replace with the appropriate admin dashboard page
                     
-                    
-<<<<<<< Updated upstream
-                    if ($user['is_admin'] == "1") {
-=======
-                    if ($user['id'] == "1") {
->>>>>>> Stashed changes
-                        // Redirect to the admin dashboard or perform admin-specific actions
-                        header('Location: admin.php'); // Replace with the appropriate admin dashboard page
-                        exit();
-                    }  else {
-                        // Redirect to the regular  or perform regular user-specific actions
+                    } else {
+                        // Redirect to the regular user dashboard
                         header('Location: profile_display.php'); // Replace with the appropriate user dashboard page
-                        exit();
-                    } 
+                    }
+                    exit();
                 } else {
                     // Invalid password
-                    $error_message = "Invalid password.";
+                    echo '<script>alert("Invalid password. Please try again."); 
+                    window.location.href="homepage.php";
+                    </script>';
                 }
             } else {
                 // Invalid username
-                $error_message = "Invalid username.";
-            }
+                echo '<script>alert("Invalid username. Please try again."); 
+                window.location.href="homepage.php";
+                </script>';
+            } 
         } catch (PDOException $e) {
             // Database connection or query error
             $error_message = "Database error: " . $e->getMessage();
         }
     }
 }
-
 ?>

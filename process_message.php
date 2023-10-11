@@ -91,3 +91,5 @@ function generateBotResponse($userMessage) {
         return "I'm sorry, I couldn't understand your request. Please feel free to ask another question.";
     }
 }
+
+?>

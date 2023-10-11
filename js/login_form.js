@@ -10,6 +10,7 @@ function showLoginForm() {
     home.classList.add("show");
     document.body.classList.add("login-active");
     // Add shadowy effect to homepage
+    
     home.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.5)";
 }
 

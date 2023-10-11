@@ -48,7 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $insert_stmt->execute();
 
                 // Redirect to the login page after successful registration
-                header('Location: index.php');
+                //display the text message the you have successfully registered using inline css and javascript
+                echo "<script type='text/javascript'>alert('You have successfully registered!');</script>";
+                
+                header('Location: homepage.php');
                 exit();
             }
         } catch (PDOException $e) {

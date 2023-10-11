@@ -8,6 +8,6 @@ session_unset();
 session_destroy();
 
 // Redirect to login page after logout
-header("location: index.php");
+header("location: homepage.php");
 exit;
 ?>

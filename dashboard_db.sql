@@ -225,17 +225,17 @@ CREATE TABLE IF NOT EXISTS `voter_registration` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `Name`, `DateOfBirth`, `Address`, `Email`, `Password`, `PhoneNumber`, `RegistrationStatus`, `City`, `State`, `Country`, `Gender`, `AadharCard`, `adhardoc`, `photodoc`, `signdoc`) VALUES
-(23, 'meghana', '1975-06-04', 'gondbandar raod', '', '', '+919190927470', 'Pending', 'nashik', 'Kerela', 'Indian', 'option2', '493697692600', NULL, '6516b1a5df1e4_IMG_20230522_161044.jpg', NULL),
-(26, 'sample new', '1995-10-10', 'sangvipadhn', '', '', '+915454545454', 'Pending', 'PUNE', 'Maharshtra', 'Indian', 'option1', '333344445555', 'bday photo.jpg', 'IMG_20230522_155346.jpg', 'IMG_20230522_161044.jpg'),
-(30, 'qqqqq wwwww', '1992-10-10', 'sangvi', '', '', '+913333322221', 'Pending', 'PUNE', 'Madhya Pradesh', 'Indian', 'option1', '111122227777', 'IMG-20210817-WA0035.jpg', 'IMG-20210817-WA0056.jpg', 'IMG-20210817-WA0040.jpg'),
-(31, 'shashank ketkar ', '1985-09-15', 'punyanagari ', '', '', '+919090927490', 'Pending', 'PUNE', 'Punjab', 'Indian', 'option1', '493693692045', 'IMG-20210817-WA0052.jpg', 'IMG-20210817-WA0045.jpg', 'IMG-20210817-WA0049.jpg'),
-(39, 'Jagganath', '1950-01-28', 'khandala bangla west ', 'jag@gmail.com', '', '+919098969789', 'Pending', 'PUNE', 'Jharkhand', 'Indian', 'option1', '493793692600', 'IMG-20210817-WA0040.jpg', 'IMG-20210817-WA0037.jpg', 'IMG-20210817-WA0055.jpg'),
-(40, 'sample user', '1999-10-10', 'pashan', 'vijay@gmail.com', '', '+919898989898', 'Pending', 'tripura', 'Tamil Nadu', 'Indian', 'option1', '123443215678', 'bday photo.jpg', 'IMG_20230522_155346.jpg', 'IMG_20230522_161044.jpg'),
-(41, 'new samples', '2000-12-12', 'pashan', 'sample@gmail.co.in', '', '+919090903434', 'Pending', 'PUNE', 'Jharkhand', 'Indian', 'option1', '123456783456', 'IMG_20230522_155346.jpg', 'IMG_20230522_161044.jpg', 'IMG-20210817-WA0010.jpg'),
-(42, 'Bhagyashri', '1945-08-02', 'ddfgvvgbh', 's@sample.com', '', '+919090909089', 'Pending', 'PUNE', 'Chattisgrah', 'Indian', 'option3', '493673692600', 'Aadhar card.jpg', 'photo.jpg', 'signaure.jpg'),
-(43, 'dxec', '2000-12-08', 'szdxcfjbhj k', 'f@sample', '', '+917870783408', 'Pending', 'PUNE', 'West Bengal', 'Indian', 'option1', '493693692677', 'Aadhar card.jpg', 'photo.jpg', 'signaure.jpg'),
-(44, 'some user', '2001-11-11', 'sangvi', 'vijay1@gmail.com', '', '+918888777722', 'Pending', 'PUNE', 'West Bengal', 'Indian', 'option1', '456712345678', 'Aadhar card.jpg', 'photo.jpg', 'rental agreement.jpg');
+INSERT INTO `users` (`id`,`username`,`password`, `Name`, `DateOfBirth`, `Address`, `Email`, `PhoneNumber`, `RegistrationStatus`, `City`, `State`, `Country`, `Gender`, `AadharCard`, `adhardoc`, `photodoc`, `signdoc`) VALUES
+(23,'megh1','', 'meghana', '1975-06-04', 'gondbandar raod', '', '+919190927470', 'Pending', 'nashik', 'Kerela', 'Indian', 'option2', '493697692600', NULL, '6516b1a5df1e4_IMG_20230522_161044.jpg', NULL),
+(26,'sample1','', 'sample new', '1995-10-10', 'sangvipadhn', '', '+915454545454', 'Pending', 'PUNE', 'Maharshtra', 'Indian', 'option1', '333344445555', 'bday photo.jpg', 'IMG_20230522_155346.jpg', 'IMG_20230522_161044.jpg'),
+(30,'qq1','', 'qqqqq wwwww', '1992-10-10', 'sangvi', '', '+913333322221', 'Pending', 'PUNE', 'Madhya Pradesh', 'Indian', 'option1', '111122227777', 'IMG-20210817-WA0035.jpg', 'IMG-20210817-WA0056.jpg', 'IMG-20210817-WA0040.jpg'),
+(31,'shahank1','', 'shashank ketkar ', '1985-09-15', 'punyanagari ', '', '+919090927490', 'Pending', 'PUNE', 'Punjab', 'Indian', 'option1', '493693692045', 'IMG-20210817-WA0052.jpg', 'IMG-20210817-WA0045.jpg', 'IMG-20210817-WA0049.jpg'),
+(39,'jagg1','', 'Jagganath','1950-01-28', 'khandala bangla west ', 'jag@gmail.com', '+919098969789', 'Pending', 'PUNE', 'Jharkhand', 'Indian', 'option1', '493793692600', 'IMG-20210817-WA0040.jpg', 'IMG-20210817-WA0037.jpg', 'IMG-20210817-WA0055.jpg'),
+(40,'sample1','', 'sample user', '1999-10-10', 'pashan', 'vijay@gmail.com', '+919898989898', 'Pending', 'tripura', 'Tamil Nadu', 'Indian', 'option1', '123443215678', 'bday photo.jpg', 'IMG_20230522_155346.jpg', 'IMG_20230522_161044.jpg'),
+(41,'newsam1','', 'new samples', '2000-12-12', 'pashan', 'sample@gmail.co.in', '+919090903434', 'Pending', 'PUNE', 'Jharkhand', 'Indian', 'option1', '123456783456', 'IMG_20230522_155346.jpg', 'IMG_20230522_161044.jpg', 'IMG-20210817-WA0010.jpg'),
+(42,'bhag1','', 'Bhagyashri', '1945-08-02', 'ddfgvvgbh', 's@sample.com', '+919090909089', 'Pending', 'PUNE', 'Chattisgrah', 'Indian', 'option3', '493673692600', 'Aadhar card.jpg', 'photo.jpg', 'signaure.jpg'),
+(43,'dxec1','', 'dxec', '2000-12-08', 'szdxcfjbhj k', 'f@sample', '+917870783408', 'Pending', 'PUNE', 'West Bengal', 'Indian', 'option1', '493693692677', 'Aadhar card.jpg', 'photo.jpg', 'signaure.jpg'),
+(44,'someuser1','', 'some user', '2001-11-11', 'sangvi', 'vijay1@gmail.com', '+918888777722', 'Pending', 'PUNE', 'West Bengal', 'Indian', 'option1', '456712345678', 'Aadhar card.jpg', 'photo.jpg', 'rental agreement.jpg');
 
 -- --------------------------------------------------------
 

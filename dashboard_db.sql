@@ -141,7 +141,6 @@ CREATE TABLE IF NOT EXISTS `languages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
--------------------------------------
 
 --
 -- Table structure for table `notification`
@@ -226,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `voter_registration` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`UserID`, `Name`, `DateOfBirth`, `Address`, `Email`, `Password`, `PhoneNumber`, `RegistrationStatus`, `City`, `State`, `Country`, `Gender`, `AadharCard`, `adhardoc`, `photodoc`, `signdoc`) VALUES
+INSERT INTO `users` (`id`, `Name`, `DateOfBirth`, `Address`, `Email`, `Password`, `PhoneNumber`, `RegistrationStatus`, `City`, `State`, `Country`, `Gender`, `AadharCard`, `adhardoc`, `photodoc`, `signdoc`) VALUES
 (23, 'meghana', '1975-06-04', 'gondbandar raod', '', '', '+919190927470', 'Pending', 'nashik', 'Kerela', 'Indian', 'option2', '493697692600', NULL, '6516b1a5df1e4_IMG_20230522_161044.jpg', NULL),
 (26, 'sample new', '1995-10-10', 'sangvipadhn', '', '', '+915454545454', 'Pending', 'PUNE', 'Maharshtra', 'Indian', 'option1', '333344445555', 'bday photo.jpg', 'IMG_20230522_155346.jpg', 'IMG_20230522_161044.jpg'),
 (30, 'qqqqq wwwww', '1992-10-10', 'sangvi', '', '', '+913333322221', 'Pending', 'PUNE', 'Madhya Pradesh', 'Indian', 'option1', '111122227777', 'IMG-20210817-WA0035.jpg', 'IMG-20210817-WA0056.jpg', 'IMG-20210817-WA0040.jpg'),
@@ -247,11 +246,11 @@ INSERT INTO `users` (`UserID`, `Name`, `DateOfBirth`, `Address`, `Email`, `Passw
 
 --
 -- Dumping data for table `voterinformation`
---
+-- 
 
-INSERT INTO `voterinformation` (`ID`, `Name`, `Address`, `registrationDate`, `UserID`, `citizenship_status`, `country_of_citizenship`, `nationality`) VALUES
-(8, '', '', '0000-00-00', NULL, 'Permanent Citizen', 'India', 'Indian'),
-(9, '', '', '0000-00-00', NULL, 'Permanent Citizen', 'India', 'Indian');
+-- INSERT INTO `voterinformation` (`ID`, `Name`, `Address`, `registrationDate`, `UserID`, `citizenship_status`, `country_of_citizenship`, `nationality`) VALUES
+-- (8, '', '', '0000-00-00', NULL, 'Permanent Citizen', 'India', 'Indian'),
+-- (9, '', '', '0000-00-00', NULL, 'Permanent Citizen', 'India', 'Indian');
 
 --
 -- Constraints for dumped tables

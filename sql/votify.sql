@@ -2,12 +2,12 @@
 
 -- Table structure for table 'users
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     profile_pic VARCHAR(255),
-    is_admin BOOLEAN DEFAULT 0
+    is_admin BOOLEAN DEFAULT 0,
     `Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `DateOfBirth` date NOT NULL,
  
@@ -23,7 +23,7 @@ CREATE TABLE users (
   `adhardoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `photodoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `signdoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`UserID`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `PhoneNumber` (`PhoneNumber`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -31,8 +31,8 @@ CREATE TABLE users (
 -- INSERT INTO users (username, password, email, profile_pic, is_admin)
 -- VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'admin.jpg', 1);
 
-INSERT INTO users (username, password, email, profile_pic, is_admin)
-VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'img/profile_pic.jpg', 1);
+-- INSERT INTO users (username, password, email, profile_pic, is_admin)
+-- VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'img/profile_pic.jpg', 1);
 
 
 

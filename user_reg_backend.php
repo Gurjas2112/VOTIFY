@@ -2,6 +2,7 @@
 require "db_user_dash.php"; // Include your database connection file
 session_start();
 
+$userID = $_SESSION['user_id'];
 // Initialize variables to store user data
 $name = $aadharCard = $phoneNumber = $dateOfBirth = $age = $Email = $address = $gender = $city = $state = $country = "";
 
@@ -9,8 +10,8 @@ $errors = []; // Array to store validation errors
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and store user input
-    $user_name=$_POST['login_u'];
-    $user_pass=$_POST['login_p'];
+    // $user_name=$_POST['login_u'];
+    // $user_pass=$_POST['login_p'];
     $name = $_POST['name'];
     $aadharCard = $_POST['aadhar_no'];
     $phoneNumber = $_POST['mobile_number'];
@@ -76,15 +77,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             // SQL query to insert user data into the database
-            $sql = "INSERT INTO users (username,password,Name, AadharCard, PhoneNumber, DateOfBirth, Age, Email, Gender, Address, City, State, Country) 
-                    VALUES (:user_pass,:user_name,:name, :aadharCard, :phoneNumber, :dateOfBirth, :age, :Email, :gender, :address, :city, :state, :country)";
+            $sql = "UPDATE users SET Name = :name, AadharCard = :aadharCard, PhoneNumber = :phoneNumber, DateOfBirth = :dateOfBirth, 
+            Age = :age, Email = :Email, Gender = :gender, Address = :address, City = :city, State = :state, Country = :country
+            WHERE id = $userID";
             
             // Prepare the SQL statement
             $stmt = $pdo->prepare($sql);
             
             // Bind parameters
-            $stmt->bindParam(':user_name', $user_name);
-            $stmt->bindParam(':user_pass', $user_pass);
+            // $stmt->bindParam(':user_name', $user_name);
+            // $stmt->bindParam(':user_pass', $user_pass);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':aadharCard', $aadharCard);
             $stmt->bindParam(':phoneNumber', $phoneNumber);

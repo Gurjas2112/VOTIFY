@@ -24,7 +24,7 @@
         // Store user data in variables
         $userID1 = $userData1['MaxUserID'];
 
-        $query = "SELECT Name, Address, Email, photodoc, PhoneNumber from users where UserID=?";
+        $query = "SELECT Name, Address, Email, photodoc, PhoneNumber from users where id=?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $userID1);
         $stmt->execute();

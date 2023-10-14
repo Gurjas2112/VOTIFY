@@ -12,7 +12,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // If the connection is successful, you can perform database operations using $pdo
-    echo "Connected to the database!";
+   // echo "Connected to the database!";
 } catch (PDOException $e) {
     // If there is an error in connecting to the database, PDO will throw an exception
     echo "Connection failed: " . $e->getMessage();

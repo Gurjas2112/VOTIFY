@@ -23,7 +23,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, profile_pic FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender,City,State,Country, profile_pic,RegistrationStatus,adhardoc,photodoc FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -62,7 +62,18 @@ try {
     <link href="votify-user dashboard/assets/css/index.css" rel="stylesheet">
     <!-- Progress Tracker -->
     <link rel="stylesheet" href="votify-user dashboard/assets/css/forms_elements.css" />
-</head>
+   <style> /* Style for error messages in red */
+.error {
+    color: #FF0000; /* Red color */
+    font-size: 14px;
+}
+
+/* Style for success messages in green */
+.success {
+    color: #008000; /* Green color */
+    font-size: 14px;
+}
+</style>
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
@@ -187,7 +198,7 @@ try {
             </a>
           </li><!-- End Dashboard Nav -->
           <li class="nav-item">
-            <a class="nav-link collapsed" href="forms-elements.php">
+            <a class="nav-link collapsed" href="dashboard-forms-elements2.php">
               <i class="bi bi-journal-text"></i>
               <span>Online Registration</span>
             </a>
@@ -223,114 +234,83 @@ try {
                 <label for="inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
                 <div class="col-sm-10">
                     <input class="form-control" type="file" name="aadhar_card" id="identity_proof" accept=".jpg, .pdf">
-                </div>
+                    <span class="error" id="adhardoc-error"></span>
+        <span class="success" id="adhardoc-success"></span>
+                  </div>
             </div>
-            <script>
-                document.getElementById('identity_proof').addEventListener('change', function() {
-                  const allowedExtensions = /(\.jpg|\.pdf)$/i;
-                  const fileInput = this;
-                  if (!allowedExtensions.exec(fileInput.value)) {
-                    alert('Invalid file type. Please upload only JPG or PDF files.');
-                    fileInput.value = '';
-                    return false;
-                  }
-                });
-            </script>
+        <br>
             <div class="row mb-3">
                 <label for="inputNumber" class="col-sm-2 col-form-label">Upload Photo</label>
                 <div class="col-sm-10">
                     <input class="form-control" type="file" name="user_photo" id="residency_proof" accept=".jpg, .pdf">
-                </div>
-            </div><br>
-            <script>
-                document.getElementById('residency_proof').addEventListener('change', function() {
-                  const allowedExtensions = /(\.jpg|\.pdf)$/i;
-                  const fileInput = this;
-                  if (!allowedExtensions.exec(fileInput.value)) {
-                    alert('Invalid file type. Please upload only JPG or PDF files.');
-                    fileInput.value = '';
-                    return false;
-                  }
-                });
-            </script>
-            <div class="row mb-3">
-                <label for="inputNumber" class="col-sm-2 col-form-label">Signature</label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="file" name="user_signature" id="signature" accept=".jpg,  .pdf">
-                </div>
-            </div><br>
-            <script>
-                document.getElementById('signature').addEventListener('change', function() {
-                  const allowedExtensions = /(\.jpg|\.pdf)$/i;
-                  const fileInput = this;
-                  if (!allowedExtensions.exec(fileInput.value)) {
-                    alert('Invalid file type. Please upload only JPG or PDF files.');
-                    fileInput.value = '';
-                    return false;
-                  }
-                });
-            </script>
+                    <span class="error" id="photodoc-error"></span>
+        <span class="success" id="photodoc-success"></span>
+                  </div>
+            </div>
+            <br>
+          
             <div class="btns-group">
                 <center>
                     <a href="dashboard-forms-elements1.php" class="btn btn-prev width-50 ml-auto">Previous</a>
-                    <button type="submit" class="btn btn-save width-50">Save</button>
+    
                     <button type="submit" class="btn btn-pre width-50 ml-auto" id="previewSubmitButton">Preview and Submit</button>
                 </center>
             </div>
         </form>
         <script>
-            // Function to check if all document fields are uploaded
-            function areDocumentsUploaded() {
-                const identityProof = document.getElementById('identity_proof').files.length > 0;
-                const residencyProof = document.getElementById('residency_proof').files.length > 0;
-                const signature = document.getElementById('signature').files.length > 0;
-                return identityProof && residencyProof && signature;
-            }
-            // Function to handle the "Save" button click
-            document.getElementById('saveButton').addEventListener('click', function () {
-                if (areDocumentsUploaded()) {
-                    // Perform the save operation here
-                   // alert 'Documents are saved.'
-                } else {
-                //remove alert and keep a error message in the form
-                    alert('Please upload all required documents before saving.');
-                }
-            });
-            // Function to handle the "Preview and Submit" button click
-            document.getElementById('previewSubmitButton').addEventListener('click', function () {
-                if (areDocumentsUploaded()) {
-                    // Perform the preview and submit operation here
-                    alert('Preview and Submit functionality goes here.');
-                } else {
-                    alert('Please upload all required documents before submitting.');
-                }
-            });
-       //To save the files
-      function saveFiles() {
-        // Get the file inputs
-        const identityProofInput = document.getElementById('identity_proof');
-        const residencyProofInput = document.getElementById('residency_proof');
-        const signatureInput = document.getElementById('signature');
-        // Create an object to store the file data
-        const formData = new FormData();
-        // Add files to the FormData object
-        if (identityProofInput.files.length > 0) {
-          formData.append('identity_proof', identityProofInput.files[0]);
+    // Function to validate and handle document uploads
+function validateDocumentUpload(inputId, errorSpanId, successSpanId) {
+    const fileInput = document.getElementById(inputId);
+    const errorSpan = document.getElementById(errorSpanId);
+    const successSpan = document.getElementById(successSpanId);
+
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const fileSize = file.size / 1024; // Size in kilobytes
+        const allowedExtensions = ['jpg', 'pdf'];
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (fileSize > 2048) { // Maximum file size is 2MB
+            errorSpan.innerText = 'File size should not exceed 2MB.';
+            successSpan.innerText = ''; // Clear any success message
+            fileInput.value = ''; // Clear the file input
+        } else if (!allowedExtensions.includes(fileExtension)) {
+            errorSpan.innerText = 'Only JPG and PDF files are allowed.';
+            successSpan.innerText = ''; // Clear any success message
+            fileInput.value = ''; // Clear the file input
+        } else {
+            errorSpan.innerText = '';
+            successSpan.innerText = 'Document uploaded successfully.';
         }
-        if (residencyProofInput.files.length > 0) {
-          formData.append('residency_proof', residencyProofInput.files[0]);
-        }
-        if (signatureInput.files.length > 0) {
-          formData.append('signature', signatureInput.files[0]);
-        }
-        // You can now send the formData to the server via AJAX or perform any other actions with it.
-        // For example, you can send it to the server using the Fetch API.
-        // Display a message to confirm that the files are saved.
-        //alert('Files saved successfully!');
-      }
-      // Attach the saveFiles function to the "Save" button
-      document.getElementById('saveButton').addEventListener('click', saveFiles);
-        </script>
+    } else {
+        errorSpan.innerText = 'Please upload a document.';
+        successSpan.innerText = ''; // Clear any success message
+    }
+}
+
+// Add event listeners for document uploads
+document.getElementById('identity_proof').addEventListener('change', function () {
+    validateDocumentUpload('identity_proof', 'adhardoc-error', 'adhardoc-success');
+});
+
+document.getElementById('residency_proof').addEventListener('change', function () {
+    validateDocumentUpload('residency_proof', 'photodoc-error', 'photodoc-success');
+});
+
+// Handle "Preview and Submit" button click
+document.getElementById('previewSubmitButton').addEventListener('click', function (event) {
+    // Check if documents are not uploaded
+    const adharError = document.getElementById('adhardoc-error').innerText;
+    const photoError = document.getElementById('photodoc-error').innerText;
+    
+    if (adharError || photoError) {
+        event.preventDefault(); // Prevent form submission if errors exist
+        alert('Please fix the errors before submitting.');
+    }
+});
+
+</script>
+
     </main>
     <!-- End Main Content -->
     <!-- Footer -->
@@ -353,8 +333,6 @@ try {
     <script src="votify-user dashboard/assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="votify-user dashboard/assets/vendor/php-email-form/validate.js"></script>
     <!-- Template Main JS File -->
-    <script src="votify-user dashboard/assets/js/main.js"></script>
-    <script src="votify-user dashboard/assets/js/camupload.js"></script>
-    <script src="votify-user dashboard/assets/js/forms_register.js"></script>
+    
 </body>
 </html>

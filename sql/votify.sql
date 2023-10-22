@@ -31,8 +31,13 @@ CREATE TABLE users (
 -- INSERT INTO users (username, password, email, profile_pic, is_admin)
 -- VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'admin.jpg', 1);
 
+<<<<<<< HEAD
 --INSERT INTO users (username, password, email, profile_pic, is_admin)
 --VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'img/profile_pic.jpg', 1);
+=======
+-- INSERT INTO users (username, password, email, profile_pic, is_admin)
+-- VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'img/profile_pic.jpg', 1);
+>>>>>>> b35f227ae91c19da83b0c51d7815f206bc911470
 
 
 

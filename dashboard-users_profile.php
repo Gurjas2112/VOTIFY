@@ -23,7 +23,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, profile_pic, Name, DateOfBirth, Age, Address, PhoneNumber, RegistrationStatus, City, State, Country, Gender, AadharCard, adhardoc, photodoc, signdoc FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email, profile_pic, Name, DateOfBirth, Age, Address, PhoneNumber, RegistrationStatus, City, State, Country, Gender, AadharCard FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 

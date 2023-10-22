@@ -24,6 +24,7 @@
     
     <link rel="stylesheet" href="css/line-icons.css">
     <link rel="stylesheet" href="css/index.css">
+    
 
 
      <!--Chatbot css-->
@@ -111,9 +112,10 @@
             </button>
 
             <!---js code to close the button --->
+
             <script>
                 document.getElementById("button_close").onclick = function () {
-                    location.href = "index.php";
+                    location.href = "homepage.php";
                 };
                 </script>
             <h2>Login</h2>

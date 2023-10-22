@@ -480,8 +480,6 @@ try {
             </div>
           </div><!-- End Recent Activity -->
 
-         
-
           <!-- Website Traffic -->
           <div class="card">
            

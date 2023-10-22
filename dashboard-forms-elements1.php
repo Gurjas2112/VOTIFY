@@ -10,7 +10,8 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php'); // Redirect to the login page if not logged in
     exit();
 }
-
+// Fetch user registration data and pre-fill the form fields
+$userData = []; // Initialize an array to store user registration data
 // Retrieve user information (you can replace this with your actual database query)
 $user_id = $_SESSION['user_id']; // Assuming you store the user's ID in the session
 $user_info = []; // Initialize an array to store user data
@@ -23,7 +24,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, profile_pic FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender,City,State,Country, profile_pic FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -296,27 +297,27 @@ try {
                    
                       <label for="inputText" class="col-sm-2 col-form-label">Full Name as per Aadhar card</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" name="name"  required>
+                        <input type="text" class="form-control" id="name" name="name"  required value="<?php echo $user_info['Name']; ?>">
+                      
+                      
                         <span class="error" id="name-error"></span>
                         <span class="success" id="name-success"></span>
                       </div>
                     
                     </div>
                     <div class="input-group">
-              
-                      <label for="inputText" class="col-sm-2 col-form-label">Aadhar Card Number:</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="aadhar_no" name="aadhar_no"  required>
-                        <span class="error" id="aadhar-error"></span>
-                        <span class="success" id="aadhar-success"></span>
-                      </div>
-          
-                    </div>
+        <label for="inputText" class="col-sm-2 col-form-label">Aadhar Card Number:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="aadhar_no" name="aadhar_no" required value="<?php echo $user_info['AadharCard']; ?>">
+          <span class="error" id="aadhar-error"></span>
+          <span class "success" id="aadhar-success"></span>
+        </div>
+      </div>
                     <div class="input-group">
           
                       <label for="inputNumber" class="col-sm-2 col-form-label">Phone Number</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="mobile_no" name="mobile_number"  required> 
+                        <input type="text" class="form-control" id="mobile_no" name="mobile_number"  required value="<?php echo $user_info['PhoneNumber']; ?>" > 
                         <span class="error" id="number-error"></span>
                         <span class="success" id="number-success"></span>
                       </div>
@@ -327,7 +328,7 @@ try {
                     <div class="input-group">
                         <label for="inputdate" class="col-sm-2 col-form-label" >Date Of Birth</label>
                         <div class="col-sm-10">
-                        <input type="date" class="form-control"  id="dob" name="dob"  required>
+                        <input type="date" class="form-control"  id="dob" name="dob"  required value="<?php echo $user_info['DateOfBirth']; ?>">
                       </div>
                    </div>
 
@@ -335,7 +336,8 @@ try {
                    <div class="input-group">
                         <label for="age" class="col-sm-2 col-form-label">Age Based on the birthdate:</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="age" name="age"  readonly>
+                        <input type="text" class="form-control" id="age" name="age" readonly value="<?php echo $user_info['Age']; ?>">
+
                         <span class="error" id="age-error"></span>
         <!--display correct age message below the textfield-->
         <span class="success" id="age-success"></span>
@@ -346,42 +348,60 @@ try {
     <label for="email" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10">
         <div class="blue-box">
-            <input type="email" class="form-control" id="Email" name="Email" value="<?php echo $user_info['email']; ?>" readonly>
+            <input type="email" class="form-control" id="email" name="Email" value="<?php echo $user_info['email']; ?>" readonly>
         </div>
     </div>
 </div>
+<div class="input-group">
+    <label for="address" class="col-sm-2 col-form-label">Address:</label>
+    <div class="col-sm-10">
+        <input type="address" id="address" name="address" required value="<?php echo $user_info['Address']; ?>" >
 
+        <span class="error" id="address-error"></span>
+        <span class="success" id="address-success"></span>
+    </div>
+</div>
+<script>
+document.querySelector('form').addEventListener('submit', function (event) {
+    var addressInput = document.getElementById('address');
+    var addressError = document.getElementById('address-error');
+    var addressSuccess = document.getElementById('address-success');
 
+    addressError.textContent = '';
+    addressSuccess.textContent = '';
 
-                    
-    
-                   
-                    <div class="input-group">
-        
-                      <label for="inputPassword" class="col-sm-2 col-form-label">Address</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" style="height: 100px" id="address" name="address"  required></textarea>
-                      </div>
-          
-                    </div>
+    var addressValue = addressInput.value.trim();
+
+    // Define a regular expression pattern for the expected format
+    var addressPattern = /^Flat no: \d+, Bld no: \d+, [\w\s]+, [\w\s]+, [\w\s]+, \d+$/;
+
+    if (!addressPattern.test(addressValue)) {
+        addressError.textContent = 'Address should be in the format "Flat no: , Bld no: , Locality, Area, City, and Pin code"';
+        addressInput.focus();
+        event.preventDefault();
+    } else {
+        addressSuccess.textContent = 'Address is in the correct format.';
+    }
+});
+</script>
 
                     <fieldset class="row mb-3">
                       <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                       <div class="col-sm-10">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="option1" checked>
+                          <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="option1" checked value="<?php echo $user_info['Gender']; ?>">
                           <label class="form-check-label" for="gridRadios1">
                             Male
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="option2">
+                          <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="option2" value="<?php echo $user_info['Gender']; ?>">
                           <label class="form-check-label" for="gridRadios2">
                             Female
                           </label>
                         </div>
                         <div class="form-check disabled">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios" value="option3">
+                          <input class="form-check-input" type="radio" name="gender" id="gridRadios" value="option3" value="<?php echo $user_info['Gender']; ?>">
                           <label class="form-check-label" for="gridRadios3">
                             Other
                           </label>
@@ -393,7 +413,7 @@ try {
                     <div class="form-group row">
           <label for="state" class="col-sm-2 col-form-label">Select a State:</label>
           <div class="col-sm-10">
-            <select class="form-select" id="state" aria-label="Select a State" name="state" required>
+            <select class="form-select" id="state" aria-label="Select a State" name="state" required value="<?php echo $user_info['State']; ?>">
               <option >Select a State</option>
       
                     </select>
@@ -402,9 +422,9 @@ try {
         <br>
          
         <div class="form-group row">
-          <label for="state" class="col-sm-2 col-form-label">Select a State:</label>
+          <label for="state" class="col-sm-2 col-form-label">Select a City:</label>
           <div class="col-sm-10">
-            <select class="form-select" id="city" aria-label="Select a city" name="city" required>
+            <select class="form-select" id="city" aria-label="Select a city" name="city" required value="<?php echo $user_info['City']; ?>">
               <option >Select a city</option>
       
                     </select>
@@ -415,7 +435,7 @@ try {
                   <div class="row mb-3">
                     <label for="inputText" class="col-sm-2 col-form-label">Nationality</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="nationality" name="nationality" value="Indian" readonly>
+                      <input type="text" class="form-control" id="nationality" name="nationality" value="Indian" readonly value="<?php echo $user_info['City']; ?>">
                     </div>
                   </div>
     

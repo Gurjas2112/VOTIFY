@@ -234,7 +234,7 @@ try {
 <div class="row mb-3">
     <label for="inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
     <div class="col-sm-10">
-        <input class="form-control" type="file" name="aadhar_card" id="identity_proof" accept=".jpg, .pdf" placeholder="<?php echo $user_info['adhardoc']; ?>">
+        <input class="form-control" type="file" name="aadhar_card" id="aadhar_card" accept=".jpg, .pdf" placeholder="<?php echo $user_info['adhardoc']; ?>">
         <span class="error" id="adhardoc-error"></span>
         <span class="success" id="adhardoc-success"></span>
     </div>
@@ -244,7 +244,7 @@ try {
 <div class="row mb-3">
     <label for="inputNumber" class="col-sm-2 col-form-label">Upload Photo</label>
     <div class="col-sm-10">
-        <input class="form-control" type="file" name="user_photo" id="residency_proof" accept=".jpg, .pdf" placeholder="<?php echo $user_info['photodoc']; ?>">
+        <input class="form-control" type="file" name="user_photo" id="user_photo" accept=".jpg, .pdf" placeholder="<?php echo $user_info['photodoc']; ?>">
         <span class="error" id="photodoc-error"></span>
         <span class="success" id="photodoc-success"></span>
     </div>
@@ -293,12 +293,12 @@ function validateDocumentUpload(inputId, errorSpanId, successSpanId) {
 
 
 // Add event listeners for document uploads
-document.getElementById('identity_proof').addEventListener('change', function () {
-    validateDocumentUpload('identity_proof', 'adhardoc-error', 'adhardoc-success');
+document.getElementById('aadhar_card').addEventListener('change', function () {
+    validateDocumentUpload('user_photo', 'adhardoc-error', 'adhardoc-success');
 });
 
-document.getElementById('residency_proof').addEventListener('change', function () {
-    validateDocumentUpload('residency_proof', 'photodoc-error', 'photodoc-success');
+document.getElementById('user_photo').addEventListener('change', function () {
+    validateDocumentUpload('user_photo', 'photodoc-error', 'photodoc-success');
 });
 
 // Handle "Preview and Submit" button click

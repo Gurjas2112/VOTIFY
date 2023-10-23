@@ -1,40 +1,141 @@
 
 <?php
-// Include the database connection configuration
-include 'db_connect.php'; // Replace with your actual database configuration file
+// Include the database configuration file
+include 'db_connect.php';
 
-// Initialize a session to access user data
+// Include the mpdf library
+require 'vendor/autoload.php';
+
+
 session_start();
 
-// Check if the user is logged in (you can implement your authentication logic here)
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php'); // Redirect to the login page if not logged in
+//define the $conn variable
+if (isset($_SESSION['
+'])) {
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT * FROM users WHERE user_id = $user_id";
+    $result = mysqli_query($conn, $sql);
+    $user_info = mysqli_fetch_assoc($result);
+} else {
+    header('Location: login.php');
     exit();
 }
 
-// Retrieve user information (you can replace this with your actual database query)
 $user_id = $_SESSION['user_id']; // Assuming you store the user's ID in the session
-$user_info = []; // Initialize an array to store user data
 
-try {
-    // Create a PDO instance
-    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+// Function to generate a PDF and save the file path in the database
+function generatePDF($user_id) {
+    // Create an instance of the mPDF class
+    $mpdf = new \Mpdf\Mpdf();
 
-    // Set the PDO error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Your code to fetch registration details from the database and format them in HTML
+    $registration_submitted = true; // You need to implement this logic
 
-    // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, profile_pic FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $user_id);
-    $stmt->execute();
+    // Check if the user has generated the PDF
+    $pdf_generated = true; // You need to implement this logic
 
-    // Fetch the user's information
-    $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    // Database connection or query error
-    // Handle the error appropriately (e.g., display an error message)
-    echo "Database error: " . $e->getMessage();
+    // Handle form submission to close registration forms and generate PDF
+    if (isset($_POST['close_registration_forms'])) {
+        if ($registration_submitted && $pdf_generated) {
+            // Add logic to close registration forms for the user in the database
+            if (function_exists('closeRegistrationForms') && closeRegistrationForms($user_id)) {
+                // Registration forms closed successfully
+                header('Location: acknowledge_page.php');
+                exit();
+            } else {
+                // Error occurred while closing forms
+                $error_message = "Error: Unable to close registration forms.";
+            }
+        }
+    }
+
+    // Add logic to generate a PDF of the registration details
+    if (isset($_POST['generate_pdf'])) {
+        if ($registration_submitted) {
+            // Generate the PDF and provide a download link
+            if (function_exists('generatePDF')) {
+                $pdf_path = generatePDF($user_id);
+                if ($pdf_path) {
+                    // PDF generated successfully
+                    $pdf_generated = true;
+                } else {
+                    // Error occurred while generating PDF
+                    $error_message = "Error: Unable to generate PDF.";
+                }
+            } else {
+                // Function not found
+                $error_message = "Error: Function generatePDF not found.";
+            }
+        }
+    }
+
+    // Function to fetch user registration details from the database
+    function fetchRegistrationDetails($user_id, $conn) {
+        $sql = "SELECT * FROM user_registration WHERE user_id = $user_id"; // Adjust your SQL query
+        $result = mysqli_query($conn, $sql);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            return $row;
+        } else {
+            return false; // User not found in the database
+        }
+    }
+
+    // Get the user's registration details
+    $userDetails = fetchRegistrationDetails($user_id, $conn);
+
+    if ($userDetails) {
+        // Format the registration details as HTML
+        $html = '<h1>Registration Details</h1>';
+        $html .= '<p>User Name: ' . $userDetails['username'] . '</p>';
+        $html .= '<p>Email: ' . $userDetails['email'] . '</p>';
+        // Add more details as needed
+
+        // Display the HTML
+        echo $html;
+    } else {
+        // User not found or error occurred
+        echo 'Error: Unable to fetch registration details.';
+    }
+
+    // Generate the PDF content
+    $pdfContent = '<h1>Registration Details</h1>';
+    $pdfContent .= '<p>User Name: John Doe</p>'; // Replace with actual user details
+
+    // Write the HTML content to the PDF
+    $mpdf->WriteHTML($pdfContent);
+
+    // Save the PDF file to a directory
+    $pdfFilePath = 'pdfs/registration_details_' . $user_id . '.pdf';
+    $mpdf->Output($pdfFilePath, \Mpdf\Output\Destination::FILE);
+
+    // Save the PDF file path in the database for the user (you need to implement this logic)
+
+    return $pdfFilePath;
 }
+
+// Handle form submission to generate PDF
+if (isset($_POST['generate_pdf'])) {
+    if ($registration_submitted) {
+        // Generate the PDF and save the file path in the database
+        $pdf_path = generatePDF($user_id);
+        if ($pdf_path) {
+            // PDF generated successfully
+            $pdf_generated = true;
+        } else {
+            // Error occurred while generating PDF
+            $error_message = "Error: Unable to generate the PDF.";
+        }
+    }
+}
+//closeRegistrationForms() function
+function closeRegistrationForms($user_id) {
+    // Add logic to close registration forms for the user in the database
+    return true;
+}
+
+
 ?>
 
 
@@ -267,7 +368,9 @@ try {
    
     
 </main><!-- End #main -->
-<div style="text-align: center; padding: 20px;">
+<div>
+ <!-- Display Aadhar Card Document if available -->
+ <div style="text-align: center; padding: 20px;">
         <h1>Registration Acknowledgement</h1>
         <?php
         // Check if a success message is provided via GET parameter
@@ -281,7 +384,28 @@ try {
         <a href="dashboard-forms-elements2.php">Go to Dashboard</a>
     </div>
 
+    <!-- Display User Profile Information -->
+    <main>
+        <!-- Your page content here -->
 
+        <?php if (!$registration_submitted) : ?>
+            <!-- Display a message to inform the user to complete registration forms -->
+            <p>Please complete the registration forms before proceeding.</p>
+        <?php elseif (!$pdf_generated) : ?>
+            <!-- Display a preview of the registration application -->
+            <p>Preview your registration application:</p>
+            <!-- Include the form fields and data for the user to review -->
+            <form action="acknowledge_page.php" method="post">
+                <!-- Include form fields for previewing the application data -->
+                <input type="submit" name="close_registration_forms" value="Close Registration Forms">
+                <input type="submit" name="generate_pdf" value="Generate PDF">
+            </form>
+        <?php else : ?>
+            <!-- Display a download link for the generated PDF -->
+            <p>Your registration application PDF is ready for download:</p>
+            <a href="path_to_generated_pdf.pdf" download>Download PDF</a>
+        <?php endif ?>
+    </main>
 <!-- ======= Footer ======= -->
 <footer id="footer" class="footer">
   <div class="copyright">
@@ -310,5 +434,4 @@ try {
 
 </body>
 </html>
-
-
+    

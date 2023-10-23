@@ -5,7 +5,7 @@ include 'db_connect.php'; // Replace with your actual database configuration fil
 // Initialize a session to access user data
 session_start();
 
-// Check if the user is logged in (you can implement your authentication logic here)
+// Check if the user is logged in (implement your authentication logic)
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php'); // Redirect to the login page if not logged in
     exit();
@@ -49,7 +49,7 @@ if (isset($_FILES['aadhar_card'])) {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Update the 'adhardoc' column in the 'users' table
-            $stmt = $pdo->prepare("UPDATE users SET adhardoc = :aadharCardPath ,RegistrationStatus = 'registered' WHERE id = :userId");
+            $stmt = $pdo->prepare("UPDATE users SET adhardoc = :aadharCardPath, RegistrationStatus = 'registered' WHERE id = :userId");
             $stmt->bindParam(':aadharCardPath', $aadharCardPath);
             $stmt->bindParam(':userId', $userId);
 
@@ -68,7 +68,7 @@ if (isset($_FILES['aadhar_card'])) {
                     if (move_uploaded_file($photoFile['tmp_name'], $photoPath)) {
                         // File uploaded successfully
                         // Update the 'photodoc' column in the database
-                        $stmt = $pdo->prepare("UPDATE users SET photodoc = :photoPath,RegistrationStatus = 'registered' WHERE id = :userId");
+                        $stmt = $pdo->prepare("UPDATE users SET photodoc = :photoPath, RegistrationStatus = 'registered' WHERE id = :userId");
                         $stmt->bindParam(':photoPath', $photoPath);
                         $stmt->bindParam(':userId', $userId);
 
@@ -89,3 +89,4 @@ if (isset($_FILES['aadhar_card'])) {
 
 // Redirect to an appropriate page in case of errors
 header('Location: dashboard-forms-elements2.php');
+?>

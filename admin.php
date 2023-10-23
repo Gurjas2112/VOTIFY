@@ -1,19 +1,39 @@
 <?php
-// Include the database connection and authentication check
-include 'db_connect.php'; // Replace with the actual path to your database connection file
+// Include the database connection configuration
+include 'db_connect.php'; // Replace with your actual database configuration file
 
-// Check if the user is logged in as an administrator (you should implement your authentication logic here)
+// Initialize a session to access user data
 session_start();
 
-  if (!isset($_SESSION['user_id']) || $_SESSION['is_admin'] != "1") {
-    
- 
+// Check if the user is logged in (you can implement your authentication logic here)
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php'); // Redirect to the login page if not logged in
+    exit();
+}
 
-    header('Location: login.php'); // Redirect non-admin users to the login page
-    exit(); 
-} 
+// Retrieve user information (you can replace this with your actual database query)
+$user_id = $_SESSION['user_id']; // Assuming you store the user's ID in the session
+$user_info = []; // Initialize an array to store user data
 
-// You can add admin-specific functionality or content here
+try {
+    // Create a PDO instance
+    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+
+    // Set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Prepare a SQL statement to retrieve user information based on the user's ID
+    $stmt = $pdo->prepare("SELECT username, email, profile_pic FROM users WHERE id = :user_id");
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+
+    // Fetch the user's information
+    $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Database connection or query error
+    // Handle the error appropriately (e.g., display an error message)
+    echo "Database error: " . $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,20 +113,17 @@ session_start();
             
 <!-- Admin Profile Dropdown -->
 <div class="admin-profile">
-    <button class="admin-profile-btn">
-        <?php echo $_SESSION['user_id']; ?>
-        <img src="<?php echo $_SESSION['profile_pic']; ?>" alt="Admin Profile Picture">
-        <i class="fa fa-caret-down"></i>
-    </button>
+ 
     <div class="admin-dropdown-content">
+    <button class="admin-profile-btn" value="<?php echo $user_info['username']; ?>">
         <ul> <!-- Wrap the list items in a <ul> element -->
-            <li>
-                <a href="<?php echo $_SESSION['profile_pic']; ?>" target="_blank">View Profile Picture</a>
-            </li>
-            <li><a href="Admin/AdminDashboard.php">Admin Dashboard</a></li>
-            <li><a href="#">Settings</a></li>  
+            <li>   
+        <img src="<?php echo $user_info['profile_pic']; ?>" alt="Admin Profile Picture"></li>
+        <li><a href="Admin-Admin_Dashboard.php">Admin Dashboard</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
+    </button>
+
     </div>
 </div>
 
@@ -117,13 +134,14 @@ session_start();
         </div>
     </nav>
 
+    <!--
 
 
       
 
 
 
-    <!--hero-->
+    <--hero-->
     
     <section id="home" class="bg-cover hero-section" style="background-image: url(img/cover_1.jpg);">
         <div class="overlay"></div>

@@ -11,38 +11,41 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Retrieve user information (you can replace this with your actual database query)
-$user_id = $_SESSION['user_id']; // Assuming you store the user's ID in the session
-$user_info = []; // Initialize an array to store user data
+// Initialize user information variables
+$userName = '';
+$userEmail = '';
+$userPhone = '';
+$userAddress = '';
+$photoDoc = '';
 
-try {
-    // Create a PDO instance
-    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+// Ensure there's an active database connection ($pdo)
 
-    // Set the PDO error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+if(isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
 
-    // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, profile_pic, Name, DateOfBirth, Age, Address, PhoneNumber, RegistrationStatus, City, State, Country, Gender, AadharCard FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $user_id);
-    $stmt->execute();
+    try {
+        // Fetch user information from the database
+        $stmt = $pdo->prepare("SELECT username, email, PhoneNumber, Address,photodoc FROM users WHERE id = :userId");
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Fetch the user's information
-    $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Extract user data for easier access
-    $userName = $user_info['Name'];
-    $userEmail = $user_info['email'];
-    $userPhone = $user_info['PhoneNumber'];
-    $userAddress = $user_info['Address'];
-    $userProfileImage = $user_info['profile_pic']; // Assuming this is the profile picture filename
-} catch (PDOException $e) {
-    // Database connection or query error
-    // Handle the error appropriately (e.g., display an error message)
-    echo "Database error: " . $e->getMessage();
+        // Check if user data is found
+        if ($user) {
+            $userName = $user['username'];
+            $userEmail = $user['email'];
+            $userPhone = $user['PhoneNumber'];
+            $userAddress = $user['Address'];
+        } else {
+            // Handle the case when the user data is not found
+            // You can redirect or display an error message here
+        }
+    } catch (PDOException $e) {
+        // Handle database errors
+        echo "Database error: " . $e->getMessage();
+    }
 }
 ?>
-
 
 
 
@@ -170,7 +173,7 @@ try {
 
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['username']; ?></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $userName; ?></span>
           </a><!-- End Profile Iamge Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -277,7 +280,7 @@ try {
         <div class="col-xl-4">
           <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-          <img src="uploads/<?php echo trim($userProfileImage); ?>" alt="Profile Image" class="rounded-circle" style="width: 100px; height: auto;">
+          <img src="uploads/photo/photo_65360ceb1c6ae.jpg alt="Profile Image" class="rounded-circle" style="width: 100px; height: auto;">
 
 </div>
 

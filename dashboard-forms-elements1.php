@@ -24,7 +24,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender,City,State,Country, profile_pic FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender1,Gender2,Gender3,City,State,Country, profile_pic FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -389,19 +389,19 @@ document.querySelector('form').addEventListener('submit', function (event) {
                       <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                       <div class="col-sm-10">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="option1" checked value="<?php echo $user_info['Gender']; ?>">
+                          <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="option1" checked value="<?php echo $user_info['Gender1']; ?>">
                           <label class="form-check-label" for="gridRadios1">
                             Male
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="option2" value="<?php echo $user_info['Gender']; ?>">
+                          <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="option2" value="<?php echo $user_info['Gender2']; ?>">
                           <label class="form-check-label" for="gridRadios2">
                             Female
                           </label>
                         </div>
                         <div class="form-check disabled">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios" value="option3" value="<?php echo $user_info['Gender']; ?>">
+                          <input class="form-check-input" type="radio" name="gender" id="gridRadios3" value="option3" value="<?php echo $user_info['Gender3']; ?>">
                           <label class="form-check-label" for="gridRadios3">
                             Other
                           </label>

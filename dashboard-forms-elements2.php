@@ -23,7 +23,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender,City,State,Country, profile_pic,RegistrationStatus,adhardoc,photodoc FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender1,Gender2,Gender3,City,State,Country, profile_pic,RegistrationStatus,adhardoc,photodoc FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -230,23 +230,26 @@ try {
         </div>
         <!-- Registration Form -->
         <form id="myForm" action="fileupload_backend.php" method="POST" enctype="multipart/form-data">
-            <div class="row mb-3">
-                <label for="inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="file" name="aadhar_card" id="identity_proof" accept=".jpg, .pdf">
-                    <span class="error" id="adhardoc-error"></span>
+            <!-- Input for Aadhar Card -->
+<div class="row mb-3">
+    <label for="inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
+    <div class="col-sm-10">
+        <input class="form-control" type="file" name="aadhar_card" id="identity_proof" accept=".jpg, .pdf" placeholder="<?php echo $user_info['adhardoc']; ?>">
+        <span class="error" id="adhardoc-error"></span>
         <span class="success" id="adhardoc-success"></span>
-                  </div>
-            </div>
-        <br>
-            <div class="row mb-3">
-                <label for="inputNumber" class="col-sm-2 col-form-label">Upload Photo</label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="file" name="user_photo" id="residency_proof" accept=".jpg, .pdf">
-                    <span class="error" id="photodoc-error"></span>
+    </div>
+</div>
+
+<!-- Input for Photo -->
+<div class="row mb-3">
+    <label for="inputNumber" class="col-sm-2 col-form-label">Upload Photo</label>
+    <div class="col-sm-10">
+        <input class="form-control" type="file" name="user_photo" id="residency_proof" accept=".jpg, .pdf" placeholder="<?php echo $user_info['photodoc']; ?>">
+        <span class="error" id="photodoc-error"></span>
         <span class="success" id="photodoc-success"></span>
-                  </div>
-            </div>
+    </div>
+</div>
+
             <br>
           
             <div class="btns-group">
@@ -287,6 +290,7 @@ function validateDocumentUpload(inputId, errorSpanId, successSpanId) {
         successSpan.innerText = ''; // Clear any success message
     }
 }
+
 
 // Add event listeners for document uploads
 document.getElementById('identity_proof').addEventListener('change', function () {
@@ -336,3 +340,4 @@ document.getElementById('previewSubmitButton').addEventListener('click', functio
     
 </body>
 </html>
+

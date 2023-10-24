@@ -6,136 +6,154 @@ include 'db_connect.php';
 // Include the mpdf library
 require 'vendor/autoload.php';
 
-
 session_start();
-
-//define the $conn variable
-if (isset($_SESSION['
-'])) {
+if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    $sql = "SELECT * FROM users WHERE user_id = $user_id";
-    $result = mysqli_query($conn, $sql);
-    $user_info = mysqli_fetch_assoc($result);
+    $user_info = []; // Initialize an array to store user data
+    $registration_submitted = true;
+    $pdf_generated = true;
+    
+    try {
+        // Create a PDO instance
+        $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+    
+        // Set the PDO error mode to exception
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+        // Prepare a SQL statement to retrieve user information based on the user's ID
+        $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender1,Gender2,Gender3,City,State,Country, profile_pic,RegistrationStatus,adhardoc,photodoc FROM users WHERE id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+    
+        // Fetch the user's information
+        $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        // Database connection or query error
+        // Handle the error appropriately (e.g., display an error message)
+        echo "Database error: " . $e->getMessage();
+    }
+    
+    // Assuming your database connection is established in db_connect.php, you can use it like this:
+    include 'db_connect.php'; // Include the database connection file
+    $pdo = new PDO("mysql:host=localhost;dbname=votify", "root", ""); // Replace with your database details
+
+    // Function to generate a PDF and save the file path in the database
+    function generatePDF($user_id, $pdo) {
+        // Create an instance of the mPDF class
+        $mpdf = new \Mpdf\Mpdf();
+
+        // Your code to fetch registration details from the database and format them in HTML
+        $registration_submitted = true; // You need to implement this logic
+
+        // Check if the user has generated the PDF
+        $pdf_generated = true; // You need to implement this logic
+
+        // Handle form submission to close registration forms and generate PDF
+        if (isset($_POST['close_registration_forms'])) {
+            if ($registration_submitted && $pdf_generated) {
+                // Add logic to close registration forms for the user in the database
+                if (function_exists('closeRegistrationForms') && closeRegistrationForms($user_id, $pdo)) {
+                    // Registration forms closed successfully
+                    header('Location: acknowledge_page.php');
+                    exit();
+                } else {
+                    // Error occurred while closing forms
+                    $error_message = "Error: Unable to close registration forms.";
+                }
+            }
+        }
+
+        // Add logic to generate a PDF of the registration details
+        if (isset($_POST['generate_pdf'])) {
+            if ($registration_submitted) {
+                // Generate the PDF and provide a download link
+                if (function_exists('generatePDF')) {
+                    $pdf_path = generatePDF($user_id, $pdo);
+                    if ($pdf_path) {
+                        // PDF generated successfully
+                        $pdf_generated = true;
+                    } else {
+                        // Error occurred while generating PDF
+                        $error_message = "Error: Unable to generate PDF.";
+                    }
+                } else {
+                    // Function not found
+                    $error_message = "Error: Function generatePDF not found.";
+                }
+            }
+        }
+
+        // Function to fetch user registration details from the database
+        function fetchRegistrationDetails($user_id, $pdo) {
+            $sql = "SELECT * FROM users WHERE user_id = :user_id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['user_id' => $user_id]);
+
+            if ($stmt && $stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $row;
+            } else {
+                return false; // User not found in the database
+            }
+        }
+
+        // Get the user's registration details
+        $userDetails = fetchRegistrationDetails($user_id, $pdo);
+
+        if ($userDetails) {
+            // Format the registration details as HTML
+            $html = '<h1>Registration Details</h1>';
+            $html .= '<p>User Name: ' . $userDetails['username'] . '</p>';
+            $html .= '<p>Email: ' . $userDetails['email'] . '</p>';
+            // Add more details as needed
+
+            // Display the HTML
+            echo $html;
+        } else {
+            // User not found or error occurred
+            echo 'Error: Unable to fetch registration details.';
+        }
+
+        // Generate the PDF content
+        $pdfContent = '<h1>Registration Details</h1>';
+        $pdfContent .= '<p>User Name: John Doe</p>'; // Replace with actual user details
+
+        // Write the HTML content to the PDF
+        $mpdf->WriteHTML($pdfContent);
+
+        // Save the PDF file to a directory
+        $pdfFilePath = 'pdfs/registration_details_' . $user_id . '.pdf';
+        $mpdf->Output($pdfFilePath, \Mpdf\Output\Destination::FILE);
+
+        // Save the PDF file path in the database for the user (you need to implement this logic)
+
+        return $pdfFilePath;
+    }
+
+    // Handle form submission to generate PDF
+    if (isset($_POST['generate_pdf'])) {
+        if ($registration_submitted) {
+            // Generate the PDF and save the file path in the database
+            $pdf_path = generatePDF($user_id, $pdo);
+            if ($pdf_path) {
+                // PDF generated successfully
+                $pdf_generated = true;
+            } else {
+                // Error occurred while generating PDF
+                $error_message = "Error: Unable to generate the PDF.";
+            }
+        }
+    }
+
+    // closeRegistrationForms() function
+    function closeRegistrationForms($user_id, $pdo) {
+        // Add logic to close registration forms for the user in the database
+        return true;
+    }
 } else {
     header('Location: login.php');
     exit();
 }
-
-$user_id = $_SESSION['user_id']; // Assuming you store the user's ID in the session
-
-// Function to generate a PDF and save the file path in the database
-function generatePDF($user_id) {
-    // Create an instance of the mPDF class
-    $mpdf = new \Mpdf\Mpdf();
-
-    // Your code to fetch registration details from the database and format them in HTML
-    $registration_submitted = true; // You need to implement this logic
-
-    // Check if the user has generated the PDF
-    $pdf_generated = true; // You need to implement this logic
-
-    // Handle form submission to close registration forms and generate PDF
-    if (isset($_POST['close_registration_forms'])) {
-        if ($registration_submitted && $pdf_generated) {
-            // Add logic to close registration forms for the user in the database
-            if (function_exists('closeRegistrationForms') && closeRegistrationForms($user_id)) {
-                // Registration forms closed successfully
-                header('Location: acknowledge_page.php');
-                exit();
-            } else {
-                // Error occurred while closing forms
-                $error_message = "Error: Unable to close registration forms.";
-            }
-        }
-    }
-
-    // Add logic to generate a PDF of the registration details
-    if (isset($_POST['generate_pdf'])) {
-        if ($registration_submitted) {
-            // Generate the PDF and provide a download link
-            if (function_exists('generatePDF')) {
-                $pdf_path = generatePDF($user_id);
-                if ($pdf_path) {
-                    // PDF generated successfully
-                    $pdf_generated = true;
-                } else {
-                    // Error occurred while generating PDF
-                    $error_message = "Error: Unable to generate PDF.";
-                }
-            } else {
-                // Function not found
-                $error_message = "Error: Function generatePDF not found.";
-            }
-        }
-    }
-
-    // Function to fetch user registration details from the database
-    function fetchRegistrationDetails($user_id, $conn) {
-        $sql = "SELECT * FROM user_registration WHERE user_id = $user_id"; // Adjust your SQL query
-        $result = mysqli_query($conn, $sql);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            return $row;
-        } else {
-            return false; // User not found in the database
-        }
-    }
-
-    // Get the user's registration details
-    $userDetails = fetchRegistrationDetails($user_id, $conn);
-
-    if ($userDetails) {
-        // Format the registration details as HTML
-        $html = '<h1>Registration Details</h1>';
-        $html .= '<p>User Name: ' . $userDetails['username'] . '</p>';
-        $html .= '<p>Email: ' . $userDetails['email'] . '</p>';
-        // Add more details as needed
-
-        // Display the HTML
-        echo $html;
-    } else {
-        // User not found or error occurred
-        echo 'Error: Unable to fetch registration details.';
-    }
-
-    // Generate the PDF content
-    $pdfContent = '<h1>Registration Details</h1>';
-    $pdfContent .= '<p>User Name: John Doe</p>'; // Replace with actual user details
-
-    // Write the HTML content to the PDF
-    $mpdf->WriteHTML($pdfContent);
-
-    // Save the PDF file to a directory
-    $pdfFilePath = 'pdfs/registration_details_' . $user_id . '.pdf';
-    $mpdf->Output($pdfFilePath, \Mpdf\Output\Destination::FILE);
-
-    // Save the PDF file path in the database for the user (you need to implement this logic)
-
-    return $pdfFilePath;
-}
-
-// Handle form submission to generate PDF
-if (isset($_POST['generate_pdf'])) {
-    if ($registration_submitted) {
-        // Generate the PDF and save the file path in the database
-        $pdf_path = generatePDF($user_id);
-        if ($pdf_path) {
-            // PDF generated successfully
-            $pdf_generated = true;
-        } else {
-            // Error occurred while generating PDF
-            $error_message = "Error: Unable to generate the PDF.";
-        }
-    }
-}
-//closeRegistrationForms() function
-function closeRegistrationForms($user_id) {
-    // Add logic to close registration forms for the user in the database
-    return true;
-}
-
-
 ?>
 
 
@@ -382,6 +400,8 @@ function closeRegistrationForms($user_id) {
         }
         ?>
         <a href="dashboard-forms-elements2.php">Go to Dashboard</a>
+        <br>
+        <a href="pdf.php">View pdf</a>
     </div>
 
     <!-- Display User Profile Information -->
@@ -400,10 +420,6 @@ function closeRegistrationForms($user_id) {
                 <input type="submit" name="close_registration_forms" value="Close Registration Forms">
                 <input type="submit" name="generate_pdf" value="Generate PDF">
             </form>
-        <?php else : ?>
-            <!-- Display a download link for the generated PDF -->
-            <p>Your registration application PDF is ready for download:</p>
-            <a href="path_to_generated_pdf.pdf" download>Download PDF</a>
         <?php endif ?>
     </main>
 <!-- ======= Footer ======= -->

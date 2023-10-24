@@ -10,11 +10,6 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php'); // Redirect to the login page if not logged in
     exit();
 }
-// Fetch user registration data and pre-fill the form fields
-$userData = []; // Initialize an array to store user registration data
-// Retrieve user information (you can replace this with your actual database query)
-$user_id = $_SESSION['user_id']; // Assuming you store the user's ID in the session
-$user_info = []; // Initialize an array to store user data
 
 try {
     // Create a PDO instance
@@ -24,16 +19,31 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender1,Gender2,Gender3,City,State,Country, profile_pic FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $user_id);
+    $stmt = $pdo->prepare("SELECT username, email, Name, AadharCard, PhoneNumber, DateOfBirth, Age, Address, Gender1, Gender2, Gender3, City, State, Country, profile_pic, RegistrationStatus FROM users WHERE id = :user_id");
+    $stmt->bindParam(':user_id', $_SESSION['user_id']);
     $stmt->execute();
 
     // Fetch the user's information
     $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    // Database connection or query error
-    // Handle the error appropriately (e.g., display an error message)
-    echo "Database error: " . $e->getMessage();
+
+    // Check if user_info is false (no rows returned)
+    if (!$user_info) {
+        // Redirect to an error page or handle the situation accordingly
+        header('Location: error_page.php');
+        exit();
+    }
+    //Session variable for registration status
+$_SESSION['registration_status'] = $user_info['RegistrationStatus'];
+
+// If registration status is 'registered' redirect to the acknowledgement page
+if ($_SESSION['registration_status'] == 'registered') {
+    header('Location: acknowledge_page.php');
+    exit();
+}
+
+}
+catch(PDOException $e) {
+    die("Error: Could not connect. " . $e->getMessage());
 }
 ?>
 
@@ -389,20 +399,20 @@ document.querySelector('form').addEventListener('submit', function (event) {
                       <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                       <div class="col-sm-10">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="option1" checked value="<?php echo $user_info['Gender1']; ?>">
-                          <label class="form-check-label" for="gridRadios1">
+                          <input class="form-check-input" type="radio" name="gender1" id="gender1" value="Male" checked value="<?php echo $user_info['Gender1']; ?>">
+                          <label class="form-check-label" for="gender1">
                             Male
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="option2" value="<?php echo $user_info['Gender2']; ?>">
-                          <label class="form-check-label" for="gridRadios2">
+                          <input class="form-check-input" type="radio" name="gender2" id="gender2" value="Female" value="<?php echo $user_info['Gender2']; ?>">
+                          <label class="form-check-label" for="gender2">
                             Female
                           </label>
                         </div>
                         <div class="form-check disabled">
-                          <input class="form-check-input" type="radio" name="gender" id="gridRadios3" value="option3" value="<?php echo $user_info['Gender3']; ?>">
-                          <label class="form-check-label" for="gridRadios3">
+                          <input class="form-check-input" type="radio" name="gender3" id="gender3" value="Others" value="<?php echo $user_info['Gender3']; ?>">
+                          <label class="form-check-label" for="gender3">
                             Other
                           </label>
                         </div>

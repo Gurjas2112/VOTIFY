@@ -71,22 +71,25 @@ if (isset($_FILES['aadhar_card'])) {
                         $stmt = $pdo->prepare("UPDATE users SET photodoc = :photoPath, RegistrationStatus = 'registered' WHERE id = :userId");
                         $stmt->bindParam(':photoPath', $photoPath);
                         $stmt->bindParam(':userId', $userId);
+                        ?>
 
-                        if ($stmt->execute()) {
-                            // Both documents are uploaded successfully
-                            // Redirect to the 'acknowledge_page.php' page
-                            header('Location: acknowledge_page.php');
-                            exit;
-                        }
+                        <script>
+                            var submit = confirm("Are you sure you want to submit?");
+                            if (submit) {
+                                <?php $stmt->execute(); ?>
+                                window.location.href = "acknowledge_page.php";
+                            } else {
+                                window.location.href = "dashboard-forms-elements2.php";
+                            }
+                        </script>
+
+                        <?php
                     }
                 }
             }
         } catch (PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            die("Error: " . $e->getMessage());
         }
     }
 }
-
-// Redirect to an appropriate page in case of errors
-header('Location: dashboard-forms-elements2.php');
 ?>

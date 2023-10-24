@@ -23,12 +23,11 @@ CREATE TABLE users (
     `Gender2` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
     `Gender3` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `AadharCard` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `adhardoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `photodoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `signdoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adhardoc` varchar(400) COLLATE utf8mb4_general_ci NOT NULL,
+  `photodoc` varchar(400) COLLATE utf8mb4_general_ci NOT NULL
   PRIMARY KEY (`id`),
   UNIQUE KEY `PhoneNumber` (`PhoneNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- INSERT INTO users (username, password, email, profile_pic, is_admin)
 -- VALUES ('gurjas_gandhi_', 'Gsg@1999', 'gurjasgandhi76@gmail.com', 'admin.jpg', 1);

@@ -23,7 +23,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, profile_pic FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, photodoc FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -179,7 +179,7 @@ try {
 <!-- HTML for User Profile Dropdown -->
 <div class="user-profile-dropdown">
         <span>Welcome, <?php echo $user_info['username']; ?></span>
-        <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile Picture" width="50" height="50">
+        <img src="<?php echo $user_info['photodoc']; ?>" alt="Profile" class="rounded-circle" style = "width:50px;height:40px;">
         <!-- Add a link to log out if desired -->
         <a href="logout.php">Logout</a>
     </div>

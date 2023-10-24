@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $age = $_POST['age'];
     $Email = $_POST['Email'];
     $address = $_POST['address'];
-    $gender1 = $_POST['gender'];
-    $gender2 = $_POST['gender'];
-    $gender3 = $_POST['gender'];
+    $gender1 = $_POST['gender1'];
+    $gender2 = $_POST['gender2'];
+    $gender3 = $_POST['gender3'];
     $city = $_POST['city'];
     $state = $_POST['state'];
     $country = $_POST['nationality'];
@@ -60,17 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($city)) {
             $errors['city'] = "City is required";
         }
-        if((empty($gender1)))
+        if(empty($gender1) && empty($gender2) && empty($gender3))
         {
-            $errors["gender"] = "gender1 is required";
-        }
-        if((empty($gender2)))
-        {
-            $errors["gender"] = "gender2 is required";
-        }
-        if((empty($gender3)))
-        {
-            $errors["gender"] = "gender3 is required";
+            $error1 = "gender is required";
         }
         if (empty($state)) {
             $errors['state'] = "State is required";
@@ -91,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // SQL query to insert user data into the database
             $sql = "UPDATE users SET Name = :name, AadharCard = :aadharCard, PhoneNumber = :phoneNumber, DateOfBirth = :dateOfBirth, 
-            Age = :age, Email = :Email, Gender1 = :gender, Gender2 = :gender, Gender3 = :gender, Address = :address, 
+            Age = :age, Email = :Email, Gender1 = :gender1, Gender2 = :gender2, Gender3 = :gender3, Address = :address, 
             City = :city, State = :state, Country = :country WHERE id = $userID";
     
             
@@ -107,9 +99,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':dateOfBirth', $dateOfBirth);
             $stmt->bindParam(':age', $age);
             $stmt->bindParam(':Email', $Email);
-            $stmt->bindParam(':gender', $gender1);
-            $stmt->bindParam(':gender', $gender2);
-            $stmt->bindParam(':gender', $gender3);
+            $stmt->bindParam(':gender1', $gender1);
+            $stmt->bindParam(':gender2', $gender2);
+            $stmt->bindParam(':gender3', $gender3);
             $stmt->bindParam(':address', $address);
             $stmt->bindParam(':city', $city);
             $stmt->bindParam(':state', $state);

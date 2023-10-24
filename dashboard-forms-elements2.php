@@ -29,6 +29,9 @@ try {
 
     // Fetch the user's information
     $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
+
 } catch (PDOException $e) {
     // Database connection or query error
     // Handle the error appropriately (e.g., display an error message)
@@ -256,7 +259,7 @@ try {
                 <center>
                     <a href="dashboard-forms-elements1.php" class="btn btn-prev width-50 ml-auto">Previous</a>
     
-                    <button type="submit" class="btn btn-pre width-50 ml-auto" id="previewSubmitButton">Preview and Submit</button>
+                    <button type="submit" class="btn btn-pre width-50 ml-auto" id="previewSubmitButton" onClick="confirmation()">Preview and Submit</button>
                 </center>
             </div>
         </form>

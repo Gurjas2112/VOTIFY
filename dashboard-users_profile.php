@@ -25,14 +25,14 @@ if(isset($_SESSION['user_id'])) {
 
     try {
         // Fetch user information from the database
-        $stmt = $pdo->prepare("SELECT username, email, PhoneNumber, Address,photodoc FROM users WHERE id = :userId");
+        $stmt = $conn->prepare("SELECT Name, email, PhoneNumber, Address,profile_pic,photodoc FROM users WHERE id = :userId");
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Check if user data is found
         if ($user) {
-            $userName = $user['username'];
+            $userName = $user['Name'];
             $userEmail = $user['email'];
             $userPhone = $user['PhoneNumber'];
             $userAddress = $user['Address'];
@@ -172,7 +172,7 @@ if(isset($_SESSION['user_id'])) {
     <li class="nav-item dropdown pe-3">
 
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile" class="rounded-circle">
+            <img src="<?php echo $user['photodoc']; ?>" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $userName; ?></span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -280,7 +280,7 @@ if(isset($_SESSION['user_id'])) {
         <div class="col-xl-4">
           <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-          <img src="uploads/photo/photo_65360ceb1c6ae.jpg alt="Profile Image" class="rounded-circle" style="width: 100px; height: auto;">
+          <img src="<?php echo $user['photodoc']; ?>" alt="Profile" class="rounded-circle">
 
 </div>
 
@@ -341,14 +341,14 @@ if(isset($_SESSION['user_id'])) {
  
 </div>
 
-<div class="tab-pane fade profile-edit pt-3" id="profile-edit"
+<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-  <!-- Profile Edit Form -->
+  
   <form>
-    <!--div class="row mb-3">
+    <div class="row mb-3">
       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
       <div class="col-md-8 col-lg-9">
-      <img src="./uploads/<?php $userProfileImage; ?>" alt="Profile Image"> alt="Profile">
+      <img src="<?php echo $user['photodoc']; ?>" alt="Profile" class="rounded-circle">
         <div class="pt-2">
           <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>

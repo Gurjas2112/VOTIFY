@@ -10,10 +10,10 @@ $db_pass = ""; // database password
 
 try {
     // PDO instance
-    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+    $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 
     // PDO error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     // Handling database connection errors
     die("Database connection failed: " . $e->getMessage());

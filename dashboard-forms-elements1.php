@@ -138,23 +138,14 @@ catch(PDOException $e) {
             <li class="notification-item">
               <i class="bi bi-exclamation-circle text-warning"></i>
               <div>
-                <h4>Registration Confirmation</h4>
-            <p>"Congratulations! Your voter registration has been successfully confirmed. You are now eligible to vote in the upcoming elections."</p>
-                <p>30 min. ago</p>
+                <h4>Registration Status</h4>
+            <p> <?php echo $user_info['username']; ?></p>
+          
               </div>
             </li>
 
             <li>
               <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Polling Station Information</h4>
-                <p>"Find your nearest polling station: [Link]. Make sure you know where to cast your vote on Election Day."</p>
-                <p>1 hr. ago</p>
-              </div>
             </li>
 
             <li>

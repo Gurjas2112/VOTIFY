@@ -39,7 +39,7 @@
     <!--navbar-->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
         <div class="container">
-            <a class="logo" href="#home"><img src="img/logo1.png" height="80" width="30"></a>
+            <a class="logo" href="#home"><img src="img/logo1.jpg" height="80" width="30"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -839,13 +839,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Simulate a bot response (you can replace this with actual bot logic)
 
-        setTimeout(() => {
-            //replace this with actual bot logic using array for user and bot response
-            const botResponse = chatInput.value === "Hi" ? "Hello there!" : "Sorry, I don't understand that yet.";
-            
-
-            appendChatMessage(botResponse, "incoming");
-        }, 600);
     }
 
     // Function to append chat messages to the chat-box

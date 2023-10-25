@@ -1,4 +1,4 @@
-<?php
+\<?php
 require "db_user_dash.php"; // Include your database connection file
 session_start();
 
@@ -10,8 +10,6 @@ $errors = []; // Array to store validation errors
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and store user input
-    // $user_name=$_POST['login_u'];
-    // $user_pass=$_POST['login_p'];
     $name = $_POST['name'];
     $aadharCard = $_POST['aadhar_no'];
     $phoneNumber = $_POST['mobile_number'];
@@ -20,11 +18,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Email = $_POST['Email'];
     $address = $_POST['address'];
     $gender1 = $_POST['gender1'];
-    $gender2 = $_POST['gender2'];
-    $gender3 = $_POST['gender3'];
+    // Check if gender2 and gender3 are set
+    $gender2 = isset($_POST['gender2']) ? $_POST['gender2'] : '';
+    $gender3 = isset($_POST['gender3']) ? $_POST['gender3'] : '';
     $city = $_POST['city'];
     $state = $_POST['state'];
     $country = $_POST['nationality'];
+
+    // Calculate the registration progress based on the number of fields filled
+    $filledFields = count(array_filter([$name, $aadharCard, $phoneNumber, $dateOfBirth, $age, $Email, $address, $gender1, $gender2, $gender3, $city, $state, $country]));
+    $registrationProgress = ($filledFields / 11) * 100;
 
     // Check if any of the fields are empty
     if (empty($name) || empty($aadharCard) || empty($phoneNumber) || empty($dateOfBirth) || empty($age) || empty($Email) || empty($address) || empty($city) || empty($state) || empty($country)) {
@@ -60,10 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($city)) {
             $errors['city'] = "City is required";
         }
-        if(empty($gender1) && empty($gender2) && empty($gender3))
-        {
-            $error1 = "gender is required";
+
+        // If gender is not selected, add an error message
+        if (empty($gender1) && empty($gender2) && empty($gender3)) {
+            $errors['gender'] = "Gender is required";
         }
+
         if (empty($state)) {
             $errors['state'] = "State is required";
         }
@@ -80,19 +85,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
             // Set the PDO error mode to exception
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            // SQL query to insert user data into the database
-            $sql = "UPDATE users SET Name = :name, AadharCard = :aadharCard, PhoneNumber = :phoneNumber, DateOfBirth = :dateOfBirth, 
-            Age = :age, Email = :Email, Gender1 = :gender1, Gender2 = :gender2, Gender3 = :gender3, Address = :address, 
-            City = :city, State = :state, Country = :country WHERE id = $userID";
-    
-            
+
+            // SQL query to update user data in the database, including the registration progress
+            $sql = "UPDATE users SET 
+                Name = :name, 
+                AadharCard = :aadharCard, 
+                PhoneNumber = :phoneNumber, 
+                DateOfBirth = :dateOfBirth, 
+                Age = :age, 
+                Email = :Email, 
+                Gender1 = :gender1, 
+                Gender2 = :gender2, 
+                Gender3 = :gender3, 
+                Address = :address, 
+                City = :city, 
+                State = :state, 
+                Country = :country, 
+                profile_progress = :profileProgress 
+                WHERE id = $userID";
+
             // Prepare the SQL statement
             $stmt = $pdo->prepare($sql);
-            
+
             // Bind parameters
-            // $stmt->bindParam(':user_name', $user_name);
-            // $stmt->bindParam(':user_pass', $user_pass);
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':aadharCard', $aadharCard);
             $stmt->bindParam(':phoneNumber', $phoneNumber);
@@ -106,11 +121,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':city', $city);
             $stmt->bindParam(':state', $state);
             $stmt->bindParam(':country', $country);
-            
+            $stmt->bindParam(':profileProgress', $registrationProgress);
+
             // Execute the SQL statement
             if ($stmt->execute()) {
                 echo "<h2>Registration Successful!</h2>";
-                
+
                 // Get the last inserted UserID
                 $lastUserID = $pdo->lastInsertId();
                 $_SESSION['lastUserID'] = $lastUserID;

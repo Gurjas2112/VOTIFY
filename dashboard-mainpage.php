@@ -23,7 +23,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, profile_pic FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email,RegistrationStatus, profile_pic,profile_progress, photo_progress FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -112,9 +112,9 @@ try {
             <li class="notification-item">
               <i class="bi bi-exclamation-circle text-warning"></i>
               <div>
-                <h4>Registration Confirmation</h4>
-            <p>"Congratulations! Your voter registration has been successfully confirmed. You are now eligible to vote in the upcoming elections."</p>
-                <p>30 min. ago</p>
+                <h4>Registration Status</h4>
+            <p><?php echo $user_info['RegistrationStatus']; ?>"</p>
+               
               </div>
             </li>
 
@@ -127,7 +127,7 @@ try {
               <div>
                 <h4>Polling Station Information</h4>
                 <p>"Find your nearest polling station: [Link]. Make sure you know where to cast your vote on Election Day."</p>
-                <p>1 hr. ago</p>
+            
               </div>
             </li>
 
@@ -153,16 +153,11 @@ try {
               <div>
                 <h4>Election Results</h4>
                 <p>"Stay tuned for live election results on [Date].</p>
-                <p>4 hrs. ago</p>
+             
               </div>
             </li>
 
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
+           
 
           </ul><!-- End Notification Dropdown Items -->
 
@@ -481,36 +476,28 @@ try {
           </div><!-- End Recent Activity -->
 
           <!-- Website Traffic -->
-          <div class="card">
-           
+         <!-- Profile Status -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Profile Status</h5>
 
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Profile Status</h5>
-            
-                <!-- Progress Bars with labels outside -->
-                <div class="progress-label-container">
-                  <div class="progress-label">Profile</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                  </div>
+            <!-- Progress Bars with labels outside -->
+            <div class="progress-label-container">
+                <div class="progress-label">Profile</div>
+                <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <?php echo $user_info['profile_progress']; ?>%" aria-valuenow="<?php echo $user_info['photo_progress']; ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $user_info['profile_progress']; ?>%</div>
                 </div>
-                <div class="progress-label-container mt-3">
-                  <div class="progress-label">Photo</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                  </div>
-                </div>
-                <div class="progress-label-container mt-3">
-                  <div class="progress-label">Reg</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                  </div>
-                </div>
-                <!-- End Progress Bars with labels outside -->
-            
-              </div>
             </div>
+            <div class="progress-label-container mt-3">
+                <div class="progress-label">Photo</div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: <?php echo $user_info['photo_progress']; ?>%" aria-valuenow="<?php echo $user_info['photo_progress']; ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $user_info['photo_progress']; ?>%</div>
+                </div>
+            </div>
+           
+            <!-- End Progress Bars with labels outside -->
+        </div>
+    </div>
            
          
 

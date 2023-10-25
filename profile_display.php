@@ -129,7 +129,7 @@ try {
     <!--navbar-->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
         <div class="container">
-            <a class="logo" href="#home"><img src="img/logo1.png" height="80" width="30"></a>
+            <a class="logo" href="#home"><img src="img/logo1.jpg" height="80" width="30"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -581,6 +581,7 @@ try {
         </div>
    
 <!-- Chatbot button -->
+   
 <style type="text/css">
        /* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
@@ -806,13 +807,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Simulate a bot response (you can replace this with actual bot logic)
 
-        setTimeout(() => {
-            //replace this with actual bot logic using array for user and bot response
-            const botResponse = chatInput.value === "Hi" ? "Hello there!" : "Sorry, I don't understand that yet.";
-            
-
-            appendChatMessage(botResponse, "incoming");
-        }, 600);
     }
 
     // Function to append chat messages to the chat-box
@@ -874,7 +868,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </script>
 <!-- Chatbot button -->
 <button class="chatbot-toggler">
-      <span class="material-symbols-rounded">Chat</span>
+      <span class="material-symbols-rounded">mode_comment</span>
       <span class="material-symbols-outlined">close</span>
     </button>
     <div class="chatbot">
@@ -893,6 +887,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <span id="send-btn" class="material-symbols-rounded">send</span>
       </div>
     </div>
+
 
 </section>
 

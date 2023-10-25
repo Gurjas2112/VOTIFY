@@ -1,95 +1,36 @@
 <?php
-// Establish a database connection (replace these with your database credentials)
+// Get the user's message from the request
+$input = json_decode(file_get_contents('php://input'), true);
+$userMessage = strtolower($input['userMessage']);
 
-$pdo = new PDO("mysql:host=localhost;dbname=votify", "root", "");
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Define bot responses based on user input
+$botResponses = array(
+    'hi' => 'Hello there!',
+    'hello' => 'Hi! How can I assist you today?',
+    'how do i upload my identification documents?' => 'Uploading your documents is easy. Here\'s how:
+    1. Log in to your account.
+    2. Navigate to your dashboard.
+    3. Click on the "Document Upload" section.
+    4. Follow the on-screen instructions to upload your identification documents.',
+    'tell me more about the voting process' => 'Certainly! Here\'s an overview of the voting process:
+    1. Voter Registration: Ensure you are a registered voter by providing your details and necessary documents.
+    2. Candidate Information: Access information about candidates and their platforms.
+    3. Voting Day: On the election day, visit your polling station and cast your vote.
+    4. Results: Stay tuned for the election results, which will be available on your dashboard.',
+    'can i see real-time voting data?' => 'Yes, you can! We provide real-time data and analytics on your dashboard. You can check the latest voting statistics there.',
+    'i need assistance with something else' => 'Of course! Feel free to ask any questions or let me know how I can assist you further.',
+    'logout' => 'You have been successfully logged out. If you have any more questions in the future, don\'t hesitate to ask!',
+    'what is this website?' => 'This website is Votify, an online platform for voter registration, candidate information, and real-time voting data. How can I assist you further?',
+);
 
-// Handling incoming POST data
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $data = json_decode(file_get_contents("php://input"));
-    $userMessage = $data->userMessage;
+// Generate a bot response
+$botResponse = isset($botResponses[$userMessage]) ? $botResponses[$userMessage] : "I'm sorry, I don't understand that yet.";
 
-    // Store the user's message
-    if (!empty($userMessage)) {
-        $userMessageStored = storeUserMessage($userMessage, $pdo);
-        if (!$userMessageStored) {
-            echo json_encode(array("error" => "Failed to store user message."));
-            http_response_code(500);
-            exit;
-        }
-    }
+// Simulate some processing time (you can remove this in production)
+usleep(500000); // Sleep for 0.5 seconds
 
-    // Your custom bot logic based on user input
-    $botResponse = generateBotResponse($userMessage);
-
-    // Store the bot's response
-    $botResponseStored = storeBotResponse($botResponse, $pdo);
-    if (!$botResponseStored) {
-        echo json_encode(array("error" => "Failed to store bot response."));
-        http_response_code(500);
-        exit;
-    }
-
-    echo json_encode(array("botResponse" => $botResponse));
-    http_response_code(200);
-} else {
-    // Handle invalid requests
-    http_response_code(400);
-    echo json_encode(array("error" => "Invalid request."));
-}
-
-// Function to store the user's message in the database
-function storeUserMessage($message, $pdo) {
-    try {
-        $stmt = $pdo->prepare("INSERT INTO user_messages (message) VALUES (:message)");
-        $stmt->bindParam(":message", $message);
-        $stmt->execute();
-        return true;
-    } catch (PDOException $e) {
-        return false;
-    }
-}
-
-// Function to store the bot's response in the database
-function storeBotResponse($message, $pdo) {
-    try {
-        $stmt = $pdo->prepare("INSERT INTO bot_responses (message) VALUES (:message)");
-        $stmt->bindParam(":message", $message);
-        $stmt->execute();
-        return true;
-    } catch (PDOException $e) {
-        return false;
-    }
-}
-
-// Function to generate bot response based on user input
-function generateBotResponse($userMessage) {
-    // Normalize user input to lowercase for easier comparison
-    $userMessage = strtolower($userMessage);
-
-    // Check for keywords in the user's message and generate responses accordingly
-    if (strpos($userMessage, "register") !== false) {
-        return "Sure! To register for voting, please provide your personal information and required documents.";
-    } elseif (strpos($userMessage, "upload documents") !== false) {
-        return "To upload your documents, go to your dashboard and click on 'Document Upload.' Then, follow the on-screen instructions.";
-    } elseif (strpos($userMessage, "update profile") !== false) {
-        return "You can update your profile information in the 'Profile' section of your dashboard. What information would you like to update?";
-    } elseif (strpos($userMessage, "voting process") !== false || strpos($userMessage, "voting FAQs") !== false) {
-        // Provide information about the voting process or FAQs
-        return "Certainly! Here are some common FAQs about the voting process...";
-    } elseif (strpos($userMessage, "real-time data") !== false) {
-        // Provide information about real-time voting data
-        return "Yes, we provide real-time data and analytics on the dashboard. You can check the latest voting statistics there.";
-    } elseif (strpos($userMessage, "help") !== false) {
-        // Offer assistance for general inquiries
-        return "Of course! Feel free to ask any questions or let me know how I can assist you further.";
-    } elseif (strpos($userMessage, "logout") !== false) {
-        // Handle logout request
-        return "You have been successfully logged out. If you have any more questions in the future, don't hesitate to ask!";
-    } else {
-        // Default response for unrecognized queries
-        return "I'm sorry, I couldn't understand your request. Please feel free to ask another question.";
-    }
-}
-
+// Return the bot response in JSON format
+$response = array('botResponse' => $botResponse);
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>

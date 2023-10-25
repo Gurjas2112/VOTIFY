@@ -96,12 +96,7 @@ try {
                             </a>
                         </li>
 						
-						<li class="sidebar-item  ">
-                            <a href="Admin-Notification_Management.php" class='sidebar-link'>
-                                <i class="bi bi-clock-fill"></i>
-                                <span>Notification Management</span>
-                            </a>
-                        </li>
+				
 						
 						<li class="sidebar-item">
 							<a href="Admin-feedback_Management.php" class='sidebar-link'>

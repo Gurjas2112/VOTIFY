@@ -1,3 +1,56 @@
+<?php
+// Include the database connection configuration
+include 'db_connect.php'; // Replace with your actual database configuration file
+
+// Initialize a session to access user data
+session_start();
+
+// Check if the user is logged in (you can implement your authentication logic here)
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php'); // Redirect to the login page if not logged in
+    exit();
+}
+
+// Retrieve user information (you can replace this with your actual database query)
+$user_id = $_SESSION['user_id']; // Assuming you store the user's ID in the session
+$user_info = []; // Initialize an array to store user data
+
+try {
+    // Create a PDO instance
+    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+
+    // Set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Prepare a SQL statement to retrieve user information based on the user's ID
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+
+    // Fetch the user's information
+    $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Database connection or query error
+    // Handle the error appropriately (e.g., display an error message)
+    echo "Database error: " . $e->getMessage();
+}
+
+// Now, you can retrieve and display the documents for users where is_admin=0
+$documentInfo = []; // Initialize an array to store document data
+
+try {
+    // Prepare a SQL statement to retrieve document information for users where is_admin=0
+    $documentStmt = $pdo->prepare("SELECT id, adhardoc, photodoc, RegistrationStatus FROM users WHERE is_admin = 0");
+    $documentStmt->execute();
+
+    // Fetch the document information
+    $documentInfo = $documentStmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Handle the error appropriately
+    echo "Error retrieving document information: " . $e->getMessage();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,12 +110,7 @@
                             </a>
                         </li>
 						
-						<li class="sidebar-item  ">
-                            <a href="Admin-Notification_Management.php" class='sidebar-link'>
-                                <i class="bi bi-clock-fill"></i>
-                                <span>Notification Management</span>
-                            </a>
-                        </li>
+						
 						
 						<li class="sidebar-item">
 							<a href="Admin-feedback_Management.php" class='sidebar-link'>
@@ -109,35 +157,34 @@
                 </div>
                
 				
-				
-				<section class="section">
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>User ID</th>
-                                        <th>Candidate Aadhar card</th>
-                                        <th>Candidate Photo</th>
-										<th> Candidate Registration Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1235</td>
-										<td>Aadhar card</td>
-                              
-                                        <td>Photo</td>
-                             
-                                        <td><span class="badge bg-success">Active</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </section>
-				
+               <section class="section">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped" id="table1">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Candidate Aadhar card</th>
+                                <th>Candidate Photo</th>
+                                <th>Candidate Registration Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($documentInfo as $document) {
+                                echo '<tr>';
+                                echo '<td>' . $document['id'] . '</td>';
+                                echo '<td>' . $document['adhardoc'] . '</td>';
+                                echo '<td>' . $document['photodoc'] . '</td>';
+                                echo '<td><span class="badge bg-success">' . $document['RegistrationStatus'] . '</span></td>';
+                                echo '</tr>';
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 				
 				
             </div>

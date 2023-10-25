@@ -68,7 +68,7 @@ try {
         <tr>
             <td style="width: 50%; text-align: left;">
                 <!-- Left-aligned image -->
-                <img src="img/logo1.png" alt="VOTIFY Logo" height="100px" style="box-sizing: border-box;">
+                <img src="img/logo1.jpg" alt="VOTIFY Logo" height="100px" style="box-sizing: border-box;">
             </td>
             <td colspan="2">
                 <!-- Center-aligned VOTIFY heading -->
@@ -77,7 +77,7 @@ try {
             </td>
             <td style="width: 50%; text-align: right;">
                 <!-- Right-aligned image -->
-                <img src="img/logo1.png" alt="VOTIFY Logo" height="100px" style="box-sizing: border-box;">
+                <img src="img/logo1.jpg" alt="VOTIFY Logo" height="100px" style="box-sizing: border-box;">
             </td>
         </tr>
     </table>

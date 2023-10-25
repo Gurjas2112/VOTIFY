@@ -88,7 +88,7 @@ if(isset($_SESSION['user_id'])) {
 
 <div class="d-flex align-items-center justify-content-between">
   <a href="dashboard-mainpage.php" class="logo d-flex align-items-center">
-    <img src="votify-user dashboard/assets/img/logo1.png" alt="">
+    <img src="votify-user dashboard/assets/img/logo1.jpg" alt="">
     <span class="d-none d-lg-block">Votify</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>

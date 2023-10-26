@@ -11,8 +11,6 @@ $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
-
->>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,10 +70,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                             </a>
                         </li>
 						
-<<<<<<< HEAD
 					
-=======
->>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
 						<li class="sidebar-item ">
 							<a href="Admin-Admin_Profile.php" class='sidebar-link'>
 								<i class="bi bi-person-fill"></i>

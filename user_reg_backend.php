@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Calculate the registration progress based on the number of fields filled
     $filledFields = count(array_filter([$name, $aadharCard, $phoneNumber, $dateOfBirth, $age, $Email, $address, $gender1, $gender2, $gender3, $city, $state, $country]));
-    $registrationProgress = ($filledFields / 13) * 100;
+    $registrationProgress = ($filledFields / 11) * 100;
 
     // Check if any of the fields are empty
     if (empty($name) || empty($aadharCard) || empty($phoneNumber) || empty($dateOfBirth) || empty($age) || empty($Email) || empty($address) || empty($city) || empty($state) || empty($country)) {

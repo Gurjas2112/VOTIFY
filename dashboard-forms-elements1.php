@@ -19,7 +19,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, Name, AadharCard, PhoneNumber, DateOfBirth, Age, Address, Gender1, Gender2, Gender3, City, State, Country, profile_pic, RegistrationStatus FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT Name, username, email, AadharCard, PhoneNumber, DateOfBirth, Age, Address, Gender1, Gender2, Gender3, City, State, Country, profile_pic, RegistrationStatus, photodoc FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $_SESSION['user_id']);
     $stmt->execute();
 
@@ -186,8 +186,8 @@ catch(PDOException $e) {
         <li class="nav-item dropdown pe-3">
 
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?php echo $user['photodoc']; ?>" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $userName; ?></span>
+            <img src="<?php echo $user_info['photodoc']; ?>" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['Name']; ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

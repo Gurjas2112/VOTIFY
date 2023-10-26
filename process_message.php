@@ -12,7 +12,7 @@ $botResponses = array(
     2. Navigate to your dashboard.
     3. Click on the "Document Upload" section.
     4. Follow the on-screen instructions to upload your identification documents.',
-    'Voting process' => 'Certainly! Here\'s an overview of the voting process:
+    'voting process' => 'Certainly! Here\'s an overview of the voting process:
     1. Voter Registration: Ensure you are a registered voter by providing your details and necessary documents.
     2. Candidate Information: Access information about candidates and their platforms.
     3. Voting Day: On the election day, visit your polling station and cast your vote.

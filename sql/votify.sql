@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 26, 2023 at 08:23 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 26, 2023 at 08:02 PM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,11 +27,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `candidates`
 --
 
-CREATE TABLE `candidates` (
-  `candidate_id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `candidates`;
+CREATE TABLE IF NOT EXISTS `candidates` (
+  `candidate_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`candidate_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `candidates`
@@ -69,11 +71,14 @@ INSERT INTO `candidates` (`candidate_id`, `name`, `image`) VALUES
 -- Table structure for table `cities`
 --
 
-CREATE TABLE `cities` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `state_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `cities`;
+CREATE TABLE IF NOT EXISTS `cities` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `state_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `state_id` (`state_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=957 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cities`
@@ -1043,9 +1048,12 @@ INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 -- Table structure for table `electioncandidates`
 --
 
-CREATE TABLE `electioncandidates` (
-  `election_id` int(11) DEFAULT NULL,
-  `candidate_id` int(11) DEFAULT NULL
+DROP TABLE IF EXISTS `electioncandidates`;
+CREATE TABLE IF NOT EXISTS `electioncandidates` (
+  `election_id` int DEFAULT NULL,
+  `candidate_id` int DEFAULT NULL,
+  KEY `election_id` (`election_id`),
+  KEY `candidate_id` (`candidate_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1084,9 +1092,12 @@ INSERT INTO `electioncandidates` (`election_id`, `candidate_id`) VALUES
 -- Table structure for table `electionlocations`
 --
 
-CREATE TABLE `electionlocations` (
-  `election_id` int(11) DEFAULT NULL,
-  `location_id` int(11) DEFAULT NULL
+DROP TABLE IF EXISTS `electionlocations`;
+CREATE TABLE IF NOT EXISTS `electionlocations` (
+  `election_id` int DEFAULT NULL,
+  `location_id` int DEFAULT NULL,
+  KEY `election_id` (`election_id`),
+  KEY `location_id` (`location_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1119,11 +1130,13 @@ INSERT INTO `electionlocations` (`election_id`, `location_id`) VALUES
 -- Table structure for table `elections`
 --
 
-CREATE TABLE `elections` (
-  `election_id` int(11) NOT NULL,
-  `election_name` varchar(255) DEFAULT NULL,
-  `election_date` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `elections`;
+CREATE TABLE IF NOT EXISTS `elections` (
+  `election_id` int NOT NULL AUTO_INCREMENT,
+  `election_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `election_date` date DEFAULT NULL,
+  PRIMARY KEY (`election_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `elections`
@@ -1145,20 +1158,23 @@ INSERT INTO `elections` (`election_id`, `election_name`, `election_date`) VALUES
 -- Table structure for table `otp_recovery`
 --
 
-CREATE TABLE `otp_recovery` (
-  `id` int(11) NOT NULL,
-  `email` varchar(200) DEFAULT NULL,
-  `otp` varchar(6) NOT NULL,
+DROP TABLE IF EXISTS `otp_recovery`;
+CREATE TABLE IF NOT EXISTS `otp_recovery` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `otp` varchar(6) COLLATE utf8mb4_general_ci NOT NULL,
   `is_expired` tinyint(1) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `otp` (`otp`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `otp_recovery`
 --
 
 INSERT INTO `otp_recovery` (`id`, `email`, `otp`, `is_expired`, `created_at`) VALUES
-(1, 'gsgbmcc@gmail.com', '483854', 0, '2023-10-09 14:27:52');
+(32, 'hritik.mahajan@gmail.com', '158969', 1, '2023-10-26 19:02:19');
 
 -- --------------------------------------------------------
 
@@ -1166,10 +1182,12 @@ INSERT INTO `otp_recovery` (`id`, `email`, `otp`, `is_expired`, `created_at`) VA
 -- Table structure for table `pollinglocations`
 --
 
-CREATE TABLE `pollinglocations` (
-  `location_id` int(11) NOT NULL,
-  `location_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `pollinglocations`;
+CREATE TABLE IF NOT EXISTS `pollinglocations` (
+  `location_id` int NOT NULL AUTO_INCREMENT,
+  `location_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`location_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pollinglocations`
@@ -1195,10 +1213,12 @@ INSERT INTO `pollinglocations` (`location_id`, `location_name`) VALUES
 -- Table structure for table `states`
 --
 
-CREATE TABLE `states` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `states`;
+CREATE TABLE IF NOT EXISTS `states` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `states`
@@ -1248,149 +1268,49 @@ INSERT INTO `states` (`id`, `name`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `profile_pic` varchar(255) DEFAULT NULL,
-  `is_admin` tinyint(1) DEFAULT 0,
-  `Name` varchar(100) DEFAULT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `profile_pic` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `is_admin` tinyint(1) DEFAULT '0',
+  `Name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `DateOfBirth` date DEFAULT NULL,
-  `Age` int(11) DEFAULT NULL,
-  `Address` varchar(200) DEFAULT NULL,
-  `PhoneNumber` varchar(20) DEFAULT NULL,
-  `RegistrationStatus` varchar(20) DEFAULT 'Pending',
-  `City` varchar(100) DEFAULT NULL,
-  `State` varchar(100) DEFAULT NULL,
-  `Country` varchar(100) DEFAULT NULL,
-  `Gender1` varchar(10) DEFAULT NULL,
-  `Gender2` varchar(10) DEFAULT NULL,
-  `Gender3` varchar(10) DEFAULT NULL,
-  `AadharCard` varchar(100) DEFAULT NULL,
-  `adhardoc` varchar(400) DEFAULT NULL,
-  `photodoc` varchar(400) DEFAULT NULL,
-  `profile_progress` decimal(5,2) DEFAULT 0.00,
-  `photo_progress` decimal(5,2) DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Age` int DEFAULT NULL,
+  `Address` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `PhoneNumber` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `RegistrationStatus` varchar(20) COLLATE utf8mb4_general_ci DEFAULT 'Pending',
+  `City` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `State` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Country` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Gender1` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Gender2` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Gender3` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `AadharCard` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adhardoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `photodoc` varchar(400) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `profile_progress` decimal(5,2) DEFAULT '0.00',
+  `photo_progress` decimal(5,2) DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `PhoneNumber` (`PhoneNumber`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `profile_pic`, `is_admin`, `Name`, `DateOfBirth`, `Age`, `Address`, `PhoneNumber`, `RegistrationStatus`, `City`, `State`, `Country`, `Gender1`, `Gender2`, `Gender3`, `AadharCard`, `adhardoc`, `photodoc`, `profile_progress`, `photo_progress`) VALUES
-(0, 'admin', '$2y$10$TBZHWGyGfVGsT6.s4TZZze2q2mK/4LpDCGmSTvvVsBogVqpQNW2rK', 'gurjasgandhi76@gmail.com', NULL, 1, 'Admin', '2002-12-22', 20, 'Pune', '9922233168', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00),
-(47, 'surya', '$2y$10$j3aEBz9.M6EUKnzAbJY0tO7IkkECFOx7jfgjdS3umv3qao.uEWsQq', 'gsgbmcc@gmail.com', NULL, 0, 'GURJAS SINGH GANDHI', '2002-12-21', 20, 'Flat no: 123, Bld no: 456, Elm Street, Downtown, Example City, 123456', '+919922233168', 'registered', '552', '24', 'Indian', 'Male', NULL, NULL, '215939510279', 'uploads/aadhar_card/aadhar_6537b10377109.jpg', 'uploads/photo/photo_6537b1037b6d8.jpg', 0.00, 0.00),
-(50, 'gg_knight_', '$2y$10$rpfDq33/pVCBWWJfW/dBU.4IX5PCaFaNOWh2xmpLoGoM3TOlB.LwO', 'gsgandhi21@gmail.com', NULL, 0, 'GURJAS SINGH GAREWAL', '2002-12-21', 20, 'Flat no: 123, Bld no: 456, Elm Street, Downtown, Example City, 123456', '+919922233169', 'registered', '253', '14', 'Indian', 'Male', '', '', '215939510279', 'uploads/aadhar_card/aadhar_653935316c1a0.jpg', 'uploads/photo/photo_653935316c41b.jpg', 100.00, 100.00);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `candidates`
---
-ALTER TABLE `candidates`
-  ADD PRIMARY KEY (`candidate_id`);
-
---
--- Indexes for table `cities`
---
-ALTER TABLE `cities`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `state_id` (`state_id`);
-
---
--- Indexes for table `electioncandidates`
---
-ALTER TABLE `electioncandidates`
-  ADD KEY `election_id` (`election_id`),
-  ADD KEY `candidate_id` (`candidate_id`);
-
---
--- Indexes for table `electionlocations`
---
-ALTER TABLE `electionlocations`
-  ADD KEY `election_id` (`election_id`),
-  ADD KEY `location_id` (`location_id`);
-
---
--- Indexes for table `elections`
---
-ALTER TABLE `elections`
-  ADD PRIMARY KEY (`election_id`);
-
---
--- Indexes for table `otp_recovery`
---
-ALTER TABLE `otp_recovery`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `otp` (`otp`);
-
---
--- Indexes for table `pollinglocations`
---
-ALTER TABLE `pollinglocations`
-  ADD PRIMARY KEY (`location_id`);
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `PhoneNumber` (`PhoneNumber`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `candidates`
---
-ALTER TABLE `candidates`
-  MODIFY `candidate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT for table `cities`
---
-ALTER TABLE `cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957;
-
---
--- AUTO_INCREMENT for table `elections`
---
-ALTER TABLE `elections`
-  MODIFY `election_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `otp_recovery`
---
-ALTER TABLE `otp_recovery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `pollinglocations`
---
-ALTER TABLE `pollinglocations`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `states`
---
-ALTER TABLE `states`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+(0, 'admin', '$2y$10$TBZHWGyGfVGsT6.s4TZZze2q2mK/4LpDCGmSTvvVsBogVqpQNW2rK', 'gurjasgandhi76@gmail.com', NULL, 1, 'Admin', '2002-12-22', 20, 'Pune', '9922233168', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00'),
+(47, 'surya', '$2y$10$j3aEBz9.M6EUKnzAbJY0tO7IkkECFOx7jfgjdS3umv3qao.uEWsQq', 'gsgbmcc@gmail.com', NULL, 0, 'GURJAS SINGH GANDHI', '2002-12-21', 20, 'Flat no: 123, Bld no: 456, Elm Street, Downtown, Example City, 123456', '+919922233168', 'registered', '552', '24', 'Indian', 'Male', NULL, NULL, '215939510279', 'uploads/aadhar_card/aadhar_6537b10377109.jpg', 'uploads/photo/photo_6537b1037b6d8.jpg', '0.00', '0.00'),
+(50, 'gg_knight_', '$2y$10$rpfDq33/pVCBWWJfW/dBU.4IX5PCaFaNOWh2xmpLoGoM3TOlB.LwO', 'gsgandhi21@gmail.com', NULL, 0, 'GURJAS SINGH GAREWAL', '2002-12-21', 20, 'Flat no: 123, Bld no: 456, Elm Street, Downtown, Example City, 123456', '+919922233169', 'registered', '253', '14', 'Indian', 'Male', '', '', '215939510279', 'uploads/aadhar_card/aadhar_653935316c1a0.jpg', 'uploads/photo/photo_653935316c41b.jpg', '100.00', '100.00'),
+(51, 'User1', '$2y$10$RGCgkzjBWkI0F1iQKj56JO/9UOjNYn8lr8YxsnVMw58XEVjBHQSFa', 'hritik.mahajan@gmail.com', NULL, 0, 'HRITIK NITIN MAHAJAN', '2003-07-30', 20, 'Flat no: 9, Bld no: 8, Veer Bharat Society, Bhawani Peth, Pune, 411042', '+919767692887', 'registered', '552', '24', 'Indian', 'Male', '', '', '123456781234', 'uploads/aadhar_card/aadhar_653a1632704f8.jpg', 'uploads/photo/photo_653a1632706da.jpg', '100.00', '100.00'),
+(52, 'User2', '$2y$10$2jpwUFnOHcwQIN1F16o6gekYak1S.qP0hLcNG5Vpd575zh/tlZnxS', 'hri222tik.mahajan@gmail.com', NULL, 0, NULL, NULL, NULL, NULL, NULL, 'registered', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00'),
+(53, 'User3', '$2y$10$dUW3vFIUCG1dhqhHqUqXz.fX.POD/pQMvzr/iYzh44Esddf4GpkjW', 'hriti55k.mahajan@gmail.com', NULL, 0, 'HRITIK', '1985-08-20', 38, 'Flat no: 9, Bld no: 8, Veer Bharat Society, Bhawani Peth, Pune, 411042', '+919776792887', 'Pending', '552', '24', 'Indian', 'Male', '', '', '123444489012', NULL, NULL, '100.00', '0.00'),
+(54, 'User4', '$2y$10$3QmSkRt0tLl5QyuaXPM9Mua0mN0kOViT54ro.x.RXxL.jkCrpk/sG', 'h232ritik.mahajan@gmail.com', NULL, 0, 'HRITIK', '1966-08-08', 57, 'Flat no: 9, Bld no: 8, Veer Bharat Society, Bhawani Peth, Pune, 411042', '+916567692887', 'Pending', '308', '16', 'Indian', 'Male', '', '', '123456700012', NULL, NULL, '100.00', '0.00'),
+(55, 'User5', '$2y$10$Q1CGtSOOw5zdb6CNPFoCE.T3FYRks36UKQw949XTbFuWhCx4/436a', 'hritik9878.mahajan@gmail.com', NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00'),
+(56, 'User9', '$2y$10$MXfsF9WW5vSN9Hq8V/ewjeZMjXsubTNXoM2DXYuDi8nI/YnydAgU2', 'hr3456itik.mahajan@gmail.com', NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00');
 
 --
 -- Constraints for dumped tables

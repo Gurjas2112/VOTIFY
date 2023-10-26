@@ -105,63 +105,13 @@ try {
 
 <body data-bs-spy="scroll" data-bs-target=".navbar">
 
-<<<<<<< HEAD
    <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
-=======
-    <!--navbar-->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
-        <div class="container">
-            <a class="logo" href="#home"><img src="img/logo1.jpg" height="80" width="30"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
->>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
 
 <div class="container"> <!-- Wrap the content in a container for center alignment -->
 
-<<<<<<< HEAD
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-=======
-                <ul class="navbar-nav ms-auto">
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>-->
-                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reviews">Reviews</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact  </a>
-                       
-                    </li>
-                    <li class="nav-item">
-            
-<!-- Admin Profile Dropdown -->
-<div class="admin-profile">
- 
-    <div class="admin-dropdown-content">
-    <button class="admin-profile-btn" value="<?php echo $user_info['username']; ?>">
-        <ul> <!-- Wrap the list items in a <ul> element -->
-            <li>   
-        <img src="<?php echo $user_info['profile_pic']; ?>" alt="Admin Profile Picture"></li>
-        <li><a href="Admin-Admin_Dashboard.php">Admin Dashboard</a></li>
-            <li><a href="logout.php">Logout</a></li>
-        </ul>
->>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
     </button>
 
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
@@ -528,7 +478,6 @@ try {
         </div>
     </section>
 
-<<<<<<< HEAD
     
 
    <hr/>
@@ -543,9 +492,6 @@ try {
     }
 </style>
 
-=======
-       
->>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
     <!--footer-->
     <footer class="py-4">
         <div class="container">

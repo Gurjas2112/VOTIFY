@@ -42,16 +42,18 @@
             <a class="logo" href="#home"><img src="img/logo1.jpg" height="80" width="30"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="d-none d-lg-block">Votify</span>
+            </a>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-
 
                 <ul class="navbar-nav ms-auto">
                     <!--<li class="nav-item">
                         <a class="nav-link" href="#home">Home</a>
                     </li>-->
-                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#services">Services</a>
                     </li>
@@ -73,26 +75,11 @@
                         <a class="nav-link" href="#contact">Contact  </a>
                        
                     </li>
-
-                    <div class="dropdown">
-                        <button class="dropbtn">Select Language</button>
-                        <div class="dropdown-content">
-                          <a href="#">English</a><br>
-                          <a href="#">Hindi</a><br>
-                          <a href="#">Tamil</a><br>
-                          <a href="#">Marathi</a><br>
-                          <a href="#">Punjabi</a>
-                          <!-- Add more language options here -->
-                        </div>
-                    </div>&nbsp
-                    
-        
-                
                     <li class="nav-item">
                         <button type="button" class="btn btn-primary" id="form-open">Login</button>
                       </li>
 
-                </ul>
+
             </div>
         </div>
     </nav>
@@ -154,7 +141,9 @@
                <input type="email" name="signup_email" placeholder="Enter your Email" required />  
               </div>
               <button class="button" id="signup">Get OTP</button>
-              
+        <!-- SET DON'T HAVE AN ACCOUNT BUTTON -->
+    
+
 		    </form>
      
 		  </div>
@@ -195,6 +184,17 @@
           <!-- Signup Form -->
           <div class="form signup_form" id="signup">
             <form action="signup.php" method="POST">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="button_close1">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <!---js code to close the button --->
+
+            <script>
+                document.getElementById("button_close1").onclick = function () {
+                    location.href = "homepage.php";
+                };
+                </script>
               <h2>Signup</h2>
   
               <div class="input_box">
@@ -927,7 +927,10 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0">Copyright © 2023-2024.</p>
+                    <p class="mb-0"><a href="privacy_policy.php">
+                        Copyright © 2023-2024.
+</a>
+                    </p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div>

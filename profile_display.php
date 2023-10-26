@@ -141,7 +141,9 @@ try {
                     <!--<li class="nav-item">
                         <a class="nav-link" href="#home">Home</a>
                     </li>-->
-                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#services">Services</a>
                     </li>
@@ -160,19 +162,7 @@ try {
                        
                     </li>
 
-                    <div class="dropdown">
-                        <button class="drop_btn">Select Language</button>
-                        <div class="dropdown-content">
-                          <a href="#">English</a><br>
-                          <a href="#">Hindi</a><br>
-                          <a href="#">Tamil</a><br>
-                          <a href="#">Marathi</a><br>
-                          <a href="#">Punjabi</a>
-                          <!-- Add more language options here -->
-                        </div>
-                    </div>&nbsp
-                    
-        
+                  
                 
                     <li class="nav-item">
             <!-- HTML for User Profile Dropdown -->

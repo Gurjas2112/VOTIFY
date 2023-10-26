@@ -23,15 +23,12 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email,Name,AadharCard,PhoneNumber,DateOfBirth,Age,Address,Gender1,Gender2,Gender3,City,State,Country, profile_pic,RegistrationStatus,adhardoc,photodoc FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email, Name, AadharCard, PhoneNumber, DateOfBirth, Age, Address, Gender1, Gender2, Gender3, City, State, Country, profile_pic, RegistrationStatus, adhardoc, photodoc FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
     // Fetch the user's information
     $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    
-
 } catch (PDOException $e) {
     // Database connection or query error
     // Handle the error appropriately (e.g., display an error message)
@@ -77,6 +74,7 @@ try {
     font-size: 14px;
 }
 </style>
+</head>
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
@@ -143,7 +141,7 @@ try {
               <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['username']; ?></span>
-          </a><!-- End Profile Iamge Icon -->
+          </a><!-- End Profile Image Icon -->
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li>
               <a class="dropdown-item d-flex align-items-center" href="dashboard-mainpage.php">
@@ -233,9 +231,10 @@ try {
         </div>
         <!-- Registration Form -->
         <form id="myForm" action="fileupload_backend.php" method="POST" enctype="multipart/form-data">
-            <!-- Input for Aadhar Card -->
+            
+                <!-- Input for Aadhar Card -->
 <div class="row mb-3">
-    <label for="inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
+    <label for "inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
     <div class="col-sm-10">
         <input class="form-control" type="file" name="aadhar_card" id="aadhar_card" accept=".jpg, .pdf" placeholder="<?php echo $user_info['adhardoc']; ?>">
         <span class="error" id="adhardoc-error"></span>
@@ -243,7 +242,7 @@ try {
     </div>
 </div>
 
-<!-- Input for Photo -->
+        <!-- Input for Photo -->
 <div class="row mb-3">
     <label for="inputNumber" class="col-sm-2 col-form-label">Upload Photo</label>
     <div class="col-sm-10">
@@ -252,6 +251,9 @@ try {
         <span class="success" id="photodoc-success"></span>
     </div>
 </div>
+
+        
+
 
             <br>
           
@@ -263,7 +265,8 @@ try {
                 </center>
             </div>
         </form>
-        <script>
+      <!-- Include the AJAX script -->
+      <script>
     // Function to validate and handle document uploads
 function validateDocumentUpload(inputId, errorSpanId, successSpanId) {
     const fileInput = document.getElementById(inputId);
@@ -273,7 +276,7 @@ function validateDocumentUpload(inputId, errorSpanId, successSpanId) {
     if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
         const fileSize = file.size / 1024; // Size in kilobytes
-        const allowedExtensions = ['jpg', 'pdf'];
+        const allowedExtensions = ['jpg',];
         const fileExtension = file.name.split('.').pop().toLowerCase();
 
         if (fileSize > 2048) { // Maximum file size is 2MB
@@ -317,7 +320,6 @@ document.getElementById('previewSubmitButton').addEventListener('click', functio
 });
 
 </script>
-
     </main>
     <!-- End Main Content -->
     <!-- Footer -->

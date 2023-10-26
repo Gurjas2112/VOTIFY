@@ -100,13 +100,13 @@ try {
                     <hr class="dropdown-divider">
                   </li>
                   <li class="notification-item">
-                    <i class="bi bi-exclamation-circle text-warning"></i>
-                    <div>
-                      <h4>Registration Confirmation</h4>
-                      <p>"Congratulations! Your voter registration has been successfully confirmed. You are now eligible to vote in the upcoming elections."</p>
-                      <p>30 min. ago</p>
-                    </div>
-                  </li>
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Registration Status</h4>
+            <p> <?php echo $user_info['RegistrationStatus']; ?></p>
+          
+              </div>
+            </li>
                   <li>
                     <hr class="dropdown-divider">
                   </li>
@@ -139,9 +139,9 @@ try {
               </li><!-- End Notification Nav -->
               <li class="nav-item dropdown pe-3">
               <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['username']; ?></span>
-          </a><!-- End Profile Image Icon -->
+            <img src="<?php echo $user['photodoc']; ?>" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['Name']; ?></span>
+          </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li>
               <a class="dropdown-item d-flex align-items-center" href="dashboard-mainpage.php">
@@ -226,22 +226,12 @@ try {
                     <li class="breadcrumb-item"><a href="dashboard-mainpage.php">Home</a></li>
                     <li class="breadcrumb-item">Registration</li>
                 </ol>
-                <p>Please upload only JPG or PDF files.</p>
+                <p>Please upload only JPG files.</p>
             </nav>
         </div>
         <!-- Registration Form -->
         <form id="myForm" action="fileupload_backend.php" method="POST" enctype="multipart/form-data">
-            
-                <!-- Input for Aadhar Card -->
-<div class="row mb-3">
-    <label for "inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
-    <div class="col-sm-10">
-        <input class="form-control" type="file" name="aadhar_card" id="aadhar_card" accept=".jpg, .pdf" placeholder="<?php echo $user_info['adhardoc']; ?>">
-        <span class="error" id="adhardoc-error"></span>
-        <span class="success" id="adhardoc-success"></span>
-    </div>
-</div>
-
+      
         <!-- Input for Photo -->
 <div class="row mb-3">
     <label for="inputNumber" class="col-sm-2 col-form-label">Upload Photo</label>
@@ -249,6 +239,17 @@ try {
         <input class="form-control" type="file" name="user_photo" id="user_photo" accept=".jpg, .pdf" placeholder="<?php echo $user_info['photodoc']; ?>">
         <span class="error" id="photodoc-error"></span>
         <span class="success" id="photodoc-success"></span>
+    </div>
+</div>
+
+      
+                <!-- Input for Aadhar Card -->
+                <div class="row mb-3">
+    <label for "inputNumber" class="col-sm-2 col-form-label">Upload Aadhar Card</label>
+    <div class="col-sm-10">
+        <input class="form-control" type="file" name="aadhar_card" id="aadhar_card" accept=".jpg, .pdf" placeholder="<?php echo $user_info['adhardoc']; ?>">
+        <span class="error" id="adhardoc-error"></span>
+        <span class="success" id="adhardoc-success"></span>
     </div>
 </div>
 
@@ -267,45 +268,51 @@ try {
         </form>
       <!-- Include the AJAX script -->
       <script>
-    // Function to validate and handle document uploads
-function validateDocumentUpload(inputId, errorSpanId, successSpanId) {
-    const fileInput = document.getElementById(inputId);
-    const errorSpan = document.getElementById(errorSpanId);
-    const successSpan = document.getElementById(successSpanId);
+// Function to validate uploaded file with file size restriction
+function validateFileUploadWithSize(inputId, errorId, successId, allowedExtensions, maxSizeInBytes) {
+  const fileInput = document.getElementById(inputId);
+  const errorElement = document.getElementById(errorId);
+  const successElement = document.getElementById(successId);
 
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const fileSize = file.size / 1024; // Size in kilobytes
-        const allowedExtensions = ['jpg',];
-        const fileExtension = file.name.split('.').pop().toLowerCase();
+  fileInput.addEventListener("change", function () {
+    const file = this.files[0];
 
-        if (fileSize > 2048) { // Maximum file size is 2MB
-            errorSpan.innerText = 'File size should not exceed 2MB.';
-            successSpan.innerText = ''; // Clear any success message
-            fileInput.value = ''; // Clear the file input
-        } else if (!allowedExtensions.includes(fileExtension)) {
-            errorSpan.innerText = 'Only JPG and PDF files are allowed.';
-            successSpan.innerText = ''; // Clear any success message
-            fileInput.value = ''; // Clear the file input
-        } else {
-            errorSpan.innerText = '';
-            successSpan.innerText = 'Document uploaded successfully.';
-        }
-    } else {
-        errorSpan.innerText = 'Please upload a document.';
-        successSpan.innerText = ''; // Clear any success message
+    if (!file) {
+      errorElement.textContent = 'No file selected';
+      successElement.textContent = ''; // Clear any previous success messages
+      return;
     }
+
+    const fileName = file.name;
+    const fileExtension = fileName.split('.').pop().toLowerCase();
+    const fileSize = file.size;
+
+    if (!allowedExtensions.includes(fileExtension)) {
+      errorElement.textContent = 'Invalid  document';
+      successElement.textContent = ''; // Clear any previous success messages
+      this.value = ''; // Clear the input field
+    } else if (fileSize > maxSizeInBytes) {
+      errorElement.textContent = 'File size exceeds the limit';
+      successElement.textContent = ''; // Clear any previous success messages
+      this.value = ''; // Clear the input field
+    } else {
+      errorElement.textContent = ''; // Clear any previous error messages
+      successElement.textContent = 'Valid document';
+    }
+  });
 }
 
+// Define the allowed file extensions (e.g., .jpg)
+const allowedExtensions = ['jpg'];
 
-// Add event listeners for document uploads
-document.getElementById('aadhar_card').addEventListener('change', function () {
-    validateDocumentUpload('user_photo', 'adhardoc-error', 'adhardoc-success');
-});
+// Define the maximum file size in bytes (e.g., 5 MB)
+const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
 
-document.getElementById('user_photo').addEventListener('change', function () {
-    validateDocumentUpload('user_photo', 'photodoc-error', 'photodoc-success');
-});
+// Validate the "Upload Photo" field with file size restriction
+validateFileUploadWithSize('user_photo', 'photodoc-error', 'photodoc-success', allowedExtensions, maxSizeInBytes);
+
+// Validate the "Upload Aadhar Card" field with file size restriction
+validateFileUploadWithSize('aadhar_card', 'adhardoc-error', 'adhardoc-success', allowedExtensions, maxSizeInBytes);
 
 // Handle "Preview and Submit" button click
 document.getElementById('previewSubmitButton').addEventListener('click', function (event) {

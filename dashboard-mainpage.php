@@ -23,7 +23,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email,RegistrationStatus, profile_pic,profile_progress, photo_progress FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email,RegistrationStatus, photodoc,profile_progress, photo_progress,Name FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -102,15 +102,15 @@ try {
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              You have 3 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-1">View all</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
+              
               <div>
                 <h4>Registration Status</h4>
             <p><?php echo $user_info['RegistrationStatus']; ?>"</p>
@@ -123,7 +123,7 @@ try {
             </li>
 
             <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
+             
               <div>
                 <h4>Polling Station Information</h4>
                 <p>"Find your nearest polling station: [Link]. Make sure you know where to cast your vote on Election Day."</p>
@@ -149,7 +149,7 @@ try {
             </li>-->
 
             <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
+             
               <div>
                 <h4>Election Results</h4>
                 <p>"Stay tuned for live election results on [Date].</p>
@@ -167,10 +167,9 @@ try {
 
         <li class="nav-item dropdown pe-3">
 
-    
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['username']; ?></span>
+            <img src="<?php echo $user_info['photodoc']; ?>" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['Name'];; ?></span>
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -186,7 +185,12 @@ try {
               <hr class="dropdown-divider">
             </li>
 
-        
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="dashboard-forms-elements1.php">
+                <i class="bi bi-question-circle"></i>
+                <span>Online Registration</span>
+              </a>
+            </li>
             <li>
               <hr class="dropdown-divider">
             </li>

@@ -858,7 +858,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </script>
 <!-- Chatbot button -->
 <button class="chatbot-toggler">
-      <span class="material-symbols-rounded">mode_comment</span>
+      <span class="material-symbols-rounded">Chat</span>
       <span class="material-symbols-outlined">close</span>
     </button>
     <div class="chatbot">
@@ -887,7 +887,9 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0">Copyright © 2023-2024.</p>
+                    <p class="mb-0"><a href="privacy_policy.php">
+                        Copyright © 2023-2024.
+</a></p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div>

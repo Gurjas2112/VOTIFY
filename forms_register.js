@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 
+
   // Function to display an error message
   function displayError(element, message) {
     element.textContent = message;
@@ -104,6 +105,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function displaySuccess(element, message) {
     element.textContent = message;
     element.style.color = "green";
+  }
+
+  // Function to clear a success message
+  function clearSuccess(element) {
+    element.textContent = "";
   }
 
   // Initialize validation functions

@@ -193,6 +193,16 @@ if(isset($_SESSION['user_id'])) {
             <span>My Profile</span>
           </a>
         </li>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+              <a class="dropdown-item d-flex align-items-center" href="dashboard-forms-elements1.php">
+                <i class="bi bi-question-circle"></i>
+                <span>Online Registration</span>
+              </a>
+            </li>
         <li>
           <hr class="dropdown-divider">
         </li>
@@ -205,6 +215,7 @@ if(isset($_SESSION['user_id'])) {
         <li>
           <hr class="dropdown-divider">
         </li>
+       
 
         <li>
           <a class="dropdown-item d-flex align-items-center" href="profile_display.php">

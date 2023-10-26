@@ -7,12 +7,12 @@ $userMessage = strtolower($input['userMessage']);
 $botResponses = array(
     'hi' => 'Hello there!',
     'hello' => 'Hi! How can I assist you today?',
-    'how do i upload my identification documents?' => 'Uploading your documents is easy. Here\'s how:
+    'identification documents' => 'Uploading your documents is easy. Here\'s how:
     1. Log in to your account.
     2. Navigate to your dashboard.
     3. Click on the "Document Upload" section.
     4. Follow the on-screen instructions to upload your identification documents.',
-    'tell me more about the voting process' => 'Certainly! Here\'s an overview of the voting process:
+    'Voting process' => 'Certainly! Here\'s an overview of the voting process:
     1. Voter Registration: Ensure you are a registered voter by providing your details and necessary documents.
     2. Candidate Information: Access information about candidates and their platforms.
     3. Voting Day: On the election day, visit your polling station and cast your vote.

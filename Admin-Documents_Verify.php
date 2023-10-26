@@ -159,7 +159,18 @@ try {
 				
                <section class="section">
             <div class="card">
+
                 <div class="card-body">
+                       <!-- Dropdown for selecting User ID -->
+                       <label for="userIdSelect">Select User ID:</label>
+                        <select id="userIdSelect" class="form-select" onchange="loadDocumentInfo()">
+                            <option value="">Select User ID</option>
+                            <?php
+                            foreach ($documentInfo as $document) {
+                                echo '<option value="' . $document['id'] . '">VOT00' . $document['id'] . '</option>';
+                            }
+                            ?>
+                        </select>
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
@@ -206,7 +217,6 @@ try {
     <script src="Admin/assets/js/perfect-scrollbar.min.js"></script>
     <script src="Admin/assets/js/bootstrap1.bundle.min.js"></script>
 
-   <script src="Admin/assets/js/simple-datatables.js"></script>
    
    <!--JS for User Information Table-->
     <script>

@@ -53,95 +53,107 @@ try {
     <link rel="stylesheet" href="css/homepage.css">
 
 
- 
-    <link rel="stylesheet" href="css/admin.css">
+<style>
+    /* Import Google Fonts (Replace 'Your-Font' with the desired font name) */
+@import url('https://fonts.googleapis.com/css2?family=Your-Font&display=swap');
+
+/* Style for the admin profile button */
+.admin-profile-btn {
+    font-family: 'Your-Font', sans-serif; /* Use the imported Google Font */
+    cursor: pointer;
+}
+
+/* Style for the dropdown content */
+.admin-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Style for the list items */
+.admin-dropdown-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-dropdown-content ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Hover effect for the button */
+.admin-profile:hover .admin-dropdown-content {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+</style>
 
     <title>Votify</title>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar">
 
-    <!--navbar-->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
-        <div class="container">
-            <a class="logo" href="#home"><img src="img/logo1.png" height="80" width="30"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+   <!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
 
+<div class="container"> <!-- Wrap the content in a container for center alignment -->
 
-                <ul class="navbar-nav ms-auto">
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>-->
-                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reviews">Reviews</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact  </a>
-                       
-                    </li>
-
-                    <div class="dropdown">
-                        <button class="drop_btn">Select Language</button>
-                        <div class="dropdown-content">
-                          <a href="#">English</a><br>
-                          <a href="#">Hindi</a><br>
-                          <a href="#">Tamil</a><br>
-                          <a href="#">Marathi</a><br>
-                          <a href="#">Punjabi</a>
-                          <!-- Add more language options here -->
-                        </div>
-                    </div>&nbsp
-                    
-        
-                
-                    <li class="nav-item">
-            
-<!-- Admin Profile Dropdown -->
-<div class="admin-profile">
- 
-    <div class="admin-dropdown-content">
-    <button class="admin-profile-btn" value="<?php echo $user_info['username']; ?>">
-        <ul> <!-- Wrap the list items in a <ul> element -->
-            <li>   
-        <img src="<?php echo $user_info['profile_pic']; ?>" alt="Admin Profile Picture"></li>
-        <li><a href="Admin-Admin_Dashboard.php">Admin Dashboard</a></li>
-            <li><a href="logout.php">Logout</a></li>
-        </ul>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
 
-    </div>
-</div>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#blog">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reviews">Reviews</a>
+            </li>
+        </ul>
 
-                      </li>
-
+        <!-- Admin Profile Dropdown -->
+        <div class="admin-profile ml-3"> <!-- Add margin to separate it from the other links -->
+            <button class="admin-profile-btn" value="<?php echo $user_info['username']; ?>">Admin Profile</button>
+            <div class="admin-dropdown-content">
+                <ul> <!-- Wrap the list items in a <ul> element -->
+                    <li><a href="Admin-Admin_Dashboard.php">Admin Dashboard</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
-    </nav>
-
-    <!--
-
-
-      
+    </div>
+</div>
+</nav>
 
 
 
-    <--hero-->
+      <script>
+    const adminProfileBtn = document.querySelector(".admin-profile-btn");
+    const adminDropdownContent = document.querySelector(".admin-dropdown-content");
+
+    adminProfileBtn.addEventListener("click", function() {
+        adminDropdownContent.style.display = adminDropdownContent.style.display === "block" ? "none" : "block";
+    });
+</script>
     
     <section id="home" class="bg-cover hero-section" style="background-image: url(img/cover_1.jpg);">
         <div class="overlay"></div>
@@ -468,72 +480,25 @@ try {
 
     
 
-    <!--contact-->
-    <section id="contact" class="bg-cover text-white" style="background-image: url(img/cover_1.jpg);">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 section-intro text-center" data-aos="fade-up">
-                    <h1>Get in touch</h1>
-                    <div class="divider"></div>
-                   
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 mx-auto" data-aos="fade-up">
-                    <form action="#" class="row g-4">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" placeholder="Full name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="email" class="form-control" placeholder="Email address">
-                        </div>
-                        
-                        <div class="form-group col-md-12">
-                            <textarea name="" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button class="btn btn-main" type="submit">Send Message</button>
-                        </div>
-                    </form><br>
-                    <h3><center>Any Queries?</center></h3>
-                    <p><center>Let our Chatbot be your helpful companion as you register to vote and participate in the democratic process.<br> We are here to make the journey easier and more accessible for you!</center></p><br>
+   <hr/>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center"  data-aos="fade-up"></div>
-                   
-                    <hr class="my-4">
-                    <p class="mb-4"><center>Have questions or need support? Feel free to reach out to us via phone or email. We are here to assist you!</center></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 mx-auto text-center">
-                    <i class="icon-phone"></i>
-                    <p>123-456-7890</p>
-                </div>
-                <div class="col-lg-4 mx-auto text-center">
-                    <i class='bx bxl-facebook-circle'></i>
-                    <p>Votify</p>
-                </div>
-                
-                <div class="col-lg-4 mx-auto text-center">
-                    <i class="icon-envelope"></i>
-                    <p><a href="mailto:info@votify.com">info@votify.com</a></p>
-                </div>
-            </div>
-        </div>
-   
 
-</section>
+    <style>
+    /* Define a CSS class for the footer */
+    .py4 {
+        background-color: blue; /* Set the background color to blue */
+        color: white; /* Set the text color to white */
+        padding: 20px 0; /* Add some padding to the top and bottom of the footer */
+    }
+</style>
 
-       
     <!--footer-->
     <footer class="py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0">Copyright © 2015-2020.</p>
+                    <p class="mb-0"><a href="privacy_policy.php" >
+                        Copyright © 2023-24. </a></p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div>

@@ -796,7 +796,8 @@ header h2 {
     right: 0;
     bottom: 0;
     height: 100%;
-    border-radius: 0;
+  
+          border-radius: 0;
     width: 100%;
   }
   .chatbot .chatbox {
@@ -809,8 +810,7 @@ header h2 {
   .chatbot header span {
     display: block;
   }
-}
-        </style>
+}</style>
         <script type="text/javascript">
 
 document.addEventListener("DOMContentLoaded", function () {

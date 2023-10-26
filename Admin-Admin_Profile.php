@@ -96,14 +96,7 @@ try {
                             </a>
                         </li>
 						
-				
-						
-						<li class="sidebar-item">
-							<a href="Admin-feedback_Management.php" class='sidebar-link'>
-								<i class="bi bi-pencil-square"></i>
-								<span>Feedback Management</span>
-							</a>
-						</li>   
+		
 
                         <li class="sidebar-item active">
 							<a href="Admin-Admin_Profile.php" class='sidebar-link'>

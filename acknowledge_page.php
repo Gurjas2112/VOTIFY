@@ -223,25 +223,26 @@ if (isset($_SESSION['user_id'])) {
           <hr class="dropdown-divider">
         </li>
 
+    
         <li class="notification-item">
-          <i class="bi bi-exclamation-circle text-warning"></i>
-          <div>
-            <h4>Registration Confirmation</h4>
-        <p>"Congratulations! Your voter registration has been successfully confirmed. You are now eligible to vote in the upcoming elections."</p>
-            <p>30 min. ago</p>
-          </div>
-        </li>
+         
 
+              <div>
+                <h4>Registration Status</h4>
+            <p> <?php echo $user_info['RegistrationStatus']; ?></p>
+          
+              </div>
+            </li>
         <li>
           <hr class="dropdown-divider">
         </li>
 
         <li class="notification-item">
-          <i class="bi bi-x-circle text-danger"></i>
+      
           <div>
             <h4>Polling Station Information</h4>
             <p>"Find your nearest polling station: [Link]. Make sure you know where to cast your vote on Election Day."</p>
-            <p>1 hr. ago</p>
+        
           </div>
         </li>
 
@@ -251,11 +252,10 @@ if (isset($_SESSION['user_id'])) {
 
 
         <li class="notification-item">
-          <i class="bi bi-info-circle text-primary"></i>
           <div>
             <h4>Election Results</h4>
             <p>"Stay tuned for live election results on [Date].</p>
-            <p>4 hrs. ago</p>
+          
           </div>
         </li>
 
@@ -264,12 +264,6 @@ if (isset($_SESSION['user_id'])) {
 
        
 
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li class="dropdown-footer">
-          <a href="#">Show all notifications</a>
-        </li>
 
       </ul><!-- End Notification Dropdown Items -->
 
@@ -280,9 +274,9 @@ if (isset($_SESSION['user_id'])) {
     <li class="nav-item dropdown pe-3">
 
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['username']; ?></span>
-          </a><!-- End Profile Iamge Icon -->
+            <img src="<?php echo $user_info['photodoc']; ?>" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['Name'];; ?></span>
+          </a>
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
       <li>
@@ -399,7 +393,7 @@ if (isset($_SESSION['user_id'])) {
             echo '<p>Thank you for registering.</p>';
         }
         ?>
-        <a href="dashboard-forms-elements2.php">Go to Dashboard</a>
+        <a href="dashboard-mainpage.php">Go to Dashboard</a>
         <br>
         <a href="pdf.php">View pdf</a>
     </div>

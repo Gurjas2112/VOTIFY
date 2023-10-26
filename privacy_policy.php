@@ -104,7 +104,7 @@ to be completely secure. Therefore, we cannot guarantee the security of your inf
         <h4>Contact:0254-478924</h4> 
        </p>
 
-    <a class="back-link" href="/"><-Back</a>
+    <a class="back-link" href="homepage.php">Back to homepage</a>
 	</b>
 </body>
 </html>

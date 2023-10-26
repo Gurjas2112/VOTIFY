@@ -23,7 +23,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare a SQL statement to retrieve user information based on the user's ID
-    $stmt = $pdo->prepare("SELECT username, email, profile_pic FROM users WHERE id = :user_id");
+    $stmt = $pdo->prepare("SELECT username, email, profile_pic,RegistrationStatus,Name,photodoc FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
@@ -118,11 +118,12 @@ try {
             </li>
 
             <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
+            <i class="bi bi-check-circle text-success"></i>
+
               <div>
-                <h4>Registration Confirmation</h4>
-            <p>"Congratulations! Your voter registration has been successfully confirmed. You are now eligible to vote in the upcoming elections."</p>
-                <p>30 min. ago</p>
+                <h4>Registration Status</h4>
+            <p> <?php echo $user_info['RegistrationStatus']; ?></p>
+          
               </div>
             </li>
 
@@ -172,8 +173,8 @@ try {
         <li class="nav-item dropdown pe-3">
 
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?php echo $user_info['profile_pic']; ?>" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['username']; ?></span>
+            <img src="<?php echo $user_info['photodoc']; ?>" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_info['Name']; ?></span>
           </a><!-- End Profile Iamge Icon --><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -191,6 +192,16 @@ try {
               <a class="dropdown-item d-flex align-items-center" href="dashboard-users_profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
+              </a>
+            </li>
+            
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="dashboard-forms-elements1.php">
+                <i class="bi bi-question-circle"></i>
+                <span>Online Registration</span>
               </a>
             </li>
             <li>
@@ -494,10 +505,94 @@ try {
         </div>
 
       </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const chatbotToggler = document.querySelector(".chatbot-toggler");
+    const closeBtn = document.querySelector(".close-btn");
+    const chatbox = document.querySelector(".chatbox");
+    const chatInput = document.querySelector(".chat-input textarea");
+    const sendChatBtn = document.querySelector(".chat-input span");
+
+    const inputInitHeight = chatInput.scrollHeight;
+
+    // Event listener for sending chat messages
+    function handleChat() {
+        const userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
+        if (!userMessage) return;
+
+        // Clear the input textarea and set its height to default
+        chatInput.value = "";
+        chatInput.style.height = `${inputInitHeight}px`;
+
+        // Append the user's message to the chat-box
+        appendChatMessage(userMessage, "outgoing");
+
+        // Send the user's message to the server using fetch
+        sendUserMessageToServer(userMessage);
+
+        // Simulate a bot response (you can replace this with actual bot logic)
+
+    }
+
+    // Function to append chat messages to the chat-box
+    function appendChatMessage(message, className) {
+        const chatLi = document.createElement("li");
+        chatLi.classList.add("chat", className);
+        let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+        chatLi.innerHTML = chatContent;
+        chatLi.querySelector("p").textContent = message;
+        chatbox.appendChild(chatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    }
+
+    // Function to send user's message to the server using fetch
+    function sendUserMessageToServer(message) {
+        fetch("process_message.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userMessage: message })
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            // Handle the success response here (bot's reply)
+            appendChatMessage(data.botResponse, "incoming");
+        })
+        .catch(function(error) {
+            // Handle the error here
+            console.error(error);
+        });
+    }
+
+    // Event listeners
+    chatInput.addEventListener("input", () => {
+        // Adjust the height of the input textarea based on its content
+        chatInput.style.height = `${inputInitHeight}px`;
+        chatInput.style.height = `${chatInput.scrollHeight}px`;
+    });
+
+    chatInput.addEventListener("keydown", (e) => {
+        // If Enter key is pressed without Shift key and the window width is greater than 800px, handle the chat
+        if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+            e.preventDefault();
+            handleChat();
+        }
+    });
+
+    sendChatBtn.addEventListener("click", handleChat);
+    closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+    chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+});
+      </script>
 	  <!-- Chatbot button -->
-   <div id="chatbox1" class="chatbox1">
     <button class="chatbot-toggler">
-      <span class="material-symbols-rounded"><!--mode_comment<i class="bi bi-chat-left-text-fill"></i><!--<i class="bi bi-chat-fill"></i>--><i class="bi bi-chat"></i></span>
+      <span class="material-symbols-rounded">Chat</span>
       <span class="material-symbols-outlined">close</span>
     </button>
     <div class="chatbot">
@@ -507,16 +602,16 @@ try {
       </header>
       <ul class="chatbox">
         <li class="chat incoming">
-          <!--<span class="material-symbols-outlined"></span>-->
-          <p>Hi there 👋 How can I help you today?</p>
+          <span class="material-symbols-outlined">smart_toy</span>
+          <p>Hi there 👋<br>How can I help you today?</p>
         </li>
       </ul>
       <div class="chat-input">
         <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-       <!-- <span id="send-btn" class="material-symbols-rounded">send</span>-->
-		<button type="submit" class="material-symbols-rounded">Send</button>
+        <span id="send-btn" class="material-symbols-rounded">send</span>
       </div>
     </div>
+
     </section>
 
   </main><!-- End #main -->
@@ -532,7 +627,7 @@ try {
     </div>
   </footer><!-- End Footer -->
 
- <!-- <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>-->
+
 
   <!-- Vendor JS Files -->
   <script src="votify-user dashboard/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -547,7 +642,7 @@ try {
   <!-- Template Main JS File -->
   <script src="votify-user dashboard/assets/js/main.js"></script>
   <!-- Add your chatbot script here -->
-   <script src="votify-user dashboard/assets/js/chatbot.js" defer></script>
+  
 
 </body>
 

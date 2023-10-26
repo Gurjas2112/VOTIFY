@@ -131,7 +131,7 @@ try {
             <td><strong>State:</strong></td>
             <td>' . htmlspecialchars($stateName) . '</td>
       <tr>
-          <td><strong>Country:</strong></td>
+          <td><strong>Nationality:</strong></td>
           <td>' . htmlspecialchars($user['Country']) . '</td>
       </tr>
       <tr>

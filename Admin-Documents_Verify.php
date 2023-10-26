@@ -173,7 +173,7 @@ try {
                             <?php
                             foreach ($documentInfo as $document) {
                                 echo '<tr>';
-                                echo '<td>' . $document['id'] . '</td>';
+                                echo '<td>VOT00' . $document['id'] . '</td>';
                                 echo '<td>' . $document['adhardoc'] . '</td>';
                                 echo '<td>' . $document['photodoc'] . '</td>';
                                 echo '<td><span class="badge bg-success">' . $document['RegistrationStatus'] . '</span></td>';

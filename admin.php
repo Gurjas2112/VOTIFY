@@ -53,52 +53,7 @@ try {
     <link rel="stylesheet" href="css/homepage.css">
 
 
-<style>
-    /* Import Google Fonts (Replace 'Your-Font' with the desired font name) */
-@import url('https://fonts.googleapis.com/css2?family=Your-Font&display=swap');
 
-/* Style for the admin profile button */
-.admin-profile-btn {
-    font-family: 'Your-Font', sans-serif; /* Use the imported Google Font */
-    cursor: pointer;
-}
-
-/* Style for the dropdown content */
-.admin-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-/* Style for the list items */
-.admin-dropdown-content ul {
-    list-style: none;
-    padding: 0;
-}
-
-.admin-dropdown-content ul li {
-    padding: 10px;
-    text-align: center;
-}
-
-/* Hover effect for the button */
-.admin-profile:hover .admin-dropdown-content {
-    display: block;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-</style>
 
     <title>Votify</title>
 </head>
@@ -108,52 +63,29 @@ try {
    <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
 
-<div class="container"> <!-- Wrap the content in a container for center alignment -->
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#services">Services</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#blog">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#reviews">Reviews</a>
-            </li>
-        </ul>
+    </div>
+</div>
 
-        <!-- Admin Profile Dropdown -->
-        <div class="admin-profile ml-3"> <!-- Add margin to separate it from the other links -->
-            <button class="admin-profile-btn" value="<?php echo $user_info['username']; ?>">Admin Profile</button>
-            <div class="admin-dropdown-content">
-                <ul> <!-- Wrap the list items in a <ul> element -->
-                    <li><a href="Admin-Admin_Dashboard.php">Admin Dashboard</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                      </li>
+
                 </ul>
             </div>
         </div>
-    </div>
-</div>
-</nav>
+    </nav>
+
+    <!--
+
+
+      
 
 
 
-      <script>
-    const adminProfileBtn = document.querySelector(".admin-profile-btn");
-    const adminDropdownContent = document.querySelector(".admin-dropdown-content");
-
-    adminProfileBtn.addEventListener("click", function() {
-        adminDropdownContent.style.display = adminDropdownContent.style.display === "block" ? "none" : "block";
-    });
-</script>
+    <--hero-->
     
     <section id="home" class="bg-cover hero-section" style="background-image: url(img/cover_1.jpg);">
         <div class="overlay"></div>
@@ -485,7 +417,7 @@ try {
 
     <style>
     /* Define a CSS class for the footer */
-    .py4 {
+    .footer {
         background-color: blue; /* Set the background color to blue */
         color: white; /* Set the text color to white */
         padding: 20px 0; /* Add some padding to the top and bottom of the footer */

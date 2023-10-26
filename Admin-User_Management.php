@@ -112,14 +112,6 @@ try {
                                 <span>Documents Verification</span>
                             </a>
                         </li>
-						
-						<li class="sidebar-item  ">
-                            <a href="Admin-Notification_Management.php" class='sidebar-link'>
-                                <i class="bi bi-clock-fill"></i>
-                                <span>Notification Management</span>
-                            </a>
-                        </li>
-						
 			
                         <li class="sidebar-item ">
 							<a href="Admin-Admin_Profile.php" class='sidebar-link'>

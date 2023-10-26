@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,7 +102,9 @@
                                         <h4>Registration</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-profile-visit"></div>
+                                        <div id="chart-profile-bargraph">
+                                        <img id="bar-graph-image" src="" alt="Registration Bar Graph">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -147,8 +151,10 @@
                             <div class="card-header">
                                 <h4>User Status</h4>
                             </div>
-                            <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
+                            <div class="card-body" width>
+                            <div id="chart-visitors-piechart">
+                                <img id="pie-chart-image" src="" alt="Registration Status Pie Chart">
+                            </div>
                             </div>
                         </div>                       
 					</div>
@@ -168,10 +174,55 @@
 			</div>
         </div>
     
-	<!--JS files-->
+        <!--JS files-->
+    <script>
+    // Function to update the bar graph image
+function updateBarGraph() {
+    // Fetch the bar graph image from bargraph.php using AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'bargraph.php', true);
+    xhr.responseType = 'blob';
+
+    xhr.onload = function() {
+        // Convert the blob response to a data URL
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            // Set the data URL as the source of the <img> tag
+            document.getElementById('bar-graph-image').src = reader.result;
+        };
+        reader.readAsDataURL(xhr.response);
+    };
+
+    xhr.send();
+}    
+    // Function to update the pie chart image
+    function updatePieChart() {
+        // Fetch the pie chart image from piechart.php using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'piechart.php', true);
+        xhr.responseType = 'blob';
+
+        xhr.onload = function() {
+            // Convert the blob response to a data URL
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                // Set the data URL as the source of the <img> tag
+                document.getElementById('pie-chart-image').src = reader.result;
+            };
+            reader.readAsDataURL(xhr.response);
+        };
+
+        xhr.send();
+    }
+
+    // Call the function to update the pie chart when the page loads
+    window.onload = function() {
+    updateBarGraph();  // Call the function to update the bar graph
+    updatePieChart();  // Call the function to update the pie chart
+};
+</script>
     <script src="Admin/assets/js/perfect-scrollbar.min.js"></script>
     <script src="Admin/assets/js/bootstrap1.bundle.min.js"></script>
-
     <script src="Admin/assets/js/apexcharts.js"></script>
     <script src="Admin/assets/js/dashboard.js"></script>
 

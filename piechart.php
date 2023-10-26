@@ -30,7 +30,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 }
 
 // Create a new pie chart object
-$graph = new PieGraph(265, 265);
+$graph = new PieGraph(250, 250);
 
 // Create a pie plot with the retrieved data
 $pieplot = new PiePlot($data);

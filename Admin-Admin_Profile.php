@@ -95,9 +95,12 @@ try {
                                 <span>Documents Verification</span>
                             </a>
                         </li>
+<<<<<<< HEAD
 						
 		
 
+=======
+>>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
                         <li class="sidebar-item active">
 							<a href="Admin-Admin_Profile.php" class='sidebar-link'>
 								<i class="bi bi-person-fill"></i>

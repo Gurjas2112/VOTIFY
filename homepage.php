@@ -75,6 +75,8 @@
                         <a class="nav-link" href="#contact">Contact  </a>
                        
                     </li>
+        
+                
                     <li class="nav-item">
                         <button type="button" class="btn btn-primary" id="form-open">Login</button>
                       </li>
@@ -132,53 +134,36 @@
           
           
           <!-- Recovery Form -->
-          <div class="form recovery_form">
+          <div class="recovery_form">
           
-            <form action="sent_otp.php" method="POST">
+            <form id="form1" action = "sent_otp.php" method = "POST">
               <h2>Reset Password</h2>
   
               <div class="input_box">
                <input type="email" name="signup_email" placeholder="Enter your Email" required />  
               </div>
-              <button class="button" id="signup">Get OTP</button>
-        <!-- SET DON'T HAVE AN ACCOUNT BUTTON -->
-    
-
+              <button class="button">Get OTP</button>
+              
 		    </form>
      
 		  </div>
 		  
 		  <!-- OTP Form -->
-		  <div class="form otp_form"> 
+		  <div class=""> 
 
-			<form action = "verify.php" method="POST" id="recovery">
+			<form id="form2" style = "display:none;">
 			 <h2>Confirm OTP</h2>
 			 <div class="input_box">
               <input name="otp" type="text" placeholder="Enter OTP" required />
              </div>
 			 
-			 <button class="button" id="#">Confirm</button>
+			 <button class="button" id="#" onclick="showForm3()">Confirm</button>
             </form>  
           </div>
 		  
 		  <!-- Password Reset Form -->
-		  <div class="form pwreset_form">
+		  <div class="">
 		  
-		    <form action = "reset_password.php" method="POST">
-				
-				<div class="input_box">
-                <input name="password" type="password" placeholder="Enter New Password" required />
-                <i class="uil uil-lock password"></i>
-                <i class="uil uil-eye-slash pw_hide"></i>
-              </div>
-              <div class="input_box">
-                <input name="confirm_password" type="password" placeholder="Confirm Password" required />
-                <i class="uil uil-lock password"></i>
-                <i class="uil uil-eye-slash pw_hide"></i>
-              </div>   
-			  <button class="button">Set Password</button>
-            
-			</form>
 		  </div>
   
           <!-- Signup Form -->
@@ -571,16 +556,16 @@
             </div>
             <div class="row">
                 <div class="col-md-8 mx-auto" data-aos="fade-up">
-                    <form action="#" class="row g-4">
+                    <form action="contact.php" method="POST" class="row g-4">
                         <div class="form-group col-md-6">
-                            <input type="text" class="form-control" placeholder="Full name">
+                            <input name="full_name"type="text" class="form-control" placeholder="Full name">
                         </div>
                         <div class="form-group col-md-6">
-                            <input type="email" class="form-control" placeholder="Email address">
+                            <input name="email"type="email" class="form-control" placeholder="Email address">
                         </div>
                         
                         <div class="form-group col-md-12">
-                            <textarea name="" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
+                            <textarea name="message" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
                         </div>
                         <div class="text-center">
                             <button class="btn btn-main" type="submit">Send Message</button>

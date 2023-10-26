@@ -5,6 +5,8 @@
         }
     },
     "require": {
-        "mpdf/mpdf": "^8.2"
+        "mpdf/mpdf": "^8.2",
+        "phpmailer/phpmailer": "^6.8",
+        "composer/semver": "^3.0"
     }
 }

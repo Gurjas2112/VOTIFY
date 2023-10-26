@@ -1,3 +1,18 @@
+
+
+<?php
+
+require "db_connect.php";
+
+// Fetch a random user from the database using PDO
+$query = "SELECT * FROM users ORDER BY RAND() LIMIT 1";
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+?>
+
+>>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +72,10 @@
                             </a>
                         </li>
 						
+<<<<<<< HEAD
 					
+=======
+>>>>>>> 340849f5fef56a98d61716e4fd7d5f274873c77f
 						<li class="sidebar-item ">
 							<a href="Admin-Admin_Profile.php" class='sidebar-link'>
 								<i class="bi bi-person-fill"></i>
@@ -113,14 +131,14 @@
                                                     <tr>
                                                         <th>NAME</th>
                                                         <th>Email</th>
-                                                        <th>Registration Date</th>
+                                                        <th>Registration status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-bold-500">Michael Right</td>
-                                                        <td>michael12@gmail.com</td>
-                                                        <td class="text-bold-500">12/1/2023</td>
+                                                        <td class="text-bold-500">GURJAS SINGH GANDHI
+                                                        <td>gsgbmcc@gmail.com</td>
+                                                        <td class="text-bold-500">registered</td>
 														</tr>
                                                 </tbody>
                                             </table>

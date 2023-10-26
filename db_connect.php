@@ -1,6 +1,3 @@
-
-
-
 <?php
 // Database connection parameters
 $db_host = "localhost"; // database host name or IP address

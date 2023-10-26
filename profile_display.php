@@ -159,18 +159,6 @@ try {
                         <a class="nav-link" href="#contact">Contact  </a>
                        
                     </li>
-
-                    <div class="dropdown">
-                        <button class="drop_btn">Select Language</button>
-                        <div class="dropdown-content">
-                          <a href="#">English</a><br>
-                          <a href="#">Hindi</a><br>
-                          <a href="#">Tamil</a><br>
-                          <a href="#">Marathi</a><br>
-                          <a href="#">Punjabi</a>
-                          <!-- Add more language options here -->
-                        </div>
-                    </div>&nbsp
                     
         
                 
@@ -537,16 +525,16 @@ try {
             </div>
             <div class="row">
                 <div class="col-md-8 mx-auto" data-aos="fade-up">
-                    <form action="#" class="row g-4">
+                <form action="contact.php" method="POST" class="row g-4">
                         <div class="form-group col-md-6">
-                            <input type="text" class="form-control" placeholder="Full name">
+                            <input name="full_name"type="text" class="form-control" placeholder="Full name">
                         </div>
                         <div class="form-group col-md-6">
-                            <input type="email" class="form-control" placeholder="Email address">
+                            <input name="email"type="email" class="form-control" placeholder="Email address">
                         </div>
                         
                         <div class="form-group col-md-12">
-                            <textarea name="" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
+                            <textarea name="message" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
                         </div>
                         <div class="text-center">
                             <button class="btn btn-main" type="submit">Send Message</button>

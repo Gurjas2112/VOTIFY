@@ -64,7 +64,7 @@ try {
     <!--navbar-->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
         <div class="container">
-            <a class="logo" href="#home"><img src="img/logo1.png" height="80" width="30"></a>
+            <a class="logo" href="#home"><img src="img/logo1.jpg" height="80" width="30"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -94,21 +94,6 @@ try {
                         <a class="nav-link" href="#contact">Contact  </a>
                        
                     </li>
-
-                    <div class="dropdown">
-                        <button class="drop_btn">Select Language</button>
-                        <div class="dropdown-content">
-                          <a href="#">English</a><br>
-                          <a href="#">Hindi</a><br>
-                          <a href="#">Tamil</a><br>
-                          <a href="#">Marathi</a><br>
-                          <a href="#">Punjabi</a>
-                          <!-- Add more language options here -->
-                        </div>
-                    </div>&nbsp
-                    
-        
-                
                     <li class="nav-item">
             
 <!-- Admin Profile Dropdown -->
@@ -465,67 +450,6 @@ try {
             </div>
         </div>
     </section>
-
-    
-
-    <!--contact-->
-    <section id="contact" class="bg-cover text-white" style="background-image: url(img/cover_1.jpg);">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 section-intro text-center" data-aos="fade-up">
-                    <h1>Get in touch</h1>
-                    <div class="divider"></div>
-                   
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 mx-auto" data-aos="fade-up">
-                    <form action="#" class="row g-4">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" placeholder="Full name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="email" class="form-control" placeholder="Email address">
-                        </div>
-                        
-                        <div class="form-group col-md-12">
-                            <textarea name="" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button class="btn btn-main" type="submit">Send Message</button>
-                        </div>
-                    </form><br>
-                    <h3><center>Any Queries?</center></h3>
-                    <p><center>Let our Chatbot be your helpful companion as you register to vote and participate in the democratic process.<br> We are here to make the journey easier and more accessible for you!</center></p><br>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center"  data-aos="fade-up"></div>
-                   
-                    <hr class="my-4">
-                    <p class="mb-4"><center>Have questions or need support? Feel free to reach out to us via phone or email. We are here to assist you!</center></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 mx-auto text-center">
-                    <i class="icon-phone"></i>
-                    <p>123-456-7890</p>
-                </div>
-                <div class="col-lg-4 mx-auto text-center">
-                    <i class='bx bxl-facebook-circle'></i>
-                    <p>Votify</p>
-                </div>
-                
-                <div class="col-lg-4 mx-auto text-center">
-                    <i class="icon-envelope"></i>
-                    <p><a href="mailto:info@votify.com">info@votify.com</a></p>
-                </div>
-            </div>
-        </div>
-   
-
-</section>
 
        
     <!--footer-->

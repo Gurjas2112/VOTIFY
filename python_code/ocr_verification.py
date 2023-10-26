@@ -1,50 +1,51 @@
+import os
 import pytesseract
-import cv2
-import mysql.connector
+from PIL import Image
+import json
+import re
+import shutil
 
-# Path to Tesseract executable (change this to your Tesseract installation path)
+# Set the Tesseract executable path
 pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
-def perform_ocr_and_validation(document_data):
+# Function to verify Aadhar Card and store in the "uploads/aadhar_card/" directory
+def verify_and_store_aadhar(user_id, aadhar_image_path):
     try:
-        # Decode the document data into an image
-        image = cv2.imdecode(document_data, cv2.IMREAD_COLOR)
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # Use pytesseract to extract text from the Aadhar card image
+        aadhar_text = pytesseract.image_to_string(Image.open(aadhar_image_path))
+        
+        # Extract 12-digit Aadhar number using regular expression
+        aadhar_number = re.search(r'\b\d{12}\b', aadhar_text)
 
-        # Perform OCR
-        text = pytesseract.image_to_string(gray)
+        if aadhar_number:
+            # Verification successful
+            response = {
+                "success": True,
+                "message": "Aadhar Card verified successfully."
+            }
 
-        # Verification logic
-        if "Aadhaar" in text:  # Customize this condition as needed
-            return "Valid Aadhaar Card"
+            # Define the destination directory for storing verified documents
+            destination_directory = f"uploads/aadhar_card/"
+
+            # Create the user's directory if it doesn't exist
+            if not os.path.exists(destination_directory):
+                os.makedirs(destination_directory)
+
+            # Move the verified Aadhar card image to the user's directory
+            verified_aadhar_path = os.path.join(destination_directory, " ")
+            shutil.move(aadhar_image_path, verified_aadhar_path)
         else:
-            return "Invalid Document"
+            # Verification failed
+            response = {
+                "success": False,
+                "message": "Aadhar Card verification failed. Please upload a valid Aadhar Card."
+            }
     except Exception as e:
-        return "Error: " + str(e)
-
-try:
-    # Connect to the MySQL database
-    db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="votify"
-    )
-
-    cursor = db.cursor()
-
-    # Fetch the latest document data from the database
-    cursor.execute("SELECT document_data FROM user_documents ORDER BY id DESC LIMIT 1")
-    document_data = cursor.fetchone()[0]
-
-    # Perform OCR and validation on the fetched document data
-    verification_result = perform_ocr_and_validation(document_data)
-
-    # Only print the result if it's a valid verification
-    if verification_result == "Valid Aadhaar Card":
-        print(verification_result)
-
-    cursor.close()
-    db.close()
-except Exception as e:
-    print("Error:", str(e))
+        # Handle any errors that may occur during the verification process
+        response = {
+            "success": False,
+            "message": "Error during Aadhar Card verification."
+        }
+    
+    # Return the response as JSON
+    return json.dumps(response)

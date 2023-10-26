@@ -1,44 +1,52 @@
 import cv2
-import numpy as np
-import mysql.connector
+import json
+import os
+import shutil
 
-# Load the pre-trained face detection model
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+# Function to verify a user's photo and store in the "uploads/photo/" directory
+def verify_and_store_photo(user_id, photo_path):
+    try:
+        # Load the pre-trained face detection model (you might need to adjust the path)
+        face_cascade = cv2.CascadeClassifier("external_package/haarcascade_frontalface_default.xml")
 
-# Connect to the MySQL database
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="votify"
-)
+        # Load the user's photo
+        photo = cv2.imread(photo_path)
 
-cursor = db.cursor()
+        # Convert the photo to grayscale
+        gray = cv2.cvtColor(photo, cv2.COLOR_BGR2GRAY)
 
-# Query the database to fetch user documents
-cursor.execute("SELECT user_id, document_data FROM user_documents WHERE verification_status IS NULL")
-results = cursor.fetchall()
+        # Detect faces in the photo
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
 
-for user_id, document_data in results:
-    # Decode the document data into an image
-    image = cv2.imdecode(np.frombuffer(document_data, np.uint8), cv2.IMREAD_COLOR)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        if len(faces) > 0:
+            # Verification successful
+            response = {
+                "success": True,
+                "message": "Photo verified successfully."
+            }
 
-    # Detect faces in the image
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+            # Define the destination directory for storing verified photos
+            destination_directory = f"uploads/photo/"
 
-    if len(faces) > 0:
-        # Recognized as a known face
-        verification_result = "Valid Document"
-    else:
-        # Unknown face
-        verification_result = "Invalid Document"
+            # Create the user's directory if it doesn't exist
+            if not os.path.exists(destination_directory):
+                os.makedirs(destination_directory)
 
-    # Update the verification status in the database
-    update_query = "UPDATE user_documents SET verification_status = %s WHERE user_id = %s"
-    cursor.execute(update_query, (verification_result, user_id))
-    db.commit()
+            # Move the verified photo to the user's directory
+            verified_photo_path = os.path.join(destination_directory)
+            shutil.move(photo_path, verified_photo_path)
+        else:
+            # Verification failed
+            response = {
+                "success": False,
+                "message": "Photo verification failed. No face detected."
+            }
+    except Exception as e:
+        # Handle any errors that may occur during the verification process
+        response = {
+            "success": False,
+            "message": "Error during photo verification."
+        }
 
-# Close database connection
-cursor.close()
-db.close()
+    # Return the response as JSON
+    return json.dumps(response)

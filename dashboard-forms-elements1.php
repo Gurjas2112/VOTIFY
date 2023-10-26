@@ -139,7 +139,7 @@ catch(PDOException $e) {
               <i class="bi bi-exclamation-circle text-warning"></i>
               <div>
                 <h4>Registration Status</h4>
-            <p> <?php echo $user_info['username']; ?></p>
+            <p> <?php echo $user_info['RegistrationStatus']; ?></p>
           
               </div>
             </li>

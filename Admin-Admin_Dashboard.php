@@ -21,7 +21,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-	
+
     <link rel="stylesheet" href="Admin/assets/css/bootstrap.css">
 
     <link rel="stylesheet" href="Admin/assets/css/bold.css">
@@ -41,7 +41,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 						<div class="logo">
 						<a href="Admin-Admin_Dashboard.php"><img src="Admin/assets/images/logo/logo1.png" alt="" srcset="">Votify</a>
 						</div>
-                      
+
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
 						</div>
@@ -55,22 +55,22 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <span>Dashboard</span>
                             </a>
                         </li>
-						
+
 						<li class="sidebar-item ">
                             <a href="Admin-User_Management.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>User Management</span>
                             </a>
                         </li>
-						
+
 						<li class="sidebar-item  ">
                             <a href="Admin-Documents_Verify.php" class='sidebar-link'>
                                 <i class="bi bi-image-fill"></i>
                                 <span>Documents Verification</span>
                             </a>
                         </li>
-						
-					
+
+
 						<li class="sidebar-item ">
 							<a href="Admin-Admin_Profile.php" class='sidebar-link'>
 								<i class="bi bi-person-fill"></i>
@@ -110,7 +110,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-						
+
 				<!--  Tables start -->
                 <section class="section">
                     <div class="row" id="basic-table">
@@ -145,9 +145,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                             </div>
 						</section>
                     </div>
-					
+
 					<!--Pie Chart-->
-                   <div class="col-12 col-lg-3">                      
+                   <div class="col-12 col-lg-3">
 						<div class="card">
                             <div class="card-header">
                                 <h4>User Status</h4>
@@ -157,11 +157,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <img id="pie-chart-image" src="" alt="Registration Status Pie Chart">
                             </div>
                             </div>
-                        </div>                       
+                        </div>
 					</div>
                     </div>
                 </section>
-            
+
 
 				<footer>
 					<div class="footer clearfix mb-0 text-muted">
@@ -174,7 +174,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 				</footer>
 			</div>
         </div>
-    
+
         <!--JS files-->
     <script>
     // Function to update the bar graph image
@@ -195,7 +195,7 @@ function updateBarGraph() {
     };
 
     xhr.send();
-}    
+}
     // Function to update the pie chart image
     function updatePieChart() {
         // Fetch the pie chart image from piechart.php using AJAX

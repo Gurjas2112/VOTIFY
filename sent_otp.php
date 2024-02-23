@@ -17,7 +17,7 @@ if (!empty($_POST['signup_email'])) {
     $_SESSION['signup_email'] = $email;
     $_SESSION['is_expired'] = $is_expired = false;
     $_SESSION['time_start'] = time();
-    $_SESSION['time_end'] = $_SESSION['time_start'] + 20000; // OTP expires in 20 seconds
+    $_SESSION['time_end'] = $_SESSION['time_start'] + 60000; // OTP expires in 20 seconds
 
     // Check if the email exists using PDO
     $query = "SELECT * FROM users WHERE email = :email";

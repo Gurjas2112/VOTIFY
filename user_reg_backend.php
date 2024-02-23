@@ -124,21 +124,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // SQL query to update user data in the database, including the registration progress
-            $sql = "UPDATE users SET 
-                Name = :name, 
-                AadharCard = :aadharCard, 
-                PhoneNumber = :phoneNumber, 
-                DateOfBirth = :dateOfBirth, 
-                Age = :age, 
-                Email = :Email, 
-                Gender1 = :gender, 
-                Gender2 = :gender, 
-                Gender3 = :gender, 
-                Address = :address, 
-                City = :city, 
-                State = :state, 
-                Country = :country, 
-                profile_progress = :profileProgress 
+            $sql = "UPDATE users SET
+                Name = :name,
+                AadharCard = :aadharCard,
+                PhoneNumber = :phoneNumber,
+                DateOfBirth = :dateOfBirth,
+                Age = :age,
+                Email = :Email,
+                Gender1 = :gender,
+                Gender2 = :gender,
+                Gender3 = :gender,
+                Address = :address,
+                City = :city,
+                State = :state,
+                Country = :country,
+                profile_progress = :profileProgress
                 WHERE id = $userID";
 
             // Prepare the SQL statement

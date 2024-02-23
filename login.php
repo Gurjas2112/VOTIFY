@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($_SESSION['is_admin'] == '1') {
                         // Redirect to the admin dashboard
                             header('Location: admin.php'); // Replace with the appropriate admin dashboard page
-                    
+
                     } else {
                         // Redirect to the regular user dashboard
                         header('Location: profile_display.php'); // Replace with the appropriate user dashboard page
@@ -53,16 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     exit();
                 } else {
                     // Invalid password
-                    echo '<script>alert("Invalid password. Please try again."); 
+                    echo '<script>alert("Invalid password. Please try again.");
                     window.location.href="homepage.php";
                     </script>';
                 }
             } else {
                 // Invalid username
-                echo '<script>alert("Invalid username. Please try again."); 
+                echo '<script>alert("Invalid username. Please try again.");
                 window.location.href="homepage.php";
                 </script>';
-            } 
+            }
         } catch (PDOException $e) {
             // Database connection or query error
             $error_message = "Database error: " . $e->getMessage();

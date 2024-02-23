@@ -65,7 +65,8 @@ if (!$result) {
         }
         ?>
     </table>
-    <a class="back-link" href="homepage.php">Back to homepage</a>
+    </div>
+    <a href="homepage.php">Back to homepage</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </body>

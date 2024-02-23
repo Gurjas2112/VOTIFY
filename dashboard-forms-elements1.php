@@ -47,7 +47,7 @@ if ($_SESSION['registration_status'] == 'registered') {
  $selectedGender2 = ($user_info['Gender1'] === 'Female') ? 'checked' : '';
  $selectedGender3 = ($user_info['Gender1'] === 'Others') ? 'checked' : '';
 
- 
+
 }
 catch(PDOException $e) {
     die("Error: Could not connect. " . $e->getMessage());
@@ -87,7 +87,7 @@ catch(PDOException $e) {
 
   <!--progress tracker-->
   <link rel="stylesheet" href="votify-user dashboard/assets/css/forms_elements.css">
-  
+
 <style type="text/css">
   .error {
             color: red;
@@ -117,7 +117,7 @@ catch(PDOException $e) {
     </a>
     <i class="bi bi-list toggle-sidebar-btn"></i>
   </div><!-- End Logo -->
-    
+
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -147,7 +147,7 @@ catch(PDOException $e) {
               <div>
                 <h4>Registration Status</h4>
             <p> <?php echo $user_info['RegistrationStatus']; ?></p>
-          
+
               </div>
             </li>
 
@@ -258,7 +258,7 @@ catch(PDOException $e) {
         </a>
       </li><!-- End Dashboard Nav -->
 
-    
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="dashboard-forms-elements1.php">
           <i class="bi bi-journal-text"></i>
@@ -277,41 +277,41 @@ catch(PDOException $e) {
           <span>F.A.Q</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
-     
-    
+
+
     </ul>
 
   </aside><!-- End Sidebar-->
   <main id="main" class="main">
-    
+
     <div class="pagetitle">
       <h1>Registration Form</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="dashboard-mainpage.php">Home</a></li>
           <li class="breadcrumb-item">Registration</li>
-         
+
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
 
-              
-              
+
+
     <form id="myForm" action="user_reg_backend.php" method="POST" onsubmit="return validateForm()">
-    
-               
+
+
                   <div class="input-group">
-                   
+
                       <label for="inputText" class="col-sm-2 col-form-label">Full Name as per Aadhar card</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" id="name" name="name"  required value="<?php echo $user_info['Name']; ?>">
-                      
-                      
+
+
                         <span class="error" id="name-error"></span>
                         <span class="success" id="name-success"></span>
                       </div>
-                    
+
                     </div>
                     <div class="input-group">
         <label for="inputText" class="col-sm-2 col-form-label">Aadhar Card Number:</label>
@@ -322,14 +322,14 @@ catch(PDOException $e) {
         </div>
       </div>
                     <div class="input-group">
-          
+
                       <label for="inputNumber" class="col-sm-2 col-form-label">Phone Number</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="mobile_no" name="mobile_number"  required value="<?php echo $user_info['PhoneNumber']; ?>" > 
+                        <input type="text" class="form-control" id="mobile_no" name="mobile_number"  required value="<?php echo $user_info['PhoneNumber']; ?>" >
                         <span class="error" id="number-error"></span>
                         <span class="success" id="number-success"></span>
                       </div>
-            
+
                     </div>
 
 
@@ -340,7 +340,7 @@ catch(PDOException $e) {
                       </div>
                    </div>
 
-                   
+
                    <div class="input-group">
                         <label for="age" class="col-sm-2 col-form-label">Age Based on the birthdate:</label>
                         <div class="col-sm-10">
@@ -349,7 +349,7 @@ catch(PDOException $e) {
                         <span class="error" id="age-error"></span>
         <!--display correct age message below the textfield-->
         <span class="success" id="age-success"></span>
-       
+
                       </div>
                    </div>
                    <div class="input-group">
@@ -371,25 +371,25 @@ catch(PDOException $e) {
 </div>
 <script>
 document.querySelector('form').addEventListener('submit', function (event) {
-    var addressInput = document.getElementById('address');
-    var addressError = document.getElementById('address-error');
-    var addressSuccess = document.getElementById('address-success');
+  var addressInput = document.getElementById('address');
+  var addressError = document.getElementById('address-error');
+  var addressSuccess = document.getElementById('address-success');
 
-    addressError.textContent = '';
-    addressSuccess.textContent = '';
+  addressError.textContent = '';
+  addressSuccess.textContent = '';
 
-    var addressValue = addressInput.value.trim();
+  var addressValue = addressInput.value.trim();
 
-    // Define a regular expression pattern for the expected format
-    var addressPattern = /^Flat no: \d+, Bld no: \d+, [\w\s]+, [\w\s]+, [\w\s]+, \d+$/;
+  // Define a regular expression pattern for the expected format
+  var addressPattern = /^Flat no: \d+, Bld no: \d+, [\w\s]+, [\w\s]+, [\w\s]+, \d+$/;
 
-    if (!addressPattern.test(addressValue)) {
-        addressError.textContent = 'Address should be in the format "Flat no: , Bld no: , Locality, Area, City, and Pin code"';
-        addressInput.focus();
-        event.preventDefault();
-    } else {
-        addressSuccess.textContent = 'Address is in the correct format.';
-    }
+  if (!addressPattern.test(addressValue)) {
+    addressError.textContent = 'Address should be in the format "Flat no: , Bld no: , Locality, Area, City, and Pin code"';
+    addressInput.focus();
+    event.preventDefault();
+  } else {
+    addressSuccess.textContent = 'Address is in the correct format.';
+  }
 });
 </script>
 
@@ -411,7 +411,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
         </div>
 </div>
                     </fieldset>
-                
+
 <script type="text/javascript">
 
 // Get all radio buttons with the 'gender-radio' class
@@ -429,44 +429,44 @@ genderRadios.forEach((radio) => {
   });
 });
 </script>
-                    
+
                     <div class="form-group row">
           <label for="state" class="col-sm-2 col-form-label">Select a State:</label>
           <div class="col-sm-10">
             <select class="form-select" id="state" aria-label="Select a State" name="state" required value="<?php echo $stateName; ?>">
               <option >Select a State</option>
-      
+
                     </select>
           </div>
         </div>
         <br>
-         
+
         <div class="form-group row">
           <label for="state" class="col-sm-2 col-form-label">Select a City:</label>
           <div class="col-sm-10">
             <select class="form-select" id="city" aria-label="Select a city" name="city" required value="<?php echo $cityName; ?>">
               <option >Select a city</option>
-      
+
                     </select>
           </div>
         </div>
-        <br>  
-               
+        <br>
+
                   <div class="row mb-3">
                     <label for="inputText" class="col-sm-2 col-form-label">Nationality</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" id="nationality" name="nationality" value="Indian" readonly value="<?php echo $user_info['City']; ?>">
                     </div>
                   </div>
-    
-                 
+
+
 
                   <div class="btns-group">
             <center>
                 <button type="submit" class="btn btn-pre width-50 ml-auto" id="previewSubmitButton">Save and Next</button>
             </center>
         </div>
-              
+
               </form>
               <script>
              document.addEventListener("DOMContentLoaded", function () {

@@ -17,14 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com'; // SMTP server address
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'hritik.mahajan@gmail.com'; // SMTP username
-        $mail->Password   = 'xaxtzupxwxoqrzbc'; // SMTP password
+        $mail->Username   = 'gurjasgandhi76@gmail.com'; // SMTP username
+        $mail->Password   = 'upddehiveybylvvr'; // SMTP password
         $mail->SMTPSecure = 'tls'; // Enable TLS encryption; `ssl` also accepted
         $mail->Port       = 587; // TCP port to connect to
 
         //Recipients
         $mail->setFrom($email, $fullName); // Sender's email and name
-        $mail->addAddress('hritik.mahajan@gmail.com'); // Recipient's email address
+        $mail->addAddress('gurjasgandhi76@gmail.com'); // Recipient's email address
 
         // Content
         $mail->isHTML(true); // Set email format to HTML

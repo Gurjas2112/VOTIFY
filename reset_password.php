@@ -8,7 +8,7 @@ require 'vendor/autoload.php'; // Include any necessary vendor/autoload file
 
 if(!empty($_POST['login_password']) && !empty($_POST['confirm_password'])) {
     $password = $_POST['login_password'];
-    $cpassword = $_POST['confirm_password'];
+    $confirm_password = $_POST['confirm_password'];
     $email = $_SESSION['signup_email'];
 
     $is_expired = $_SESSION['is_expired'];
@@ -21,15 +21,6 @@ if(!empty($_POST['login_password']) && !empty($_POST['confirm_password'])) {
         echo "OTP expired";
         exit();
     } else {
-        if ($time_now > $time_end) {
-            $_SESSION['is_expired'] = true;
-            $sql = "DELETE FROM otp_recovery WHERE email=:email";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':email', $email);
-            $stmt->execute();
-            echo "OTP expired";
-            exit();
-        } else {
             $query = "SELECT * FROM otp_recovery WHERE email=:email";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':email', $email);
@@ -37,7 +28,7 @@ if(!empty($_POST['login_password']) && !empty($_POST['confirm_password'])) {
             $count = $stmt->rowCount();
 
             if ($count > 0) {
-                if ($password == $cpassword) {
+                if ($password == $confirm_password) {
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                     $updateQuery = "UPDATE users SET password=:password WHERE email=:email";
                     $updateStmt = $conn->prepare($updateQuery);
@@ -51,10 +42,13 @@ if(!empty($_POST['login_password']) && !empty($_POST['confirm_password'])) {
                     exit();
                 }
             } else {
-                echo "Invalid OTP";
+                echo "<script>alert('Passwords do not match');
+                window.location.href='homepage.php';
+                </script>";
                 exit();
             }
+
         }
     }
-}
+
 ?>

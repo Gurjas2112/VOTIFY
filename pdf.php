@@ -63,7 +63,7 @@ try {
     <head>
 
     </head>
-   
+
     <table width="100%" style="border-collapse: collapse;">
         <tr>
             <td style="width: 50%; text-align: left;">
@@ -89,7 +89,7 @@ try {
       <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%;">
       <tr>
         <td><strong>Application ID:</strong></td>
-        <td>VOT00' . htmlspecialchars($user['id']) . 
+        <td>VOT00' . htmlspecialchars($user['id']) .
         '</td>
       <tr>
           <td><strong>Name:</strong></td>
